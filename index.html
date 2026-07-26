@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workbench - 个人工作台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #1a1d29;
+            --bg-card: #1e2130;
+            --bg-card-hover: #252836;
+            --text-primary: #e4e6eb;
+            --text-secondary: #8b8fa3;
+            --text-muted: #5c5f70;
+            --accent-blue: #4a9eff;
+            --accent-green: #00c853;
+            --accent-red: #ff3b30;
+            --accent-orange: #ff9500;
+            --accent-purple: #af52de;
+            --border-color: #2a2d3d;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        body.light-theme {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0f0f5;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-muted: #aeaeb2;
+            --border-color: #e5e5ea;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .current-time {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .current-date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-card-hover);
+            transform: scale(1.05);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 24px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 3px;
+            height: 14px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .card-badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .badge-live {
+            background: rgba(0, 200, 83, 0.15);
+            color: var(--accent-green);
+        }
+
+        .badge-live::before {
+            content: '● ';
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .badge-delay {
+            background: rgba(255, 149, 0, 0.15);
+            color: var(--accent-orange);
+        }
+
+        /* Market Data */
+        .market-index {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .index-name {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .index-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .index-change {
+            font-size: 14px;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .change-up {
+            color: var(--accent-red);
+        }
+
+        .change-down {
+            color: var(--accent-green);
+        }
+
+        .change-flat {
+            color: var(--text-muted);
+        }
+
+        /* Crypto */
+        .crypto-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .crypto-item:last-child {
+            border-bottom: none;
+        }
+
+        .crypto-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .crypto-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .crypto-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .crypto-symbol {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .crypto-price {
+            text-align: right;
+        }
+
+        .price-value {
+            font-size: 16px;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .price-change {
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Weather */
+        .weather-main {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .weather-icon {
+            font-size: 48px;
+        }
+
+        .weather-temp {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .weather-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .weather-detail-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* News */
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item:hover {
+            padding-left: 8px;
+        }
+
+        .news-title {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        .news-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Exchange Rate */
+        .rate-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .rate-item:last-child {
+            border-bottom: none;
+        }
+
+        .rate-pair {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .rate-value {
+            font-size: 14px;
+            font-variant-numeric: tabular-nums;
+            color: var(--accent-blue);
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error */
+        .error-msg {
+            color: var(--accent-red);
+            font-size: 13px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Refresh Button */
+        .refresh-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .refresh-btn:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
+
+        .refresh-btn.spinning .refresh-icon {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Last Updated */
+        .last-updated {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            padding: 20px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            main {
+                padding: 16px;
+            }
+            .header-right {
+                gap: 12px;
+            }
+            .current-date {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">Workbench</div>
+        </div>
+        <div class="header-right">
+            <div>
+                <div class="current-time" id="currentTime">--:--:--</div>
+                <div class="current-date" id="currentDate">----</div>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
+            <button class="refresh-btn" onclick="refreshAll()" id="refreshBtn">
+                <span class="refresh-icon">↻</span> 刷新
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- 市场指数 -->
+        <div class="section-title">市场指数</div>
+        <div class="grid grid-4" id="marketGrid">
+            <div class="loading"><div class="loading-spinner"></div>加载中...</div>
+        </div>
+
+        <!-- 加密货币 + 汇率 -->
+        <div class="section-title">加密货币 & 汇率</div>
+        <div class="grid grid-2">
+            <div class="card" id="cryptoCard">
+                <div class="card-header">
+                    <div class="card-title">加密货币行情</div>
+                    <span class="card-badge badge-live">实时</span>
+                </div>
+                <div id="cryptoList">
+                    <div class="loading"><div class="loading-spinner"></div>加载中...</div>
+                </div>
+            </div>
+            <div class="card" id="rateCard">
+                <div class="card-header">
+                    <div class="card-title">汇率</div>
+                    <span class="card-badge badge-delay">延迟</span>
+                </div>
+                <div id="rateList">
+                    <div class="loading"><div class="loading-spinner"></div>加载中...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 天气 + 新闻 -->
+        <div class="section-title">天气 & 资讯</div>
+        <div class="grid grid-2">
+            <div class="card" id="weatherCard">
+                <div class="card-header">
+                    <div class="card-title">天气</div>
+                    <span class="card-badge badge-live">实时</span>
+                </div>
+                <div id="weatherContent">
+                    <div class="loading"><div class="loading-spinner"></div>加载中...</div>
+                </div>
+            </div>
+            <div class="card" id="newsCard">
+                <div class="card-header">
+                    <div class="card-title">热点资讯</div>
+                    <span class="card-badge badge-live">实时</span>
+                </div>
+                <div id="newsList">
+                    <div class="loading"><div class="loading-spinner"></div>加载中...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="last-updated" id="lastUpdated">数据加载中...</div>
+    </main>
+
+    <footer>
+        Workbench V7 · API接入 + 每日自动更新 · 数据仅供参考
+    </footer>
+
+    <script>
+        // ========== 配置 ==========
+        const CONFIG = {
+            cryptoIds: ['bitcoin', 'ethereum', 'binancecoin', 'solana', 'ripple'],
+            cryptoSymbols: {
+                'bitcoin': { name: '比特币', symbol: 'BTC', color: '#f7931a' },
+                'ethereum': { name: '以太坊', symbol: 'ETH', color: '#627eea' },
+                'binancecoin': { name: '币安币', symbol: 'BNB', color: '#f3ba2f' },
+                'solana': { name: 'Solana', symbol: 'SOL', color: '#9945ff' },
+                'ripple': { name: '瑞波币', symbol: 'XRP', color: '#23292f' }
+            },
+            // 市场指数 (新浪财经接口)
+            marketIndices: [
+                { code: 's_sh000001', name: '上证指数' },
+                { code: 's_sz399001', name: '深证成指' },
+                { code: 's_sz399006', name: '创业板指' },
+                { code: 's_sh000688', name: '科创50' }
+            ],
+            // 汇率
+            exchangeRates: [
+                { pair: 'USD/CNY', from: 'USD', to: 'CNY' },
+                { pair: 'EUR/CNY', from: 'EUR', to: 'CNY' },
+                { pair: 'JPY/CNY', from: 'JPY', to: 'CNY', units: 100 },
+                { pair: 'HKD/CNY', from: 'HKD', to: 'CNY' },
+                { pair: 'GBP/CNY', from: 'GBP', to: 'CNY' }
+            ],
+            // 天气城市
+            weatherCity: 'Beijing',
+            // 自动刷新间隔 (5分钟)
+            autoRefreshInterval: 5 * 60 * 1000
+        };
+
+        // ========== 工具函数 ==========
+        function formatNumber(num, decimals = 2) {
+            return Number(num).toLocaleString('zh-CN', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        }
+
+        function formatPercent(num) {
+            const sign = num >= 0 ? '+' : '';
+            return sign + num.toFixed(2) + '%';
+        }
+
+        function formatChange(change, percent) {
+            const sign = change >= 0 ? '+' : '';
+            return `${sign}${formatNumber(change)} (${formatPercent(percent)})`;
+        }
+
+        function getChangeClass(num) {
+            if (num > 0) return 'change-up';
+            if (num < 0) return 'change-down';
+            return 'change-flat';
+        }
+
+        function getArrow(num) {
+            if (num > 0) return '▲';
+            if (num < 0) return '▼';
+            return '—';
+        }
+
+        // ========== 时间更新 ==========
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('zh-CN', { hour12: false });
+            const dateStr = now.toLocaleDateString('zh-CN', {
+                year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+            });
+            document.getElementById('currentTime').textContent = timeStr;
+            document.getElementById('currentDate').textContent = dateStr;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // ========== 主题切换 ==========
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        }
+
+        // 加载保存的主题
+        (function loadTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('themeToggle').textContent = '☀️';
+            }
+        })();
+
+        // ========== 市场指数 ==========
+        async function fetchMarketData() {
+            const grid = document.getElementById('marketGrid');
+            try {
+                const results = await Promise.all(
+                    CONFIG.marketIndices.map(async (idx) => {
+                        const url = `https://hq.sinajs.cn/list=${idx.code}`;
+                        const resp = await fetch(url, { headers: { 'Referer': 'https://finance.sina.com.cn' } });
+                        const text = await resp.text();
+                        return { idx, text };
+                    })
+                );
+
+                grid.innerHTML = '';
+                results.forEach(({ idx, text }) => {
+                    try {
+                        // 解析新浪行情数据: var hq_str_s_sh000001="上证指数,3090.92,12.12,0.39,502345,502345";
+                        const match = text.match(/"(.+?)"/);
+                        if (match) {
+                            const parts = match[1].split(',');
+                            const name = parts[0] || idx.name;
+                            const price = parseFloat(parts[1]) || 0;
+                            const change = parseFloat(parts[2]) || 0;
+                            const percent = parseFloat(parts[3]) || 0;
+
+                            const card = document.createElement('div');
+                            card.className = 'card';
+                            const changeClass = getChangeClass(change);
+                            card.innerHTML = `
+                                <div class="market-index">
+                                    <div class="index-name">${name}</div>
+                                    <div class="index-value">${formatNumber(price)}</div>
+                                    <div class="index-change ${changeClass}">
+                                        ${getArrow(change)} ${formatChange(change, percent)}
+                                    </div>
+                                </div>
+                            `;
+                            grid.appendChild(card);
+                        } else {
+                            throw new Error('No data');
+                        }
+                    } catch (e) {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <div class="market-index">
+                                <div class="index-name">${idx.name}</div>
+                                <div class="index-value">--</div>
+                                <div class="index-change change-flat">数据获取失败</div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
+                });
+            } catch (error) {
+                grid.innerHTML = '<div class="error-msg">市场数据加载失败，请稍后重试</div>';
+            }
+        }
+
+        // ========== 加密货币 ==========
+        async function fetchCryptoData() {
+            const list = document.getElementById('cryptoList');
+            try {
+                const ids = CONFIG.cryptoIds.join(',');
+                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true&include_last_updated_at=true`;
+                const resp = await fetch(url);
+                const data = await resp.json();
+
+                list.innerHTML = '';
+                CONFIG.cryptoIds.forEach(id => {
+                    const info = CONFIG.cryptoSymbols[id];
+                    const item = data[id];
+                    if (item) {
+                        const price = item.usd;
+                        const change = item.usd_24h_change || 0;
+                        const changeClass = getChangeClass(change);
+
+                        const div = document.createElement('div');
+                        div.className = 'crypto-item';
+                        div.innerHTML = `
+                            <div class="crypto-left">
+                                <div class="crypto-icon" style="background:${info.color}">${info.symbol.charAt(0)}</div>
+                                <div>
+                                    <div class="crypto-name">${info.name}</div>
+                                    <div class="crypto-symbol">${info.symbol}</div>
+                                </div>
+                            </div>
+                            <div class="crypto-price">
+                                <div class="price-value">$${formatNumber(price)}</div>
+                                <div class="price-change ${changeClass}">${formatPercent(change)}</div>
+                            </div>
+                        `;
+                        list.appendChild(div);
+                    }
+                });
+            } catch (error) {
+                list.innerHTML = '<div class="error-msg">加密货币数据加载失败</div>';
+            }
+        }
+
+        // ========== 汇率 ==========
+        async function fetchExchangeRates() {
+            const list = document.getElementById('rateList');
+            try {
+                const resp = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await resp.json();
+
+                list.innerHTML = '';
+                CONFIG.exchangeRates.forEach(rate => {
+                    let value;
+                    if (rate.from === 'USD') {
+                        value = data.rates[rate.to];
+                    } else {
+                        // 通过 USD 中转: 1 from = (1/usd_to_from) * usd_to_to
+                        const usdToFrom = data.rates[rate.from];
+                        const usdToTo = data.rates[rate.to];
+                        value = usdToTo / usdToFrom;
+                    }
+
+                    if (rate.units) {
+                        value = value * rate.units;
+                    }
+
+                    const div = document.createElement('div');
+                    div.className = 'rate-item';
+                    div.innerHTML = `
+                        <div class="rate-pair">${rate.pair}${rate.units ? ` (×${rate.units})` : ''}</div>
+                        <div class="rate-value">${formatNumber(value, 4)}</div>
+                    `;
+                    list.appendChild(div);
+                });
+            } catch (error) {
+                list.innerHTML = '<div class="error-msg">汇率数据加载失败</div>';
+            }
+        }
+
+        // ========== 天气 ==========
+        async function fetchWeather() {
+            const content = document.getElementById('weatherContent');
+            try {
+                // 使用 Open-Meteo 免费 API (无需密钥)
+                const geoResp = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${CONFIG.weatherCity}&count=1&language=zh`);
+                const geoData = await geoResp.json();
+
+                if (!geoData.results || geoData.results.length === 0) {
+                    throw new Error('City not found');
+                }
+
+                const { latitude, longitude, name, country } = geoData.results[0];
+
+                const weatherResp = await fetch(
+                    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
+                    `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m` +
+                    `&daily=temperature_2m_max,temperature_2m_min&timezone=Asia/Shanghai`
+                );
+                const weatherData = await weatherResp.json();
+
+                const current = weatherData.current;
+                const daily = weatherData.daily;
+                const weatherDesc = getWeatherDesc(current.weather_code);
+                const temp = current.temperature_2m;
+                const feelsLike = current.apparent_temperature;
+
+                content.innerHTML = `
+                    <div class="weather-main">
+                        <div class="weather-icon">${weatherDesc.icon}</div>
+                        <div>
+                            <div class="weather-temp">${Math.round(temp)}°C</div>
+                            <div class="weather-desc">${weatherDesc.text} · ${name}, ${country}</div>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-detail-item">
+                            <span class="detail-label">体感温度</span>
+                            <span class="detail-value">${Math.round(feelsLike)}°C</span>
+                        </div>
+                        <div class="weather-detail-item">
+                            <span class="detail-label">湿度</span>
+                            <span class="detail-value">${current.relative_humidity_2m}%</span>
+                        </div>
+                        <div class="weather-detail-item">
+                            <span class="detail-label">风速</span>
+                            <span class="detail-value">${current.wind_speed_10m} km/h</span>
+                        </div>
+                        <div class="weather-detail-item">
+                            <span class="detail-label">今日温度</span>
+                            <span class="detail-value">${Math.round(daily.temperature_2m_min[0])}° ~ ${Math.round(daily.temperature_2m_max[0])}°</span>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                content.innerHTML = '<div class="error-msg">天气数据加载失败</div>';
+            }
+        }
+
+        function getWeatherDesc(code) {
+            const weatherMap = {
+                0: { text: '晴', icon: '☀️' },
+                1: { text: '晴间多云', icon: '🌤️' },
+                2: { text: '多云', icon: '⛅' },
+                3: { text: '阴', icon: '☁️' },
+                45: { text: '雾', icon: '🌫️' },
+                48: { text: '冻雾', icon: '🌫️' },
+                51: { text: '毛毛雨', icon: '🌦️' },
+                53: { text: '小雨', icon: '🌦️' },
+                55: { text: '中雨', icon: '🌧️' },
+                61: { text: '小雨', icon: '🌧️' },
+                63: { text: '中雨', icon: '🌧️' },
+                65: { text: '大雨', icon: '🌧️' },
+                71: { text: '小雪', icon: '🌨️' },
+                73: { text: '中雪', icon: '🌨️' },
+                75: { text: '大雪', icon: '❄️' },
+                80: { text: '阵雨', icon: '🌦️' },
+                81: { text: '中阵雨', icon: '🌧️' },
+                82: { text: '大阵雨', icon: '⛈️' },
+                95: { text: '雷暴', icon: '⛈️' },
+                96: { text: '雷暴冰雹', icon: '⛈️' },
+                99: { text: '强雷暴冰雹', icon: '⛈️' }
+            };
+            return weatherMap[code] || { text: '未知', icon: '❓' };
+        }
+
+        // ========== 新闻 ==========
+        async function fetchNews() {
+            const list = document.getElementById('newsList');
+            try {
+                // 使用免费的 RSS to JSON 服务获取新闻
+                const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//feeds.bbci.co.uk/zhongwen/simp/rss.xml');
+                const data = await resp.json();
+
+                if (data.status === 'ok' && data.items) {
+                    list.innerHTML = '';
+                    data.items.slice(0, 6).forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'news-item';
+                        div.onclick = () => window.open(item.link, '_blank');
+
+                        const title = item.title.length > 50 ? item.title.substring(0, 50) + '...' : item.title;
+                        const pubDate = new Date(item.pubDate);
+                        const timeAgo = getTimeAgo(pubDate);
+
+                        div.innerHTML = `
+                            <div class="news-title">${title}</div>
+                            <div class="news-meta">
+                                <span>${timeAgo}</span>
+                                <span>BBC 中文</span>
+                            </div>
+                        `;
+                        list.appendChild(div);
+                    });
+                } else {
+                    throw new Error('News API error');
+                }
+            } catch (error) {
+                // 备用: 尝试其他新闻源
+                try {
+                    const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//news.google.com/rss%3Fhl%3Dzh-CN%26gl%3DCN%26ceid%3DCN%3Azh-Hans');
+                    const data = await resp.json();
+
+                    if (data.status === 'ok' && data.items) {
+                        list.innerHTML = '';
+                        data.items.slice(0, 6).forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'news-item';
+                            div.onclick = () => window.open(item.link, '_blank');
+
+                            const title = item.title.length > 50 ? item.title.substring(0, 50) + '...' : item.title;
+                            const pubDate = new Date(item.pubDate);
+                            const timeAgo = getTimeAgo(pubDate);
+
+                            div.innerHTML = `
+                                <div class="news-title">${title}</div>
+                                <div class="news-meta">
+                                    <span>${timeAgo}</span>
+                                    <span>Google 新闻</span>
+                                </div>
+                            `;
+                            list.appendChild(div);
+                        });
+                    } else {
+                        throw new Error('Backup news failed');
+                    }
+                } catch (e) {
+                    list.innerHTML = '<div class="error-msg">新闻数据加载失败</div>';
+                }
+            }
+        }
+
+        function getTimeAgo(date) {
+            const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+            if (seconds < 60) return '刚刚';
+            if (seconds < 3600) return Math.floor(seconds / 60) + '分钟前';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + '小时前';
+            return Math.floor(seconds / 86400) + '天前';
+        }
+
+        // ========== 刷新所有数据 ==========
+        async function refreshAll() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('spinning');
+
+            await Promise.allSettled([
+                fetchMarketData(),
+                fetchCryptoData(),
+                fetchExchangeRates(),
+                fetchWeather(),
+                fetchNews()
+            ]);
+
+            btn.classList.remove('spinning');
+
+            const now = new Date();
+            document.getElementById('lastUpdated').textContent =
+                `最后更新: ${now.toLocaleString('zh-CN')}`;
+        }
+
+        // ========== 初始化 ==========
+        refreshAll();
+
+        // 自动刷新
+        setInterval(refreshAll, CONFIG.autoRefreshInterval);
+
+        // 页面可见时刷新
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                refreshAll();
+            }
+        });
+    </script>
+</body>
+</html>
