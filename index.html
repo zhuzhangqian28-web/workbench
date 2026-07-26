@@ -1,2021 +1,588 @@
-<!-- updated: trigger pages rebuild -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="我的工作台">
+<meta name="apple-mobile-web-app-title" content="工作台">
 <meta name="theme-color" content="#7AB8C9">
 <title>我的专属工作台</title>
 <style>
-  :root {
-    --pink: #F4A6B8;
-    --blue: #7AB8C9;
-    --pink-light: #FFE0E8;
-    --blue-light: #D9EDF2;
-    --pink-dark: #E07B92;
-    --blue-dark: #5A9BAB;
-    --bg: #F5F7FA;
-    --white: #FFFFFF;
-    --text: #2D3436;
-    --text-light: #888888;
-    --text-grey: #B0B8BC;
-    --radius: 16px;
-    --shadow: 0 4px 16px rgba(122, 184, 201, 0.12);
-    --shadow-hover: 0 8px 24px rgba(122, 184, 201, 0.2);
-    --sidebar-w: 230px;
-  }
+:root {
+  --blue: #7AB8C9; --pink: #F4A6B8; --green: #6BCB77;
+  --orange: #FFB562; --purple: #B19CD9;
+  --bg: #F5F7FA; --white: #FFF; --text: #2D3436;
+  --text-light: #636E72; --text-grey: #B2BEC3;
+  --radius: 14px; --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --sidebar-w: 220px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;background:var(--bg);color:var(--text);font-size:14px;display:flex}
 
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html, body { height: 100%; overflow: hidden; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    display: flex;
-  }
+/* Sidebar */
+.sidebar{width:var(--sidebar-w);height:100vh;background:linear-gradient(180deg,#FFF 0%,#FAFCFD 100%);border-right:1px solid #EEF2F5;display:flex;flex-direction:column;flex-shrink:0;z-index:100;transition:transform .3s}
+.sidebar-header{padding:24px 18px;background:linear-gradient(135deg,#A8D8EA 0%,#7AB8C9 100%);color:#fff}
+.sidebar-header .avatar{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px}
+.sidebar-header h1{font-size:16px;font-weight:600}
+.sidebar-header p{font-size:11px;opacity:.8;margin-top:2px}
+.nav{flex:1;padding:12px 10px;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;cursor:pointer;color:var(--text-light);font-size:13px;font-weight:500;transition:all .2s;margin-bottom:3px}
+.nav-item:hover{background:#F0F4F8;color:var(--text)}
+.nav-item.active{background:var(--blue);color:#fff}
+.nav-item .icon{font-size:16px;width:20px;text-align:center}
+.nav-item.active .icon{color:#fff}
 
-  /* ============ 侧边栏 ============ */
-  .sidebar {
-    width: var(--sidebar-w);
-    height: 100vh;
-    background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFD 100%);
-    border-right: 1px solid #EEF2F5;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    z-index: 100;
-  }
-  .sidebar-header {
-    padding: 28px 20px 22px;
-    background: linear-gradient(135deg, #A8D8EA 0%, #7AB8C9 100%);
-    color: white;
-  }
-  .sidebar-header .avatar {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.35);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(255,255,255,0.4);
-  }
-  .sidebar-header .name { font-size: 16px; font-weight: 600; }
-  .sidebar-header .role { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+/* Main */
+.main{flex:1;height:100vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.page{display:none;padding:20px}
+.page.active{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-  .nav-list { flex: 1; padding: 14px 12px; overflow-y: auto; }
+/* Page header */
+.page-header{margin-bottom:18px}
+.page-header h2{font-size:20px;font-weight:700}
+.page-header .date{font-size:12px;color:var(--text-grey);margin-top:3px}
 
-  .nav-section-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--text-grey);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 14px 14px 6px;
-  }
+/* Cards */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:12px;transition:transform .15s}
+.card:hover{transform:translateY(-1px)}
+.card-title{font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.5}
+.card-desc{font-size:12px;color:var(--text-light);line-height:1.6;margin-bottom:8px}
+.card-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-grey);margin-bottom:8px}
+.badge{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600}
+.badge-blue{background:#E3F4F7;color:#5A9BAB}
+.badge-pink{background:#FCE8EE;color:#E07B92}
+.badge-green{background:#E3F8E8;color:#4FAB5E}
+.badge-orange{background:#FFF0DD;color:#E89536}
+.badge-purple{background:#EFE8F7;color:#9070C4}
+.badge-red{background:#FDE8E8;color:#E04545}
 
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 14px;
-    border-radius: 12px;
-    cursor: pointer;
-    color: var(--text);
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s;
-    margin-bottom: 4px;
-    user-select: none;
-    position: relative;
-  }
-  .nav-item:hover { background: var(--blue-light); }
-  .nav-item.active {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(122, 184, 201, 0.3);
-  }
-  .nav-item.active.pink {
-    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
-    box-shadow: 0 4px 12px rgba(244, 166, 184, 0.3);
-  }
-  .nav-item.active.green {
-    background: linear-gradient(135deg, #6BCB8A 0%, #4FAE6F 100%);
-    box-shadow: 0 4px 12px rgba(107, 203, 138, 0.3);
-  }
-  .nav-item.active.orange {
-    background: linear-gradient(135deg, #F0B962 0%, #E09B3F 100%);
-    box-shadow: 0 4px 12px rgba(240, 185, 98, 0.3);
-  }
-  .nav-item.active.purple {
-    background: linear-gradient(135deg, #B08FD0 0%, #8E64B8 100%);
-    box-shadow: 0 4px 12px rgba(176, 143, 208, 0.3);
-  }
-  .nav-icon { font-size: 18px; width: 24px; text-align: center; }
-  .nav-badge {
-    margin-left: auto;
-    background: var(--pink);
-    color: white;
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
-  .nav-item.active .nav-badge { background: rgba(255,255,255,0.3); }
-  .nav-color-bar {
-    position: absolute;
-    left: 0; top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 20px;
-    border-radius: 0 4px 4px 0;
-    opacity: 0;
-  }
-  .nav-item:not(.active) .nav-color-bar { opacity: 1; }
-  .nav-color-bar.blue { background: var(--blue); }
-  .nav-color-bar.pink { background: var(--pink); }
-  .nav-color-bar.green { background: #6BCB8A; }
-  .nav-color-bar.orange { background: #F0B962; }
-  .nav-color-bar.purple { background: #B08FD0; }
+/* Search buttons */
+.search-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid #F0F2F5}
+.search-btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;text-decoration:none;color:var(--text-light);background:#F5F7FA;transition:all .15s;border:1px solid transparent}
+.search-btn:hover{color:#fff;background:var(--blue);border-color:var(--blue)}
+.search-btn:nth-child(1):hover{background:#000;border-color:#000}
+.search-btn:nth-child(2):hover{background:#FF2442;border-color:#FF2442}
+.search-btn:nth-child(3):hover{background:#00A1D6;border-color:#00A1D6}
+.search-btn:nth-child(4):hover{background:#E6162D;border-color:#E6162D}
+.search-btn:nth-child(5):hover{background:#0066FF;border-color:#0066FF}
+.search-btn:nth-child(6):hover{background:#2932E1;border-color:#2932E1}
 
-  .sidebar-footer {
-    padding: 16px 20px;
-    border-top: 1px solid #EEF2F5;
-    font-size: 11px;
-    color: var(--text-grey);
-    text-align: center;
-  }
+/* Loading */
+.loading{text-align:center;padding:30px;color:var(--text-grey);font-size:13px}
+.skeleton{background:linear-gradient(90deg,#F0F2F5 25%,#E8EAED 50%,#F0F2F5 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px;height:80px;margin-bottom:12px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  /* ============ 主内容区 ============ */
-  .main {
-    flex: 1;
-    height: 100vh;
-    overflow-y: auto;
-    padding: 28px 32px 48px;
-  }
-  .page { display: none; animation: fadeIn 0.3s ease; }
-  .page.active { display: block; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* Quote */
+.quote-card{background:linear-gradient(135deg,#A8D8EA 0%,#7AB8C9 100%);color:#fff;border-radius:var(--radius);padding:24px;margin-bottom:16px}
+.quote-card .quote-text{font-size:17px;font-weight:600;line-height:1.6;margin-bottom:8px}
+.quote-card .quote-from{font-size:12px;opacity:.8}
 
-  .page-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-  .page-icon {
-    width: 48px; height: 48px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-  }
-  .page-icon.blue { background: var(--blue-light); }
-  .page-icon.pink { background: var(--pink-light); }
-  .page-icon.green { background: #E3F5EC; }
-  .page-icon.orange { background: #FFF0DD; }
-  .page-icon.purple { background: #EFE3F5; }
-  .page-title { font-size: 22px; font-weight: 700; }
-  .page-subtitle { font-size: 13px; color: var(--text-light); margin-top: 2px; }
+/* Word card */
+.word-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:12px;border-left:4px solid var(--purple)}
+.word-card .word-en{font-size:22px;font-weight:700;color:var(--purple)}
+.word-card .word-phonetic{font-size:13px;color:var(--text-grey);margin-top:2px}
+.word-card .word-cn{font-size:14px;color:var(--text);margin-top:8px;line-height:1.6}
+.word-card .word-example{font-size:12px;color:var(--text-light);margin-top:8px;font-style:italic;line-height:1.6}
 
-  /* ============ 统计卡片 ============ */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-  .stat-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 18px 16px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
-  .stat-card .num {
-    font-size: 26px; font-weight: 700; margin-bottom: 4px;
-    cursor: pointer; user-select: none;
-  }
-  .stat-card .num:hover { opacity: 0.7; }
-  .stat-card .num.editing {
-    font-size: 18px; border: none; background: transparent;
-    text-align: center; width: 100%; outline: none;
-    color: inherit; font-weight: 700;
-  }
-  .stat-card .label { font-size: 12px; color: var(--text-light); }
-  .stat-card.blue .num { color: var(--blue-dark); }
-  .stat-card.pink .num { color: var(--pink-dark); }
-  .stat-card.green .num { color: #4FAE6F; }
-  .stat-card.orange .num { color: #E09B3F; }
+/* Fitness */
+.fitness-day{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:12px;border-left:4px solid var(--green)}
+.fitness-day.today{border-left-color:var(--orange);background:linear-gradient(135deg,#FFF 0%,#FFF8F0 100%)}
+.fitness-day .day-name{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+.fitness-day .day-focus{font-size:12px;color:var(--text-light);margin-top:4px}
+.fitness-day .day-detail{font-size:12px;color:var(--text);margin-top:8px;line-height:1.8;background:#F5F7FA;padding:10px;border-radius:8px}
 
-  /* ============ 进度条 ============ */
-  .progress-wrap {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    box-shadow: var(--shadow);
-    margin-bottom: 24px;
-  }
-  .progress-head {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 12px;
-    font-size: 14px; font-weight: 600;
-  }
-  .progress-head .pct { color: var(--blue-dark); font-size: 16px; }
-  .progress-bar { height: 10px; background: #EEF2F5; border-radius: 6px; overflow: hidden; }
-  .progress-fill {
-    height: 100%;
-    border-radius: 6px;
-    transition: width 0.5s ease;
-    width: 0%;
-  }
-  .progress-fill.blue { background: linear-gradient(90deg, var(--blue), var(--blue-dark)); }
-  .progress-fill.pink { background: linear-gradient(90deg, var(--pink), var(--pink-dark)); }
-  .progress-fill.green { background: linear-gradient(90deg, #6BCB8A, #4FAE6F); }
-  .progress-fill.orange { background: linear-gradient(90deg, #F0B962, #E09B3F); }
+/* Summary */
+.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.summary-item{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;text-align:center;cursor:pointer;transition:transform .15s}
+.summary-item:hover{transform:translateY(-2px)}
+.summary-item .num{font-size:24px;font-weight:700}
+.summary-item .label{font-size:11px;color:var(--text-grey);margin-top:4px}
 
-  /* ============ 任务列表 ============ */
-  .section-head {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 14px;
-  }
-  .section-head h3 { font-size: 16px; font-weight: 600; }
-  .btn-add {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  .btn-add:hover { transform: scale(1.05); }
-  .btn-add.pink { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); }
-  .btn-add.green { background: linear-gradient(135deg, #6BCB8A, #4FAE6F); }
-  .btn-add.orange { background: linear-gradient(135deg, #F0B962, #E09B3F); }
+/* Tabs */
+.tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
+.tab{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(--white);color:var(--text-light);box-shadow:var(--shadow);transition:all .15s}
+.tab.active{background:var(--blue);color:#fff}
 
-  .task-list { display: flex; flex-direction: column; gap: 10px; }
-  .task-item {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    transition: all 0.25s;
-    border-left: 4px solid transparent;
-  }
-  .task-item:hover { box-shadow: var(--shadow-hover); transform: translateX(2px); }
-  .task-item.done { opacity: 0.5; background: #F0F2F5; }
-  .task-item.done .task-title { text-decoration: line-through; color: var(--text-grey); }
-
-  .task-check {
-    width: 22px; height: 22px;
-    border: 2px solid var(--blue);
-    border-radius: 7px;
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    background: white;
-  }
-  .task-check.pink { border-color: var(--pink); }
-  .task-check.green { border-color: #6BCB8A; }
-  .task-check.orange { border-color: #F0B962; }
-  .task-check.purple { border-color: #B08FD0; }
-  .task-check.checked { background: var(--blue); border-color: var(--blue); }
-  .task-check.pink.checked { background: var(--pink); border-color: var(--pink); }
-  .task-check.green.checked { background: #6BCB8A; border-color: #6BCB8A; }
-  .task-check.orange.checked { background: #F0B962; border-color: #F0B962; }
-  .task-check.purple.checked { background: #B08FD0; border-color: #B08FD0; }
-  .task-check.checked::after { content: '✓'; color: white; font-size: 14px; font-weight: 700; }
-
-  .task-body { flex: 1; min-width: 0; }
-  .task-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; word-break: break-word; }
-  .task-meta {
-    font-size: 11px; color: var(--text-light);
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  }
-  .task-tag { padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; }
-  .tag-blue { background: var(--blue-light); color: var(--blue-dark); }
-  .tag-pink { background: var(--pink-light); color: var(--pink-dark); }
-  .tag-green { background: #E3F5EC; color: #3D9970; }
-  .tag-orange { background: #FFF0DD; color: #C77B1F; }
-  .tag-purple { background: #EFE3F5; color: #8E44AD; }
-
-  .task-del {
-    background: none; border: none;
-    color: var(--text-grey); font-size: 18px;
-    cursor: pointer; padding: 0 4px;
-    opacity: 0; transition: opacity 0.2s;
-  }
-  .task-item:hover .task-del { opacity: 1; }
-  .task-del:hover { color: var(--pink-dark); }
-
-  /* ============ 卡片网格 ============ */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .info-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow);
-    transition: all 0.25s;
-    cursor: pointer;
-    border-top: 4px solid var(--blue);
-  }
-  .info-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-  .info-card.pink { border-top-color: var(--pink); }
-  .info-card.green { border-top-color: #6BCB8A; }
-  .info-card.orange { border-top-color: #F0B962; }
-  .info-card.purple { border-top-color: #B08FD0; }
-  .info-card .ic-cat {
-    font-size: 11px; font-weight: 600;
-    color: var(--blue-dark);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    margin-bottom: 8px;
-  }
-  .info-card.pink .ic-cat { color: var(--pink-dark); }
-  .info-card.green .ic-cat { color: #4FAE6F; }
-  .info-card.orange .ic-cat { color: #E09B3F; }
-  .info-card.purple .ic-cat { color: #8E64B8; }
-  .info-card .ic-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
-  .info-card .ic-desc { font-size: 12px; color: var(--text-light); line-height: 1.6; }
-  .info-card .ic-footer {
-    margin-top: 12px; display: flex;
-    justify-content: space-between; align-items: center;
-    font-size: 11px; color: var(--text-grey);
-  }
-
-  /* ============ 列表项 ============ */
-  .list-item {
-    background: var(--white);
-    border-radius: 12px;
-    padding: 16px 18px;
-    box-shadow: var(--shadow);
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    transition: all 0.2s;
-    margin-bottom: 12px;
-  }
-  .list-item:hover { box-shadow: var(--shadow-hover); }
-  .list-rank {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700;
-    flex-shrink: 0;
-    background: var(--blue-light); color: var(--blue-dark);
-  }
-  .list-rank.top { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); color: white; }
-  .list-body { flex: 1; }
-  .list-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
-  .list-desc { font-size: 12px; color: var(--text-light); line-height: 1.5; margin-bottom: 8px; }
-  .list-meta { display: flex; gap: 12px; font-size: 11px; color: var(--text-grey); flex-wrap: wrap; }
-  .list-action {
-    display: inline-block; margin-top: 8px;
-    padding: 5px 12px;
-    border-radius: 8px; font-size: 11px; font-weight: 600;
-    cursor: pointer;
-    background: var(--blue-light); color: var(--blue-dark);
-  }
-  .list-action:hover { background: var(--blue); color: white; }
-  .list-action.pink { background: var(--pink-light); color: var(--pink-dark); }
-  .list-action.pink:hover { background: var(--pink); color: white; }
-
-  /* ============ 输入区 ============ */
-  .input-row { display: flex; gap: 10px; margin-bottom: 16px; }
-  .input-row input, .input-row textarea, .input-row select {
-    flex: 1;
-    border: 1.5px solid #E5EAEE;
-    border-radius: 10px;
-    padding: 11px 14px;
-    font-size: 14px;
-    outline: none;
-    font-family: inherit;
-    transition: border-color 0.2s;
-  }
-  .input-row input:focus, .input-row textarea:focus, .input-row select:focus { border-color: var(--blue); }
-
-  .text-area {
-    width: 100%;
-    min-height: 100px;
-    border: 1.5px solid #E5EAEE;
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 13px;
-    font-family: inherit;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 12px;
-  }
-  .text-area:focus { border-color: var(--blue); }
-
-  .panel-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 22px;
-    box-shadow: var(--shadow);
-    margin-bottom: 16px;
-  }
-  .panel-card h3 {
-    font-size: 15px; font-weight: 600;
-    margin-bottom: 12px;
-    display: flex; align-items: center; gap: 8px;
-  }
-
-  /* ============ 备忘便签 ============ */
-  .memo-list { columns: 2; column-gap: 14px; }
-  .memo-note {
-    background: linear-gradient(135deg, #FFF9FB 0%, #FFF0F4 100%);
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 14px;
-    break-inside: avoid;
-    box-shadow: 0 2px 8px rgba(244, 166, 184, 0.1);
-    position: relative;
-  }
-  .memo-note.blue { background: linear-gradient(135deg, #F8FCFD 0%, #EAF4F7 100%); box-shadow: 0 2px 8px rgba(122, 184, 201, 0.1); }
-  .memo-note .mn-text { font-size: 13px; line-height: 1.6; word-break: break-word; }
-  .memo-note .mn-time { font-size: 10px; color: var(--text-grey); margin-top: 8px; }
-  .memo-note .mn-del {
-    position: absolute; top: 6px; right: 8px;
-    background: none; border: none;
-    color: var(--text-grey); font-size: 14px;
-    cursor: pointer; opacity: 0; transition: opacity 0.2s;
-  }
-  .memo-note:hover .mn-del { opacity: 1; }
-
-  /* ============ 单词卡 ============ */
-  .word-card {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-    border-radius: var(--radius);
-    padding: 24px;
-    color: white;
-    box-shadow: var(--shadow-hover);
-    margin-bottom: 16px;
-  }
-  .word-card .wc-label { font-size:12px; opacity:0.8; margin-bottom:8px; }
-  .word-card .wc-word { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
-  .word-card .wc-phonetic { font-size: 14px; opacity: 0.85; margin-bottom: 14px; }
-  .word-card .wc-meaning { font-size: 14px; line-height: 1.7; opacity: 0.95; }
-  .word-card .wc-actions { display: flex; gap: 10px; margin-top: 16px; }
-  .word-card .wc-btn {
-    background: rgba(255,255,255,0.2);
-    border: none; color: white;
-    padding: 8px 14px; border-radius: 8px;
-    font-size: 12px; cursor: pointer; font-weight: 600;
-  }
-  .word-card .wc-btn:hover { background: rgba(255,255,255,0.35); }
-
-  /* ============ 弹窗 ============ */
-  .modal-mask {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 200;
-    backdrop-filter: blur(4px);
-  }
-  .modal-mask.show { display: flex; }
-  .modal {
-    background: white;
-    border-radius: 20px;
-    padding: 24px;
-    width: 90%; max-width: 400px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  }
-  .modal h3 { font-size: 18px; margin-bottom: 16px; text-align: center; }
-  .modal input, .modal select {
-    width: 100%;
-    border: 1.5px solid #E5EAEE;
-    border-radius: 10px;
-    padding: 11px 14px;
-    font-size: 14px;
-    margin-bottom: 12px;
-    outline: none;
-  }
-  .modal input:focus, .modal select:focus { border-color: var(--blue); }
-  .modal-btns { display: flex; gap: 10px; margin-top: 6px; }
-  .modal-btns button {
-    flex: 1; padding: 11px;
-    border-radius: 10px; border: none;
-    font-size: 14px; font-weight: 600; cursor: pointer;
-  }
-  .btn-cancel { background: #F0F2F5; color: var(--text-light); }
-  .btn-confirm { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: white; }
-
-  /* ============ 移动端 ============ */
-  .menu-toggle {
-    display: none;
-    position: fixed; top: 16px; left: 16px;
-    z-index: 150;
-    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-    color: white; border: none;
-    width: 42px; height: 42px;
-    border-radius: 12px; font-size: 20px;
-    cursor: pointer; box-shadow: var(--shadow-hover);
-  }
-  .mask-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.3); z-index: 99;
-  }
-  .mask-overlay.show { display: block; }
-
-  @media (max-width: 768px) {
-    body { flex-direction: column; }
-    .sidebar { position: fixed; left: 0; top: 0; transform: translateX(-100%); box-shadow: 4px 0 24px rgba(0,0,0,0.1); }
-    .sidebar.open { transform: translateX(0); }
-    .menu-toggle { display: flex; align-items: center; justify-content: center; }
-    .main { padding: 60px 16px 30px; width: 100%; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .card-grid { grid-template-columns: 1fr; }
-    .memo-list { columns: 1; }
-  }
-
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-thumb { background: #D5DDE2; border-radius: 3px; }
-  ::-webkit-scrollbar-track { background: transparent; }
+/* Mobile */
+.mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:99}
+.mobile-header{display:none;padding:12px 16px;background:var(--white);box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
+.mobile-header .menu-btn{font-size:20px;cursor:pointer;background:none;border:none}
+.mobile-header .title{font-size:15px;font-weight:600;margin-left:12px}
+@media(max-width:768px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%)}
+  .sidebar.open{transform:none}
+  .mask.show{display:block}
+  .mobile-header{display:flex;align-items:center}
+  .page{padding:14px}
+  .summary-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 
-<button class="menu-toggle" id="menuToggle">☰</button>
-<div class="mask-overlay" id="maskOverlay"></div>
-
-<!-- ============ 侧边栏 ============ -->
+<!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    <div class="avatar">🐽</div>
-    <div class="name">小主的专属工作台</div>
-    <div class="role">杭州房产主播 · 内容创作者</div>
+    <div class="avatar">📊</div>
+    <h1>我的工作台</h1>
+    <p id="sidebarDate"></p>
   </div>
-
-  <nav class="nav-list">
-    <div class="nav-section-label">五大功能</div>
-
-    <div class="nav-item active" data-page="house" data-color="blue">
-      <span class="nav-color-bar blue"></span>
-      <span class="nav-icon">🏠</span> 房产工作
-      <span class="nav-badge">3</span>
-    </div>
-
-    <div class="nav-item pink" data-page="english" data-color="pink">
-      <span class="nav-color-bar pink"></span>
-      <span class="nav-icon">📚</span> 英语学习
-      <span class="nav-badge">120min</span>
-    </div>
-
-    <div class="nav-item" data-page="inspire" data-color="orange">
-      <span class="nav-color-bar orange"></span>
-      <span class="nav-icon">💡</span> 视频灵感
-      <span class="nav-badge">6</span>
-    </div>
-
-    <div class="nav-item" data-page="fitness" data-color="green">
-      <span class="nav-color-bar green"></span>
-      <span class="nav-icon">💪</span> 运动健身
-      <span class="nav-badge">46→44</span>
-    </div>
-
-    <div class="nav-item purple" data-page="sidehustle" data-color="purple">
-      <span class="nav-color-bar purple"></span>
-      <span class="nav-icon">💰</span> 副业探索
-    </div>
-
-    <div class="nav-section-label">辅助工具</div>
-
-    <div class="nav-item" data-page="daily" data-color="blue">
-      <span class="nav-color-bar blue"></span>
-      <span class="nav-icon">📋</span> 每日计划
-    </div>
-
-    <div class="nav-item" data-page="memo" data-color="pink">
-      <span class="nav-color-bar pink"></span>
-      <span class="nav-icon">📌</span> 备忘录
-    </div>
+  <nav class="nav">
+    <div class="nav-item active" onclick="switchPage('house',this,'blue')"><span class="icon">🏠</span>房产热点</div>
+    <div class="nav-item" onclick="switchPage('inspire',this,'pink')"><span class="icon">💡</span>灵感</div>
+    <div class="nav-item" onclick="switchPage('hustle',this,'green')"><span class="icon">💰</span>副业</div>
+    <div class="nav-item" onclick="switchPage('word',this,'purple')"><span class="icon">📖</span>每日单词</div>
+    <div class="nav-item" onclick="switchPage('fitness',this,'orange')"><span class="icon">🏃</span>运动计划</div>
+    <div class="nav-item" onclick="switchPage('summary',this,'blue')"><span class="icon">📝</span>每日小结</div>
   </nav>
-
-  <div class="sidebar-footer">
-    ✨ 粉蓝色系 · 专属定制<br>Powered by WorkBuddy
-  </div>
 </aside>
+<div class="mask" id="mask" onclick="toggleSidebar(false)"></div>
 
-<!-- ============ 主内容区 ============ -->
+<!-- Main -->
 <main class="main">
+  <div class="mobile-header">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <span class="title" id="mobileTitle">房产热点</span>
+  </div>
 
-  <!-- ===== 房产工作 ===== -->
+  <!-- 房产热点 -->
   <section class="page active" id="page-house">
-    <div class="page-header">
-      <div class="page-icon blue">🏠</div>
-      <div>
-        <div class="page-title">房产工作</div>
-        <div class="page-subtitle">杭州新房市场 · 脚本生成 · 热点追踪 · 楼盘测评</div>
-      </div>
+    <div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div>
+    <div class="tabs" id="houseTabs">
+      <div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div>
+      <div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div>
     </div>
-
-    <div class="stats-grid" id="houseStats">
-      <div class="stat-card blue" data-key="scripts"><div class="num">12</div><div class="label">本月脚本</div></div>
-      <div class="stat-card pink" data-key="published"><div class="num">8</div><div class="label">已发布</div></div>
-      <div class="stat-card green" data-key="views"><div class="num">2.3w</div><div class="label">总播放</div></div>
-      <div class="stat-card orange" data-key="fans"><div class="num">186</div><div class="label">新增粉丝</div></div>
-    </div>
-
-    <div class="section-head">
-      <h3>📝 今日房产任务</h3>
-      <button class="btn-add" data-action="addTask" data-target="house">+ 添加</button>
-    </div>
-    <div class="task-list" id="taskList-house"></div>
-
-    <div class="section-head" style="margin-top:28px">
-      <h3>🔥 杭州房产热点</h3>
-      <button class="btn-add" data-action="refresh" data-target="houseHot" style="font-size:12px;padding:6px 12px;">🔄 换一批</button>
-    </div>
-    <div id="houseHot"></div>
-
-    <div class="section-head" style="margin-top:28px">
-      <h3>🎬 快捷脚本生成</h3>
-    </div>
-    <div class="card-grid" id="houseScripts"></div>
+    <div id="houseContent"><div class="loading">加载中...</div></div>
   </section>
 
-  <!-- ===== 英语学习 ===== -->
-  <section class="page" id="page-english">
-    <div class="page-header">
-      <div class="page-icon pink">📚</div>
-      <div>
-        <div class="page-title">英语学习</div>
-        <div class="page-subtitle">每天 120 分钟 · 备考考证 · 单词+听力+口语+跟读</div>
-      </div>
-    </div>
-
-    <div class="stats-grid" id="englishStats">
-      <div class="stat-card pink" data-key="target"><div class="num">120</div><div class="label">今日目标(分钟)</div></div>
-      <div class="stat-card blue" data-key="done"><div class="num">41</div><div class="label">已完成(分钟)</div></div>
-      <div class="stat-card green" data-key="words"><div class="num">50</div><div class="label">今日单词</div></div>
-      <div class="stat-card orange" data-key="streak"><div class="num">7</div><div class="label">连续天数</div></div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-head">
-        <span>今日学习进度</span>
-        <span class="pct">34%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill pink" style="width:34%"></div></div>
-    </div>
-
-    <div class="section-head">
-      <h3>📖 学习模块</h3>
-    </div>
-    <div class="card-grid" id="engModules"></div>
-
-    <div class="section-head">
-      <h3>📖 今日单词</h3>
-      <button class="btn-add pink" data-action="refreshWord" style="font-size:12px;padding:6px 12px;">🔄 换新词</button>
-    </div>
-    <div class="word-card">
-      <div class="wc-label">📖 点击换新词 · 每次都是不同单词</div>
-      <div class="wc-word" id="wcWord">loading...</div>
-      <div class="wc-phonetic" id="wcPhonetic"></div>
-      <div class="wc-meaning" id="wcMeaning">正在获取单词...</div>
-      <div class="wc-actions">
-        <button class="wc-btn" data-action="nextWord">🔀 随机下一个</button>
-        <button class="wc-btn" data-action="speakWord">🔊 发音</button>
-      </div>
-    </div>
-
-    <div class="section-head">
-      <h3>📋 今日英语任务</h3>
-      <button class="btn-add pink" data-action="addTask" data-target="english">+ 添加</button>
-    </div>
-    <div class="task-list" id="taskList-english"></div>
-  </section>
-
-  <!-- ===== 视频灵感 ===== -->
+  <!-- 灵感 -->
   <section class="page" id="page-inspire">
-    <div class="page-header">
-      <div class="page-icon orange">💡</div>
-      <div>
-        <div class="page-title">视频灵感</div>
-        <div class="page-subtitle">宠物 · 摄影 · 生活 · 每日新鲜选题推送</div>
-      </div>
-    </div>
-
-    <div class="stats-grid" id="inspireStats">
-      <div class="stat-card orange" data-key="today"><div class="num">6</div><div class="label">今日灵感</div></div>
-      <div class="stat-card pink" data-key="saved"><div class="num">23</div><div class="label">已收藏</div></div>
-      <div class="stat-card blue" data-key="todo"><div class="num">3</div><div class="label">待拍摄</div></div>
-      <div class="stat-card green" data-key="published"><div class="num">15</div><div class="label">已发布</div></div>
-    </div>
-
-    <div class="section-head">
-      <h3>💡 今日选题灵感</h3>
-      <button class="btn-add" data-action="refresh" data-target="inspire" style="font-size:12px;padding:6px 12px;">🔄 换一批</button>
-    </div>
-    <div class="card-grid" id="inspireGrid"></div>
-
-    <div class="section-head" style="margin-top:28px">
-      <h3>🔥 热门参考视频</h3>
-    </div>
-    <div id="inspireHot"></div>
+    <div class="page-header"><h2>💡 灵感</h2><p class="date">每日灵感 · 创意精选</p></div>
+    <div id="inspireContent"><div class="loading">加载中...</div></div>
   </section>
 
-  <!-- ===== 运动健身 ===== -->
+  <!-- 副业 -->
+  <section class="page" id="page-hustle">
+    <div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div>
+    <div id="hustleContent"></div>
+  </section>
+
+  <!-- 每日单词 -->
+  <section class="page" id="page-word">
+    <div class="page-header"><h2>📖 每日单词</h2><p class="date" id="wordDate"></p></div>
+    <div id="wordContent"></div>
+  </section>
+
+  <!-- 运动计划 -->
   <section class="page" id="page-fitness">
-    <div class="page-header">
-      <div class="page-icon green">💪</div>
-      <div>
-        <div class="page-title">运动健身</div>
-        <div class="page-subtitle">塑形紧致 · 46kg → 44kg · 力量训练优先</div>
-      </div>
-    </div>
-
-    <div class="stats-grid" id="fitnessStats">
-      <div class="stat-card green" data-key="current"><div class="num">46.0</div><div class="label">当前体重(kg)</div></div>
-      <div class="stat-card blue" data-key="target"><div class="num">44.0</div><div class="label">目标体重(kg)</div></div>
-      <div class="stat-card pink" data-key="week"><div class="num">12</div><div class="label">本周打卡</div></div>
-      <div class="stat-card orange" data-key="streak"><div class="num">4</div><div class="label">连续天数</div></div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-head">
-        <span>塑形进度</span>
-        <span class="pct">0%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill green" style="width:0%"></div></div>
-    </div>
-
-    <div class="section-head">
-      <h3>📋 今日运动任务</h3>
-      <button class="btn-add green" data-action="addTask" data-target="fitness">+ 添加</button>
-    </div>
-    <div class="task-list" id="taskList-fitness"></div>
-
-    <div class="section-head" style="margin-top:28px">
-      <h3>📅 本周训练计划</h3>
-      <button class="btn-add green" data-action="refresh" data-target="fitness" style="font-size:12px;padding:6px 12px;">🔄 换一批</button>
-    </div>
-    <div class="card-grid" id="fitnessPlan"></div>
-
-    <div class="section-head" style="margin-top:28px">
-      <h3>📏 围度记录</h3>
-    </div>
-    <div class="panel-card">
-      <h3>📊 最新围度数据</h3>
-      <div class="stats-grid" id="bodyStats" style="margin-bottom:0">
-        <div class="stat-card" data-key="waist"><div class="num" style="font-size:20px;color:var(--blue-dark)">68</div><div class="label">腰围(cm)</div></div>
-        <div class="stat-card" data-key="hip"><div class="num" style="font-size:20px;color:var(--pink-dark)">82</div><div class="label">臀围(cm)</div></div>
-        <div class="stat-card" data-key="thigh"><div class="num" style="font-size:20px;color:#4FAE6F">54</div><div class="label">大腿(cm)</div></div>
-        <div class="stat-card" data-key="arm"><div class="num" style="font-size:20px;color:#E09B3F">26</div><div class="label">手臂(cm)</div></div>
-      </div>
-    </div>
+    <div class="page-header"><h2>🏃 运动计划</h2><p class="date">每周训练安排</p></div>
+    <div id="fitnessContent"></div>
   </section>
 
-  <!-- ===== 副业探索 ===== -->
-  <section class="page" id="page-sidehustle">
-    <div class="page-header">
-      <div class="page-icon purple">💰</div>
-      <div>
-        <div class="page-title">副业探索</div>
-        <div class="page-subtitle">方向分析 · 收益追踪 · 持续探索</div>
-      </div>
-    </div>
-
-    <div class="stats-grid" id="sidehustleStats">
-      <div class="stat-card purple" data-key="directions"><div class="num">3</div><div class="label">探索方向</div></div>
-      <div class="stat-card blue" data-key="ongoing"><div class="num">2</div><div class="label">进行中</div></div>
-      <div class="stat-card pink" data-key="income"><div class="num">¥800</div><div class="label">本月收益</div></div>
-      <div class="stat-card orange" data-key="verified"><div class="num">1</div><div class="label">已验证</div></div>
-    </div>
-
-    <div class="section-head">
-      <h3>📋 副业待办</h3>
-      <button class="btn-add" style="background:linear-gradient(135deg,#B08FD0,#8E64B8)" data-action="addTask" data-target="sidehustle">+ 添加</button>
-    </div>
-    <div class="task-list" id="taskList-sidehustle"></div>
-
-    <div class="section-head" style="margin-top:28px">
-      <h3>🎯 副业方向</h3>
-      <button class="btn-add" style="background:linear-gradient(135deg,#B08FD0,#8E64B8);font-size:12px;padding:6px 12px;" data-action="refresh" data-target="hustle">🔄 换一批</button>
-    </div>
-    <div class="card-grid" id="hustleList"></div>
+  <!-- 每日小结 -->
+  <section class="page" id="page-summary">
+    <div class="page-header"><h2>📝 每日小结</h2><p class="date" id="summaryDate"></p></div>
+    <div id="summaryContent"></div>
   </section>
-
-  <!-- ===== 每日计划 ===== -->
-  <section class="page" id="page-daily">
-    <div class="page-header">
-      <div class="page-icon blue">📋</div>
-      <div>
-        <div class="page-title">每日计划</div>
-        <div class="page-subtitle" id="todayDate">今日任务一览</div>
-      </div>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card blue"><div class="num" id="statTotal">0</div><div class="label">今日任务</div></div>
-      <div class="stat-card green"><div class="num" id="statDone">0</div><div class="label">已完成</div></div>
-      <div class="stat-card orange"><div class="num" id="statTodo">0</div><div class="label">待完成</div></div>
-      <div class="stat-card pink"><div class="num" id="statRate">0%</div><div class="label">完成率</div></div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-head">
-        <span>今日完成进度</span>
-        <span class="pct" id="progressPct">0%</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill blue" id="progressFill"></div></div>
-    </div>
-
-    <div class="section-head">
-      <h3>我的任务（汇总全部）</h3>
-      <div style="display:flex;gap:8px;">
-        <button class="btn-add" style="background:#F0F2F5;color:#888;font-size:12px;padding:6px 12px;" data-action="resetTasks">🔄 重置任务</button>
-        <button class="btn-add" data-action="addTask" data-target="daily">+ 添加任务</button>
-      </div>
-    </div>
-    <div class="task-list" id="taskList-daily"></div>
-  </section>
-
-  <!-- ===== 备忘录 ===== -->
-  <section class="page" id="page-memo">
-    <div class="page-header">
-      <div class="page-icon pink">📌</div>
-      <div>
-        <div class="page-title">备忘录</div>
-        <div class="page-subtitle">随手记 · 灵感 · 待办 · 想法</div>
-      </div>
-    </div>
-
-    <div class="input-row">
-      <input type="text" id="memoInput" placeholder="写下你的想法...">
-      <button class="btn-add pink" data-action="addMemo">添加</button>
-    </div>
-
-    <div class="memo-list" id="memoList"></div>
-  </section>
-
 </main>
 
-<!-- ============ 添加任务弹窗 ============ -->
-<div class="modal-mask" id="taskModal">
-  <div class="modal">
-    <h3>➕ 添加新任务</h3>
-    <input type="text" id="newTaskTitle" placeholder="任务标题">
-    <select id="newTaskTag">
-      <option value="blue">🏠 房产</option>
-      <option value="pink">📚 英语</option>
-      <option value="orange">💡 灵感</option>
-      <option value="green">💪 运动</option>
-      <option value="purple">💰 副业</option>
-    </select>
-    <input type="text" id="newTaskTime" placeholder="预计时间（如：09:00-10:00）">
-    <div class="modal-btns">
-      <button class="btn-cancel" data-action="closeAddTask">取消</button>
-      <button class="btn-confirm" data-action="confirmAddTask">确认添加</button>
-    </div>
-  </div>
-</div>
-
 <script>
-// ============ 任务数据（按分类） ============
-const taskCategories = {
-  house: [
-    { id: 'h1', title: '写房产短视频脚本（杭州新房楼盘测评）', tag: 'blue', tagName: '房产', time: '09:30-11:00', done: false },
-    { id: 'h2', title: '杭州房产热点追踪（抖音+小红书）', tag: 'blue', tagName: '房产', time: '20:00-20:30', done: false },
-    { id: 'h3', title: '明日拍摄素材准备', tag: 'blue', tagName: '房产', time: '21:00-21:30', done: false }
-  ],
-  english: [
-    { id: 'e1', title: '单词记忆 30分钟（目标50词）', tag: 'pink', tagName: '英语', time: '09:00-09:30', done: false },
-    { id: 'e2', title: '听力训练 40分钟（精听+泛听）', tag: 'pink', tagName: '英语', time: '14:00-14:40', done: false },
-    { id: 'e3', title: '口语练习 30分钟（影子跟读）', tag: 'pink', tagName: '英语', time: '15:00-15:30', done: false },
-    { id: 'e4', title: '跟读复述 20分钟（原音模仿）', tag: 'pink', tagName: '英语', time: '15:30-15:50', done: false }
-  ],
-  inspire: [
-    { id: 'i1', title: '搜集宠物视频选题灵感', tag: 'orange', tagName: '灵感', time: '16:30-17:00', done: false },
-    { id: 'i2', title: '搜集摄影视频选题灵感', tag: 'orange', tagName: '灵感', time: '17:00-17:30', done: false }
-  ],
-  fitness: [
-    { id: 'f1', title: '力量训练 30分钟（上肢塑形）', tag: 'green', tagName: '运动', time: '19:00-19:30', done: false },
-    { id: 'f2', title: '拉伸放松 15分钟', tag: 'green', tagName: '运动', time: '19:30-19:45', done: false }
-  ],
-  sidehustle: [
-    { id: 's1', title: '调研本周副业方向', tag: 'purple', tagName: '副业', time: '22:00-22:30', done: false }
-  ]
-};
+// ============ 全局工具 ============
+var WEEKDAYS = ['周日','周一','周二','周三','周四','周五','周六'];
+var MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
 
-let allTasks = JSON.parse(localStorage.getItem('wb_tasks_v2') || 'null') || taskCategories;
-let currentAddTarget = 'daily';
-let memos = JSON.parse(localStorage.getItem('wb_memos') || 'null') || [
-  { text: '下周试试「第一视角看房」形式', time: '今天', color: 'pink' },
-  { text: '背单词切百词斩复习模式', time: '今天', color: 'blue' },
-  { text: '摄影号拍一期「猫与窗光」', time: '昨天', color: 'pink' }
+function todayStr() {
+  var d = new Date();
+  return d.getFullYear() + '年' + MONTHS[d.getMonth()] + d.getDate() + '日 ' + WEEKDAYS[d.getDay()];
+}
+function dayNum() { return Math.floor(Date.now() / 86400000); }
+function rotate(arr, count, offset) {
+  var start = (dayNum() + (offset || 0)) % arr.length;
+  var result = [];
+  for (var i = 0; i < count; i++) result.push(arr[(start + i) % arr.length]);
+  return result;
+}
+
+// ============ 全网搜索链接 ============
+var PLATFORMS = [
+  { name: '抖音', url: function(q) { return 'https://www.douyin.com/search/' + encodeURIComponent(q); } },
+  { name: '小红书', url: function(q) { return 'https://www.xiaohongshu.com/search_result?keyword=' + encodeURIComponent(q); } },
+  { name: 'B站', url: function(q) { return 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(q); } },
+  { name: '微博', url: function(q) { return 'https://s.weibo.com/weibo?q=' + encodeURIComponent(q); } },
+  { name: '知乎', url: function(q) { return 'https://www.zhihu.com/search?q=' + encodeURIComponent(q); } },
+  { name: '百度', url: function(q) { return 'https://www.baidu.com/s?wd=' + encodeURIComponent(q); } }
 ];
 
-// ============ 房产数据（每天轮换，跳转搜索页看实时热点） ============
-const houseHotPool = [
-  { title: '杭州新房「以价换量」真相', desc: '某板块新房降价20%仍难卖，深度分析背后原因。', platform: '抖音', search: '杭州新房降价' },
-  { title: '第一次买房千万别踩这些坑', desc: '新手买房避坑指南，盘点5个常见误区。', platform: '小红书', search: '买房避坑指南' },
-  { title: '500万在杭州能买什么房', desc: '按预算盘点可选板块和楼盘，精准触达。', platform: 'B站', search: '500万杭州买房' },
-  { title: '新房交付验房全流程', desc: '实拍验房过程+注意事项，适合做系列。', platform: '抖音', search: '新房验房流程' },
-  { title: '杭州楼市政策最新解读', desc: '限购放松/利率调整等政策解读，时效性强。', platform: '小红书', search: '杭州楼市政策' },
-  { title: '未来科技城板块分析', desc: '杭州热门板块深度解读，产业+房价走势。', platform: 'B站', search: '未来科技城房价' },
-  { title: '杭州学区房还值得买吗', desc: '教育改革下学区房价值重估，深度分析。', platform: '抖音', search: '杭州学区房' },
-  { title: '刚需买房最佳时机', desc: '市场低谷期刚需该不该出手？多维度分析。', platform: '小红书', search: '刚需买房时机' },
-  { title: '杭州二手房成交数据', desc: '最新二手房成交量和价格趋势解读。', platform: 'B站', search: '杭州二手房成交' },
-  { title: '杭州人才购房补贴', desc: '最新人才购房补贴政策汇总，帮粉丝省钱。', platform: '抖音', search: '杭州人才购房补贴' },
-  { title: '钱江新城楼盘测评', desc: '核心地段新房测评，位置+配套+价格全解。', platform: '小红书', search: '钱江新城楼盘' },
-  { title: '杭州地铁沿线房产', desc: '地铁新线路开通对沿线房价的影响分析。', platform: 'B站', search: '杭州地铁房产' }
+function searchBtns(keyword) {
+  return '<div class="search-btns">' + PLATFORMS.map(function(p) {
+    return '<a href="' + p.url(keyword) + '" target="_blank" class="search-btn">' + p.name + '</a>';
+  }).join('') + '</div>';
+}
+
+// ============ API: 全网热搜 ============
+var HOT_API = 'https://api-hot.imsyy.top';
+var HOT_SOURCES = [
+  { key: 'Douyin', name: '抖音', color: 'badge-red' },
+  { key: 'Bilibili', name: 'B站', color: 'badge-blue' },
+  { key: 'Weibo', name: '微博', color: 'badge-orange' },
+  { key: 'Zhihu', name: '知乎', color: 'badge-purple' },
+  { key: 'Tieba', name: '百度', color: 'badge-blue' }
 ];
 
-const houseScripts = [
-  { cat: '楼盘测评', title: '杭州XX楼盘深度测评', desc: '位置+配套+价格+优缺点，帮粉丝做决策。', template: '【楼盘测评脚本】\n\n🎬 开场（3秒）\n"今天带你们看一个杭州XX板块的楼盘，很多人问我这里值不值得买。"\n\n📍 位置分析（30秒）\n- 距离地铁X号线XX站约X米\n- 周边配套：XX商场、XX学校、XX医院\n- 通勤到钱江新城/未来科技城约XX分钟\n\n🏠 户型解读（45秒）\n- 主力户型：XX㎡-XX㎡\n- 得房率约XX%\n- 优缺点分析...\n\n💰 价格对比（30秒）\n- 均价约X万/㎡\n- 同板块二手房对比\n- 性价比分析...\n\n✅ 总结建议（15秒）\n"适合XX人群，不适合XX人群，建议XX。"\n\n#杭州房产 #楼盘测评 #买房攻略' },
-  { cat: '避坑指南', title: '新手买房5大误区', desc: '盘点常见踩坑点+解决方案，实用性强的爆款选题。', template: '【避坑指南脚本】\n\n🎬 开场钩子（3秒）\n"第一次买房的人，90%都会踩这5个坑，踩中一个亏几十万。"\n\n❌ 误区1：只看价格不看配套（20秒）\n- 错误做法：哪里便宜买哪里\n- 正确做法：交通+学校+商业+医疗四件套\n\n❌ 误区2：忽视得房率（20秒）\n- 错误做法：只看建筑面积\n- 正确做法：算实际使用面积\n\n❌ 误区3：轻信销售话术（20秒）\n- 错误做法：口头承诺当真\n- 正确做法：一切写进合同\n\n❌ 误区4：不考虑未来转手（20秒）\n- 错误做法：只考虑自住\n- 正确做法：流通性很重要\n\n❌ 误区5：忽视物业质量（20秒）\n- 错误做法：物业费越便宜越好\n- 正确做法：好物业保值增值\n\n✅ 总结（10秒）\n"买房是大事，多做功课少踩坑。"\n\n#买房避坑 #杭州房产 #新手买房' },
-  { cat: '板块分析', title: 'XX板块值不值得买', desc: '规划+产业+交通+房价走势，深度解读类内容。', template: '【板块分析脚本】\n\n🎬 开场（3秒）\n"最近很多人问我XX板块能不能买，今天一次性说清楚。"\n\n📊 板块现状（30秒）\n- 当前均价：X万/㎡\n- 近一年涨幅：X%\n- 成交量变化趋势\n\n🏗️ 规划利好（30秒）\n- 地铁X号线预计X年通车\n- XX商业综合体规划中\n- XX产业园落地\n\n📈 房价走势（30秒）\n- 过去3年价格曲线\n- 与周边板块对比\n- 未来潜力评估\n\n👥 适合人群（20秒）\n- 预算XX万-XX万\n- 在XX区域工作\n- 投资or自住\n\n✅ 结论（10秒）\n"短期看XX，长期看XX，建议XX。"\n\n#杭州板块 #房产分析 #买房攻略' },
-  { cat: '政策解读', title: '最新楼市政策解读', desc: '限购/利率/补贴政策，时效性强需快速跟进。', template: '【政策解读脚本】\n\n🎬 开场（3秒）\n"杭州楼市又出新政策了，这条视频帮你解读清楚。"\n\n📋 政策要点（30秒）\n- 限购政策变化\n- 首付比例调整\n- 利率变化\n- 补贴/优惠措施\n\n💡 影响分析（30秒）\n- 对刚需的影响\n- 对改善的影响\n- 对投资的影响\n\n🏠 实操建议（30秒）\n- 现在该不该买？\n- 买哪里更划算？\n- 什么时候出手？\n\n⚠️ 注意事项（15秒）\n- 政策执行时间\n- 申请流程\n- 常见误区\n\n#杭州政策 #楼市解读 #买房时机' }
+function fetchHot(source) {
+  return fetch(HOT_API + '/' + source, { signal: AbortSignal.timeout ? AbortSignal.timeout(6000) : undefined })
+    .then(function(r) { return r.json(); })
+    .then(function(d) { return (d && d.data) ? d.data : null; })
+    .catch(function() { return null; });
+}
+
+// ============ API: 一言 ============
+function fetchQuote() {
+  return fetch('https://v1.hitokoto.cn/?c=i&c=k')
+    .then(function(r) { return r.json(); })
+    .catch(function() { return null; });
+}
+
+// ============ 房产专题数据 ============
+var HOUSE_TOPICS = [
+  { title: '降息对房价的影响分析', desc: 'LPR下调后各地房贷利率调整情况，对购房成本的实际影响。', tag: '政策', color: 'badge-blue' },
+  { title: '一线城市限购政策松绑', desc: '北上广深最新限购政策变化，外地户籍购房资格调整。', tag: '政策', color: 'badge-blue' },
+  { title: '法拍房捡漏指南与风险', desc: '法拍房价格优势明显，但需注意产权、租赁、税费等隐藏风险。', tag: '攻略', color: 'badge-orange' },
+  { title: '公积金贷款额度提升', desc: '多地上调公积金贷款最高额度，夫妻双方可贷额度计算方式。', tag: '政策', color: 'badge-blue' },
+  { title: '老破小改造价值分析', desc: '核心区位老房子的改造潜力和升值空间评估。', tag: '分析', color: 'badge-purple' },
+  { title: '二手房议价技巧', desc: '当前买方市场下，如何有效压价、识别房东底价。', tag: '攻略', color: 'badge-orange' },
+  { title: '学区房政策变动影响', desc: '多校划片、教师轮岗政策对学区房价值的长期影响。', tag: '教育', color: 'badge-pink' },
+  { title: '新房vs二手房对比', desc: '同地段新房和二手房的优劣对比，税费、装修、得房率等维度。', tag: '分析', color: 'badge-purple' },
+  { title: '物业费与居住品质', desc: '不同物业费水平对应的服务差异，如何判断物业好坏。', tag: '生活', color: 'badge-green' },
+  { title: '房贷提前还款划算吗', desc: '利率环境下提前还款的利弊分析，等额本息vs等额本金。', tag: '理财', color: 'badge-green' },
+  { title: '租房vs买房决策', desc: '当前租售比下的理性选择，不同城市的购房时机判断。', tag: '分析', color: 'badge-purple' },
+  { title: '车位购买价值评估', desc: '小区车位价格与租金对比，产权车位和人防车位区别。', tag: '攻略', color: 'badge-orange' },
+  { title: '精装房验房注意事项', desc: '收房时需要重点检查的墙面、水电、门窗等关键项目。', tag: '攻略', color: 'badge-orange' },
+  { title: '县城房产投资风险', desc: '人口流出背景下县城房产的流动性和贬值风险。', tag: '风险', color: 'badge-red' },
+  { title: '商住公寓的利与弊', desc: '40年产权商住公寓价格低但税费高，适合哪些人群。', tag: '分析', color: 'badge-purple' },
+  { title: '共有产权房申请指南', desc: '共有产权房申请条件、流程及退出机制详解。', tag: '政策', color: 'badge-blue' },
+  { title: '房贷利率选择策略', desc: '固定利率vs浮动利率的选择，未来利率走势预判。', tag: '理财', color: 'badge-green' },
+  { title: '楼层选择的讲究', desc: '不同楼层的采光、通风、噪音差异，哪些楼层最保值。', tag: '攻略', color: 'badge-orange' },
+  { title: '房产税试点扩围影响', desc: '房产税扩大试点对多套房持有者的影响和应对策略。', tag: '政策', color: 'badge-blue' },
+  { title: '二手房装修预算规划', desc: '老房翻新重点投入区域，硬装软装预算分配建议。', tag: '生活', color: 'badge-green' }
 ];
 
-// ============ 英语数据 ============
-const engModules = [
-  { icon: '📖', title: '单词记忆', time: '30分钟 · 目标50词', pct: 60 },
-  { icon: '👂', title: '听力训练', time: '40分钟 · 精听+泛听', pct: 40 },
-  { icon: '🗣️', title: '口语练习', time: '30分钟 · 影子跟读', pct: 25 },
-  { icon: '📝', title: '跟读复述', time: '20分钟 · 原音模仿', pct: 10 }
-];
-
-const words = [
-  { word: 'abandon', phonetic: '/əˈbændən/', meaning: 'v. 放弃；抛弃；遗弃' },
-  { word: 'benefit', phonetic: '/ˈbenɪfɪt/', meaning: 'n. 利益；好处 v. 受益' },
-  { word: 'challenge', phonetic: '/ˈtʃælɪndʒ/', meaning: 'n. 挑战 v. 向...挑战' },
-  { word: 'determine', phonetic: '/dɪˈtɜːmɪn/', meaning: 'v. 决定；确定；决心' },
-  { word: 'essential', phonetic: '/ɪˈsenʃl/', meaning: 'adj. 必要的；本质的' },
-  { word: 'focus', phonetic: '/ˈfəʊkəs/', meaning: 'n. 焦点 v. 集中' },
-  { word: 'generate', phonetic: '/ˈdʒenəreɪt/', meaning: 'v. 产生；生成' },
-  { word: 'highlight', phonetic: '/ˈhaɪlaɪt/', meaning: 'n. 亮点 v. 强调' },
-  { word: 'invest', phonetic: '/ɪnˈvest/', meaning: 'v. 投资；投入' },
-  { word: 'journey', phonetic: '/ˈdʒɜːni/', meaning: 'n. 旅程；行程' },
-  { word: 'knowledge', phonetic: '/ˈnɒlɪdʒ/', meaning: 'n. 知识；学识' },
-  { word: 'leverage', phonetic: '/ˈliːvərɪdʒ/', meaning: 'v. 利用 n. 杠杆作用' },
-  { word: 'momentum', phonetic: '/məˈmentəm/', meaning: 'n. 势头；动力' },
-  { word: 'negotiate', phonetic: '/nɪˈɡəʊʃieɪt/', meaning: 'v. 谈判；协商' },
-  { word: 'opportunity', phonetic: '/ˌɒpəˈtjuːnəti/', meaning: 'n. 机会；时机' },
-  { word: 'perspective', phonetic: '/pəˈspektɪv/', meaning: 'n. 观点；视角' },
-  { word: 'quality', phonetic: '/ˈkwɒləti/', meaning: 'n. 质量；品质' },
-  { word: 'recognize', phonetic: '/ˈrekəɡnaɪz/', meaning: 'v. 认出；承认' },
-  { word: 'strategy', phonetic: '/ˈstrætədʒi/', meaning: 'n. 策略；战略' },
-  { word: 'transform', phonetic: '/trænsˈfɔːm/', meaning: 'v. 改变；转换' },
-  { word: 'unique', phonetic: '/juˈniːk/', meaning: 'adj. 独特的；唯一的' },
-  { word: 'venture', phonetic: '/ˈventʃə/', meaning: 'n. 冒险 v. 敢于' },
-  { word: 'wealth', phonetic: '/welθ/', meaning: 'n. 财富；富有' },
-  { word: 'analyze', phonetic: '/ˈænəlaɪz/', meaning: 'v. 分析；解析' },
-  { word: 'brand', phonetic: '/brænd/', meaning: 'n. 品牌 v. 印记' },
-  { word: 'concept', phonetic: '/ˈkɒnsept/', meaning: 'n. 概念；观念' },
-  { word: 'demand', phonetic: '/dɪˈmɑːnd/', meaning: 'n. 需求 v. 要求' },
-  { word: 'establish', phonetic: '/ɪˈstæblɪʃ/', meaning: 'v. 建立；确立' },
-  { word: 'feature', phonetic: '/ˈfiːtʃə/', meaning: 'n. 特征 v. 以...为特色' },
-  { word: 'guarantee', phonetic: '/ˌɡærənˈtiː/', meaning: 'n. 保证 v. 担保' },
-  { word: 'identify', phonetic: '/aɪˈdentɪfaɪ/', meaning: 'v. 识别；确认' },
-  { word: 'justify', phonetic: '/ˈdʒʌstɪfaɪ/', meaning: 'v. 证明...正当' },
-  { word: 'launch', phonetic: '/lɔːntʃ/', meaning: 'v. 发起；推出 n. 发射' },
-  { word: 'maintain', phonetic: '/meɪnˈteɪn/', meaning: 'v. 维持；保养' },
-  { word: 'objective', phonetic: '/əbˈdʒektɪv/', meaning: 'n. 目标 adj. 客观的' },
-  { word: 'potential', phonetic: '/pəˈtenʃl/', meaning: 'adj. 潜在的 n. 潜力' },
-  { word: 'relevant', phonetic: '/ˈreləvənt/', meaning: 'adj. 相关的；切题的' },
-  { word: 'solution', phonetic: '/səˈluːʃn/', meaning: 'n. 解决方案' },
-  { word: 'trend', phonetic: '/trend/', meaning: 'n. 趋势 v. 倾向' },
-  { word: 'update', phonetic: '/ˌʌpˈdeɪt/', meaning: 'v. 更新 n. 最新消息' },
-  { word: 'approach', phonetic: '/əˈprəʊtʃ/', meaning: 'n. 方法 v. 接近' },
-  { word: 'budget', phonetic: '/ˈbʌdʒɪt/', meaning: 'n. 预算 v. 规划' },
-  { word: 'client', phonetic: '/ˈklaɪənt/', meaning: 'n. 客户；委托人' },
-  { word: 'deliver', phonetic: '/dɪˈlɪvə/', meaning: 'v. 交付；传达' },
-  { word: 'evaluate', phonetic: '/ɪˈvæljueɪt/', meaning: 'v. 评估；评价' },
-  { word: 'fluctuate', phonetic: '/ˈflʌktʃueɪt/', meaning: 'v. 波动；起伏' },
-  { word: 'implement', phonetic: '/ˈɪmplɪment/', meaning: 'v. 实施；执行' },
-  { word: 'negotiate', phonetic: '/nɪˈɡəʊʃieɪt/', meaning: 'v. 谈判；协商' },
-  { word: 'optimize', phonetic: '/ˈɒptɪmaɪz/', meaning: 'v. 优化；使最优' },
-  { word: 'revenue', phonetic: '/ˈrevənjuː/', meaning: 'n. 收入；收益' }
-];
-let wordIdx = Math.floor(Math.random() * words.length);
-
-// ============ 灵感数据（每天轮换不同选题） ============
-const inspirePool = [
-  { cat: '宠物', title: '「猫咪的一天」Vlog', desc: '第一视角记录猫咪从早到晚，搭配轻快BGM。', search: '猫咪的一天vlog' },
-  { cat: '摄影', title: '窗光人像教程', desc: '下午3-5点侧窗光拍温柔感照片，附参数截图。', search: '窗光人像摄影' },
-  { cat: '宠物', title: '「猫狗同居」日常', desc: '多宠互动日常，治愈系内容自带流量。', search: '猫狗同居日常' },
-  { cat: '摄影', title: '手机拍单反感·3技巧', desc: '虚化、构图、光影，干货类易收藏转发。', search: '手机拍单反技巧' },
-  { cat: '生活', title: '主播的一天 Vlog', desc: '备课→拍摄→复盘全过程，展现真实状态。', search: '主播的一天vlog' },
-  { cat: '摄影', title: '「光与影」街头摄影', desc: '捕捉城市光影瞬间，配治愈音乐。', search: '街头摄影光影' },
-  { cat: '宠物', title: '猫咪迷惑行为大赏', desc: '搞笑合集类，互动率极高，适合做系列。', search: '猫咪迷惑行为' },
-  { cat: '摄影', title: '日落金色时刻拍摄', desc: '利用黄金光线拍人像/风景，氛围感拉满。', search: '日落摄影技巧' },
-  { cat: '宠物', title: '养猫必备好物分享', desc: '种草类内容，猫粮/猫砂/玩具测评。', search: '养猫必备好物' },
-  { cat: '摄影', title: '构图9宫格详解', desc: '干货教程类，收藏率极高。', search: '摄影构图9宫格' },
-  { cat: '生活', title: '独居女孩的精致日常', desc: '生活美学类，容易引发共鸣。', search: '独居女孩日常' },
-  { cat: '宠物', title: '猫咪洗澡反应合集', desc: '搞笑+治愈，适合短视频平台。', search: '猫咪洗澡反应' },
-  { cat: '摄影', title: '夜景手机拍摄技巧', desc: '夜晚用手机拍出大片感，参数+技巧。', search: '夜景手机摄影' },
-  { cat: '生活', title: '一周穿搭分享', desc: 'OOTD类内容，适合小红书图文。', search: '一周穿搭分享' },
-  { cat: '宠物', title: '猫主子选美大赛', desc: '互动型内容，让粉丝投票评选。', search: '猫咪选美' },
-  { cat: '摄影', title: '微距摄影入门', desc: '拍花/昆虫/水滴，微观世界很治愈。', search: '微距摄影入门' },
-  { cat: '生活', title: '高效学习法分享', desc: '备考干货，英语/技能学习经验。', search: '高效学习方法' },
-  { cat: '宠物', title: '救助流浪猫全过程', desc: '正能量内容，容易引发情感共鸣。', search: '救助流浪猫' }
-];
-
-const inspireHotPool = [
-  { title: '「我家猫的迷惑行为」合集', desc: '宠物搞笑合集类，互动率高。', platform: '抖音', search: '猫咪迷惑行为合集' },
-  { title: '手机摄影构图9宫格详解', desc: '干货教程类，收藏率极高。', platform: 'B站', search: '手机摄影构图' },
-  { title: '治愈系窗边猫咪写真', desc: '氛围感+治愈系，小红书爆款方向。', platform: '小红书', search: '窗边猫咪写真' },
-  { title: '宠物vlog拍摄教程', desc: '教你怎么拍出高赞宠物视频。', platform: 'B站', search: '宠物vlog拍摄' },
-  { title: '独居女生精致生活分享', desc: '生活美学类，容易引发共鸣。', platform: '小红书', search: '独居女生生活' },
-  { title: '手机拍出电影感', desc: '调色+构图+运镜，干货满满。', platform: '抖音', search: '手机拍电影感' }
-];
-
-// ============ 运动数据 ============
-const fitnessPlan = [
-  { day: '周一', focus: '上肢塑形', detail: '哑铃推举3×12 + 弯举3×15 + 飞鸟3×12' },
-  { day: '周三', focus: '下肢塑形', detail: '深蹲3×15 + 臀桥3×20 + 弓步3×12' },
-  { day: '周五', focus: '核心训练', detail: '平板60s×3 + 卷腹3×20 + 俄罗斯转体3×20' },
-  { day: '周日', focus: '有氧+拉伸', detail: '慢跑20min + 全身拉伸15min' }
+// ============ 灵感数据 ============
+var INSPIRE_IDEAS = [
+  { title: '「我家猫的迷惑行为」合集', desc: '宠物搞笑合集类，互动率高，适合抖音和小红书。', platform: '抖音', tag: '短视频', color: 'badge-red' },
+  { title: '手机摄影构图9宫格详解', desc: '干货教程类，收藏率极高，B站长视频效果好。', platform: 'B站', tag: '教程', color: 'badge-blue' },
+  { title: '治愈系窗边猫咪写真', desc: '氛围感+治愈系，小红书爆款方向。', platform: '小红书', tag: '图文', color: 'badge-pink' },
+  { title: '宠物vlog拍摄教程', desc: '教你怎么拍出高赞宠物视频，从选题到剪辑全流程。', platform: 'B站', tag: '教程', color: 'badge-blue' },
+  { title: '独居女生精致生活分享', desc: '生活美学类，容易引发共鸣，小红书自然流量大。', platform: '小红书', tag: '生活', color: 'badge-pink' },
+  { title: '手机拍出电影感', desc: '调色+构图+运镜，干货满满，适合做系列内容。', platform: '抖音', tag: '教程', color: 'badge-red' },
+  { title: '一周穿搭不重样', desc: '胶囊衣橱概念，每天一套look，互动性很强。', platform: '小红书', tag: '穿搭', color: 'badge-pink' },
+  { title: '10分钟快手早餐', desc: '简单易学的早餐教程，打工人刚需内容。', platform: '抖音', tag: '美食', color: 'badge-red' },
+  { title: '租房改造前后对比', desc: '低预算出租屋大改造，反差感带来高传播。', platform: '小红书', tag: '家居', color: 'badge-pink' },
+  { title: '职场新人避坑指南', desc: '从学生到职场人的心态转变，容易引发讨论。', platform: '知乎', tag: '职场', color: 'badge-purple' },
+  { title: '城市漫步路线推荐', desc: 'City Walk系列，结合本地特色，小红书爆款。', platform: '小红书', tag: '旅行', color: 'badge-pink' },
+  { title: '手账排版灵感分享', desc: '手作+美学，小众但粘性高的内容方向。', platform: '小红书', tag: '手作', color: 'badge-pink' },
+  { title: '英语口语跟练系列', desc: '每日一句实用口语，适合做日更内容积累粉丝。', platform: 'B站', tag: '学习', color: 'badge-blue' },
+  { title: '摄影后期调色预设分享', desc: '分享LR预设和调色思路，干货收藏类内容。', platform: '小红书', tag: '摄影', color: 'badge-pink' },
+  { title: '一人食治愈系视频', desc: '安静做饭+吃饭的过程，ASMR感，B站效果好。', platform: 'B站', tag: '美食', color: 'badge-blue' },
+  { title: '收纳整理前后对比', desc: '断舍离+收纳技巧，解压又实用。', platform: '小红书', tag: '生活', color: 'badge-pink' },
+  { title: '宠物用品好物推荐', desc: '真实使用感受分享，带货转化率高。', platform: '小红书', tag: '好物', color: 'badge-pink' },
+  { title: '城市夜景观赏攻略', desc: '各地最佳夜景拍摄点位+机位分享。', platform: '抖音', tag: '旅行', color: 'badge-red' },
+  { title: '零基础学画画系列', desc: '从简笔画开始，适合做长期系列教程。', platform: 'B站', tag: '教程', color: 'badge-blue' },
+  { title: '理财入门知识科普', desc: '用大白话讲理财，年轻人刚需内容。', platform: '知乎', tag: '理财', color: 'badge-purple' },
+  { title: '露营装备平替推荐', desc: '高性价比露营装备清单，户外热度持续。', platform: '小红书', tag: '户外', color: 'badge-pink' },
+  { title: '手机修图教程系列', desc: 'Snapseed/醒图修图技巧，实操性强。', platform: '抖音', tag: '教程', color: 'badge-red' },
+  { title: '考研复习时间线规划', desc: '从备考到冲刺的完整时间线，考研党刚需。', platform: '知乎', tag: '学习', color: 'badge-purple' },
+  { title: '家常菜改良计划', desc: '给经典家常菜加点创意，简单又好看。', platform: '抖音', tag: '美食', color: 'badge-red' },
+  { title: '旧衣改造DIY', desc: '不穿的旧衣服改造成新款式，环保又省钱。', platform: '小红书', tag: '手作', color: 'badge-pink' },
+  { title: '城市周边一日游攻略', desc: '周末短途游路线+费用明细，实用性强。', platform: '小红书', tag: '旅行', color: 'badge-pink' },
+  { title: '表情包制作教程', desc: '用手机就能做表情包，有趣又简单。', platform: 'B站', tag: '教程', color: 'badge-blue' },
+  { title: '早起打卡vlog', desc: '记录早晨的仪式感，正能量内容容易传播。', platform: '抖音', tag: '生活', color: 'badge-red' },
+  { title: '读书笔记分享', desc: '每周一本书的精华提炼，知识博主方向。', platform: '知乎', tag: '学习', color: 'badge-purple' },
+  { title: '插花入门教程', desc: '用平价花材做出高级感插花，治愈系内容。', platform: '小红书', tag: '生活', color: 'badge-pink' }
 ];
 
 // ============ 副业数据 ============
-const hustleList = [
-  { cat: '进行中', title: '短视频代运营', desc: '为本地商家做房产/生活类短视频代运营，利用现有内容能力变现。', income: '¥800/月', color: 'blue', links: [
-    { name: '抖音热门', search: '短视频代运营' },
-    { name: '小红书热门', search: '短视频代运营接单' }
-  ]},
-  { cat: '探索中', title: '摄影约拍', desc: '利用摄影技能接宠物/人像约拍单，小红书引流。', income: '待验证', color: 'pink', links: [
-    { name: '小红书热门', search: '摄影约拍接单' },
-    { name: '抖音热门', search: '摄影师接单' }
-  ]},
-  { cat: '计划中', title: '英语陪练', desc: '备考经验+口语能力，做初级英语陪练服务。', income: '待启动', color: 'purple', links: [
-    { name: 'B站热门', search: '英语陪练副业' },
-    { name: '小红书热门', search: '英语陪练兼职' }
-  ]},
-  { cat: '计划中', title: '宠物周边', desc: '利用宠物IP做周边产品（贴纸/手机壳/日历），小红书+抖音带货。', income: '待启动', color: 'blue', links: [
-    { name: '小红书热门', search: '宠物周边副业' },
-    { name: '抖音热门', search: '宠物周边赚钱' }
-  ]},
-  { cat: '探索中', title: '知识付费', desc: '房产选房经验做成课程/电子书，持续被动收入。', income: '待验证', color: 'pink', links: [
-    { name: 'B站热门', search: '房产知识付费' },
-    { name: '小红书热门', search: '知识付费副业' }
-  ]},
-  { cat: '计划中', title: '摄影教程', desc: '把摄影技巧做成系列教程，B站+小红书引流变现。', income: '待启动', color: 'purple', links: [
-    { name: 'B站热门', search: '摄影教程变现' },
-    { name: '抖音热门', search: '摄影教学副业' }
-  ]}
+var HUSTLE_LIST = [
+  { cat: '进行中', title: '短视频代运营', desc: '为本地商家做房产/生活类短视频代运营，利用内容能力变现。', income: '¥800/月', color: 'badge-blue' },
+  { cat: '探索中', title: '摄影约拍', desc: '利用摄影技能接宠物/人像约拍单，小红书引流获客。', income: '待验证', color: 'badge-pink' },
+  { cat: '计划中', title: '英语陪练', desc: '备考经验+口语能力，做初级英语陪练服务。', income: '待启动', color: 'badge-purple' },
+  { cat: '计划中', title: '宠物周边', desc: '利用宠物IP做周边产品（贴纸/手机壳/日历），小红书+抖音带货。', income: '待启动', color: 'badge-blue' },
+  { cat: '探索中', title: '知识付费', desc: '房产选房经验做成课程/电子书，持续被动收入。', income: '待验证', color: 'badge-pink' },
+  { cat: '计划中', title: '摄影教程', desc: '把摄影技巧做成系列教程，B站+小红书引流变现。', income: '待启动', color: 'badge-purple' },
+  { cat: '探索中', title: '小红书博主', desc: '生活美学+宠物方向，积累粉丝后接商单。', income: '待验证', color: 'badge-pink' },
+  { cat: '计划中', title: '线上花店', desc: '干花/永生花线上销售，小红书种草+私域转化。', income: '待启动', color: 'badge-green' },
+  { cat: '探索中', title: 'PPT定制', desc: '接企业/个人PPT定制单，利用设计能力变现。', income: '待验证', color: 'badge-orange' },
+  { cat: '计划中', title: '社群运营', desc: '建付费社群分享摄影/房产/生活经验，社群费变现。', income: '待启动', color: 'badge-purple' },
+  { cat: '探索中', title: '二手好物', desc: '闲鱼+小红书做二手好物推荐，赚差价和佣金。', income: '待验证', color: 'badge-green' },
+  { cat: '计划中', title: '播客节目', desc: '做生活/职场方向播客，积累听众后接广告。', income: '待启动', color: 'badge-orange' }
 ];
 
-// ============ 日期轮换工具 ============
-function getDayOffset(offset) {
-  // 根据日期获取不同的数据，每天自动轮换
-  const now = new Date();
-  const dayNum = Math.floor(now.getTime() / 86400000); // 从1970年至今的天数
-  return dayNum % offset;
+// ============ 单词数据 ============
+var WORD_LIST = [
+  { en: 'resilient', phonetic: '/rɪˈzɪliənt/', cn: 'adj. 有韧性的；能恢复的', example: 'She is resilient and always bounces back from setbacks.' },
+  { en: 'meticulous', phonetic: '/məˈtɪkjələs/', cn: 'adj. 一丝不苟的；细致的', example: 'He is meticulous about every detail in his work.' },
+  { en: 'pragmatic', phonetic: '/præɡˈmætɪk/', cn: 'adj. 务实的；实用主义的', example: 'We need a pragmatic approach to solve this problem.' },
+  { en: 'eloquent', phonetic: '/ˈeləkwənt/', cn: 'adj. 雄辩的；有说服力的', example: 'Her eloquent speech moved everyone in the audience.' },
+  { en: 'diligent', phonetic: '/ˈdɪlɪdʒənt/', cn: 'adj. 勤奋的；用功的', example: 'He is a diligent student who never misses a deadline.' },
+  { en: 'innovative', phonetic: '/ˈɪnəvətɪv/', cn: 'adj. 创新的；革新的', example: 'The company is known for its innovative products.' },
+  { en: 'profound', phonetic: '/prəˈfaʊnd/', cn: 'adj. 深刻的；深远的', example: 'The book had a profound impact on my worldview.' },
+  { en: 'versatile', phonetic: '/ˈvɜːsətaɪl/', cn: 'adj. 多才多艺的；多功能的', example: 'She is a versatile artist who works in multiple mediums.' },
+  { en: 'scrutinize', phonetic: '/ˈskruːtənaɪz/', cn: 'v. 仔细检查；详审', example: 'The committee will scrutinize every detail of the proposal.' },
+  { en: 'diminish', phonetic: '/dɪˈmɪnɪʃ/', cn: 'v. 减少；缩小', example: 'The pain will gradually diminish over time.' },
+  { en: 'endeavor', phonetic: '/ɪnˈdevə/', cn: 'v. 努力；n. 尝试', example: 'We should endeavor to do our best in everything.' },
+  { en: 'ambivalent', phonetic: '/æmˈbɪvələnt/', cn: 'adj. 矛盾的；犹豫不决的', example: 'I feel ambivalent about leaving my hometown.' },
+  { en: 'comprehensive', phonetic: '/ˌkɒmprɪˈhensɪv/', cn: 'adj. 全面的；综合的', example: 'The report provides a comprehensive analysis of the market.' },
+  { en: 'tentative', phonetic: '/ˈtentətɪv/', cn: 'adj. 试探性的；暂定的', example: 'We made a tentative plan for the weekend trip.' },
+  { en: 'inevitable', phonetic: '/ɪnˈevɪtəbl/', cn: 'adj. 不可避免的；必然的', example: 'Change is inevitable in a growing company.' },
+  { en: 'subsequent', phonetic: '/ˈsʌbsɪkwənt/', cn: 'adj. 随后的；后来的', example: 'Subsequent events proved his theory correct.' },
+  { en: 'prevail', phonetic: '/prɪˈveɪl/', cn: 'v. 盛行；获胜', example: 'Justice will prevail in the end.' },
+  { en: 'genuine', phonetic: '/ˈdʒenjuɪn/', cn: 'adj. 真正的；真诚的', example: 'Her genuine smile warmed everyone\'s hearts.' },
+  { en: 'intricate', phonetic: '/ˈɪntrɪkət/', cn: 'adj. 复杂的；精细的', example: 'The intricate design took months to complete.' },
+  { en: 'lucrative', phonetic: '/ˈluːkrətɪv/', cn: 'adj. 获利丰厚的', example: 'Software development can be a very lucrative career.' },
+  { en: 'nostalgia', phonetic: '/nɒˈstældʒə/', cn: 'n. 怀旧；乡愁', example: 'Looking at old photos filled her with nostalgia.' },
+  { en: 'paradigm', phonetic: '/ˈpærədaɪm/', cn: 'n. 范例；范式', example: 'This invention represents a new paradigm in technology.' },
+  { en: 'quintessential', phonetic: '/ˌkwɪntɪˈsenʃl/', cn: 'adj. 典型的；精髓的', example: 'Paris is the quintessential romantic city.' },
+  { en: 'unprecedented', phonetic: '/ʌnˈpresɪdentɪd/', cn: 'adj. 史无前例的', example: 'The pandemic caused an unprecedented disruption.' },
+  { en: 'vivid', phonetic: '/ˈvɪvɪd/', cn: 'adj. 生动的；鲜明的', example: 'She has vivid memories of her childhood.' },
+  { en: 'whimsical', phonetic: '/ˈwɪmzɪkl/', cn: 'adj. 异想天开的；古怪的', example: 'The garden had a whimsical charm to it.' },
+  { en: 'zealous', phonetic: '/ˈzeləs/', cn: 'adj. 热情的；狂热的', example: 'He is a zealous supporter of environmental causes.' },
+  { en: 'abundant', phonetic: '/əˈbʌndənt/', cn: 'adj. 丰富的；充裕的', example: 'The region has abundant natural resources.' },
+  { en: 'brevity', phonetic: '/ˈbrevəti/', cn: 'n. 简洁；短暂', example: 'Brevity is the soul of wit.' },
+  { en: 'candid', phonetic: '/ˈkændɪd/', cn: 'adj. 坦率的；直言的', example: 'I appreciate your candid feedback.' },
+  { en: 'diligent', phonetic: '/ˈdɪlɪdʒənt/', cn: 'adj. 勤勉的；刻苦的', example: 'Her diligent effort paid off in the exam.' },
+  { en: 'elated', phonetic: '/ɪˈleɪtɪd/', cn: 'adj. 兴高采烈的', example: 'She was elated to hear the good news.' },
+  { en: 'frugal', phonetic: '/ˈfruːɡl/', cn: 'adj. 节俭的；朴素的', example: 'He lives a frugal but happy life.' },
+  { en: 'gregarious', phonetic: '/ɡrɪˈɡeəriəs/', cn: 'adj. 爱交际的；合群的', example: 'She is a gregarious person who loves parties.' },
+  { en: 'hostile', phonetic: '/ˈhɒstaɪl/', cn: 'adj. 敌意的；不友好的', example: 'The environment was hostile to new ideas.' },
+  { en: 'impartial', phonetic: '/ɪmˈpɑːʃl/', cn: 'adj. 公正的；中立的', example: 'A judge must be impartial in court.' },
+  { en: 'jovial', phonetic: '/ˈdʒəʊviəl/', cn: 'adj. 快活的；愉快的', example: 'He has a jovial personality that lights up the room.' },
+  { en: 'kindle', phonetic: '/ˈkɪndl/', cn: 'v. 点燃；引起', example: 'The speech kindled a sense of hope in the audience.' },
+  { en: 'luminous', phonetic: '/ˈluːmɪnəs/', cn: 'adj. 发光的；明亮的', example: 'The luminous stars lit up the night sky.' },
+  { en: 'meander', phonetic: '/miˈændə/', cn: 'v. 漫步；蜿蜒', example: 'The river meanders through the valley.' },
+  { en: 'novice', phonetic: '/ˈnɒvɪs/', cn: 'n. 新手；初学者', example: 'As a novice, he made many mistakes.' },
+  { en: 'optimistic', phonetic: '/ˌɒptɪˈmɪstɪk/', cn: 'adj. 乐观的', example: 'She remains optimistic about the future.' },
+  { en: 'persevere', phonetic: '/ˌpɜːsɪˈvɪə/', cn: 'v. 坚持不懈', example: 'Despite difficulties, she persevered and succeeded.' },
+  { en: 'quaint', phonetic: '/kweɪnt/', cn: 'adj. 古雅的；离奇的', example: 'They stayed in a quaint little cottage.' },
+  { en: 'reluctant', phonetic: '/rɪˈlʌktənt/', cn: 'adj. 勉强的；不情愿的', example: 'He was reluctant to leave his hometown.' },
+  { en: 'serene', phonetic: '/səˈriːn/', cn: 'adj. 宁静的；安详的', example: 'The lake was serene in the early morning.' },
+  { en: 'tedious', phonetic: '/ˈtiːdiəs/', cn: 'adj. 乏味的；单调的', example: 'Filing paperwork can be a tedious task.' },
+  { en: 'ultimate', phonetic: '/ˈʌltɪmət/', cn: 'adj. 最终的；根本的', example: 'Her ultimate goal is to become a doctor.' },
+  { en: 'vibrant', phonetic: '/ˈvaɪbrənt/', cn: 'adj. 充满活力的；鲜艳的', example: 'The city has a vibrant nightlife.' },
+  { en: 'wary', phonetic: '/ˈweəri/', cn: 'adj. 警惕的；谨慎的', example: 'She was wary of strangers offering help.' }
+];
+
+// ============ 运动数据 ============
+var FITNESS_PLAN = [
+  { day: '周一', focus: '上肢塑形', detail: '哑铃推举 3×12\n哑铃弯举 3×15\n哑铃飞鸟 3×12\n平板支撑 60s×3', color: 'badge-blue' },
+  { day: '周三', focus: '下肢塑形', detail: '深蹲 3×15\n臀桥 3×20\n弓步蹲 3×12（每侧）\n靠墙静蹲 60s×3', color: 'badge-pink' },
+  { day: '周五', focus: '核心训练', detail: '平板支撑 60s×3\n卷腹 3×20\n俄罗斯转体 3×20\n登山者 3×15', color: 'badge-green' },
+  { day: '周日', focus: '有氧+拉伸', detail: '慢跑/快走 20min\n全身拉伸 15min\n泡沫轴放松 10min', color: 'badge-orange' }
+];
+
+// ============ 渲染：房产热点 ============
+var houseTab = 'trending';
+
+function switchHouseTab(tab, el) {
+  houseTab = tab;
+  document.querySelectorAll('#houseTabs .tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  renderHouse();
 }
 
-function getSearchUrl(platform, keyword) {
-  if (platform === '抖音') return 'https://www.douyin.com/search/' + encodeURIComponent(keyword);
-  if (platform === '小红书') return 'https://www.xiaohongshu.com/search_result?keyword=' + encodeURIComponent(keyword);
-  if (platform === 'B站') return 'https://search.bilibili.com/all?keyword=' + encodeURIComponent(keyword);
-  return 'https://www.douyin.com/search/' + encodeURIComponent(keyword);
+function renderHouse() {
+  var container = document.getElementById('houseContent');
+  if (houseTab === 'trending') {
+    container.innerHTML = '<div class="loading">正在获取全网热搜...</div>';
+    Promise.all(HOT_SOURCES.slice(0, 3).map(function(s) { return fetchHot(s.key); })).then(function(results) {
+      var html = '';
+      var hasData = false;
+      results.forEach(function(items, idx) {
+        var src = HOT_SOURCES[idx];
+        if (items && items.length) {
+          hasData = true;
+          html += '<div style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text-light)">' + src.name + '热搜 TOP5</div>';
+          items.slice(0, 5).forEach(function(item, i) {
+            var title = item.title || item.name || '';
+            var hot = item.hot || '';
+            html += '<div class="card">' +
+              '<div class="card-meta"><span class="badge ' + src.color + '">' + src.name + '</span><span>🔥 #' + (i + 1) + '</span>' + (hot ? '<span>热度 ' + hot + '</span>' : '') + '</div>' +
+              '<div class="card-title">' + title + '</div>' +
+              searchBtns(title) +
+              '</div>';
+          });
+          html += '</div>';
+        }
+      });
+      if (!hasData) {
+        html = renderEstateTopics();
+      }
+      container.innerHTML = html;
+    });
+  } else {
+    container.innerHTML = renderEstateTopics();
+  }
+}
+
+function renderEstateTopics() {
+  var topics = rotate(HOUSE_TOPICS, 6, 0);
+  return topics.map(function(t) {
+    return '<div class="card">' +
+      '<div class="card-meta"><span class="badge ' + t.color + '">' + t.tag + '</span></div>' +
+      '<div class="card-title">' + t.title + '</div>' +
+      '<div class="card-desc">' + t.desc + '</div>' +
+      searchBtns(t.title) +
+      '</div>';
+  }).join('');
+}
+
+// ============ 渲染：灵感 ============
+function renderInspire() {
+  var container = document.getElementById('inspireContent');
+  container.innerHTML = '<div class="loading">获取灵感中...</div>';
+
+  fetchQuote().then(function(quote) {
+    var html = '';
+    if (quote) {
+      html += '<div class="quote-card">' +
+        '<div class="quote-text">"' + quote.hitokoto + '"</div>' +
+        '<div class="quote-from">—— ' + (quote.from || '佚名') + '</div>' +
+        '</div>';
+    }
+    var ideas = rotate(INSPIRE_IDEAS, 6, 1);
+    ideas.forEach(function(idea) {
+      html += '<div class="card">' +
+        '<div class="card-meta"><span class="badge ' + idea.color + '">' + idea.tag + '</span><span>' + idea.platform + '</span></div>' +
+        '<div class="card-title">' + idea.title + '</div>' +
+        '<div class="card-desc">' + idea.desc + '</div>' +
+        searchBtns(idea.title) +
+        '</div>';
+    });
+    container.innerHTML = html;
+  });
+}
+
+// ============ 渲染：副业 ============
+function renderHustle() {
+  var container = document.getElementById('hustleContent');
+  var html = '';
+  var cats = ['进行中', '探索中', '计划中'];
+  cats.forEach(function(cat) {
+    html += '<div style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text-light)">' + cat + '</div>';
+    HUSTLE_LIST.filter(function(h) { return h.cat === cat; }).forEach(function(h) {
+      html += '<div class="card">' +
+        '<div class="card-meta"><span class="badge ' + h.color + '">' + h.cat + '</span><span>💰 ' + h.income + '</span></div>' +
+        '<div class="card-title">' + h.title + '</div>' +
+        '<div class="card-desc">' + h.desc + '</div>' +
+        searchBtns(h.title) +
+        '</div>';
+    });
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+// ============ 渲染：每日单词 ============
+function renderWord() {
+  var container = document.getElementById('wordContent');
+  var words = rotate(WORD_LIST, 5, 2);
+  var html = '';
+  words.forEach(function(w) {
+    html += '<div class="word-card">' +
+      '<div class="word-en">' + w.en + '</div>' +
+      '<div class="word-phonetic">' + w.phonetic + '</div>' +
+      '<div class="word-cn">' + w.cn + '</div>' +
+      '<div class="word-example">' + w.example + '</div>' +
+      searchBtns(w.en + ' 发音 用法') +
+      '</div>';
+  });
+  container.innerHTML = html;
+}
+
+// ============ 渲染：运动计划 ============
+function renderFitness() {
+  var container = document.getElementById('fitnessContent');
+  var today = new Date().getDay();
+  var todayMap = { 1: 0, 3: 1, 5: 2, 0: 3 };
+  var todayIdx = todayMap[today];
+  container.innerHTML = FITNESS_PLAN.map(function(f, i) {
+    var isToday = (i === todayIdx);
+    return '<div class="fitness-day' + (isToday ? ' today' : '') + '">' +
+      '<div class="day-name">' + (isToday ? '📍 ' : '') + f.day + ' · ' + f.focus +
+      (isToday ? ' <span class="badge badge-orange">今天</span>' : '') + '</div>' +
+      '<div class="day-detail">' + f.detail.replace(/\n/g, '<br>') + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// ============ 渲染：每日小结 ============
+function renderSummary() {
+  var container = document.getElementById('summaryContent');
+  var words = rotate(WORD_LIST, 1, 2);
+  var ideas = rotate(INSPIRE_IDEAS, 1, 1);
+  var topics = rotate(HOUSE_TOPICS, 1, 0);
+  var today = new Date();
+  var fitnessToday = '';
+  var todayIdx = { 1: 0, 3: 1, 5: 2, 0: 3 }[today.getDay()];
+  if (todayIdx !== undefined) fitnessToday = FITNESS_PLAN[todayIdx].focus;
+  else fitnessToday = '休息日';
+
+  var html = '<div class="summary-grid">' +
+    '<div class="summary-item" onclick="switchPage(\'word\',document.querySelectorAll(\'.nav-item\')[3])"><div class="num" style="color:var(--purple)">5</div><div class="label">今日单词</div></div>' +
+    '<div class="summary-item" onclick="switchPage(\'inspire\',document.querySelectorAll(\'.nav-item\')[1])"><div class="num" style="color:var(--pink)">6</div><div class="label">灵感卡片</div></div>' +
+    '<div class="summary-item" onclick="switchPage(\'hustle\',document.querySelectorAll(\'.nav-item\')[2])"><div class="num" style="color:var(--green)">12</div><div class="label">副业思路</div></div>' +
+    '<div class="summary-item" onclick="switchPage(\'fitness\',document.querySelectorAll(\'.nav-item\')[4])"><div class="num" style="color:var(--orange)">' + (fitnessToday === '休息日' ? '💤' : '🏃') + '</div><div class="label">' + fitnessToday + '</div></div>' +
+    '</div>';
+
+  html += '<div class="card"><div class="card-meta"><span class="badge badge-purple">今日单词</span></div>' +
+    '<div class="card-title">' + words[0].en + ' <span style="font-size:12px;color:var(--text-grey)">' + words[0].phonetic + '</span></div>' +
+    '<div class="card-desc">' + words[0].cn + '</div>' + searchBtns(words[0].en) + '</div>';
+
+  html += '<div class="card"><div class="card-meta"><span class="badge badge-pink">今日灵感</span></div>' +
+    '<div class="card-title">' + ideas[0].title + '</div>' +
+    '<div class="card-desc">' + ideas[0].desc + '</div>' + searchBtns(ideas[0].title) + '</div>';
+
+  html += '<div class="card"><div class="card-meta"><span class="badge badge-blue">房产关注</span></div>' +
+    '<div class="card-title">' + topics[0].title + '</div>' +
+    '<div class="card-desc">' + topics[0].desc + '</div>' + searchBtns(topics[0].title) + '</div>';
+
+  html += '<div class="card" style="text-align:center;color:var(--text-grey);font-size:12px">点击上方卡片可跳转到对应板块查看更多</div>';
+
+  container.innerHTML = html;
 }
 
 // ============ 页面切换 ============
+var PAGE_TITLES = { house: '房产热点', inspire: '灵感', hustle: '副业', word: '每日单词', fitness: '运动计划', summary: '每日小结' };
+
 function switchPage(page, el, color) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.remove('active', 'pink', 'green', 'orange', 'purple');
-  });
-  if (el) {
-    el.classList.add('active');
-    if (color && color !== 'blue') el.classList.add(color);
-  }
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  document.getElementById('mobileTitle').textContent = PAGE_TITLES[page] || '';
   if (window.innerWidth <= 768) toggleSidebar(false);
-  if (page === 'daily') renderDailyTasks();
+  if (page === 'house') renderHouse();
+  else if (page === 'inspire') renderInspire();
+  else if (page === 'hustle') renderHustle();
+  else if (page === 'word') renderWord();
+  else if (page === 'fitness') renderFitness();
+  else if (page === 'summary') renderSummary();
 }
 
 function toggleSidebar(force) {
-  const sb = document.getElementById('sidebar');
-  const mask = document.getElementById('maskOverlay');
+  var sb = document.getElementById('sidebar');
+  var mask = document.getElementById('mask');
   if (force === false) { sb.classList.remove('open'); mask.classList.remove('show'); }
   else { sb.classList.toggle('open'); mask.classList.toggle('show'); }
 }
 
-// ============ 渲染任务列表 ============
-function renderTasks(cat) {
-  const list = document.getElementById('taskList-' + cat);
-  if (!list) return;
-  const tasks = allTasks[cat] || [];
-  list.innerHTML = '';
-  if (tasks.length === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-grey);font-size:13px;">暂无任务，点击右上角添加</div>';
-    return;
-  }
-  tasks.forEach(t => {
-    const item = document.createElement('div');
-    item.className = 'task-item' + (t.done ? ' done' : '');
-
-    const check = document.createElement('div');
-    check.className = 'task-check ' + (t.tag !== 'blue' ? t.tag : '') + (t.done ? ' checked' : '');
-    check.addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleTask(cat, t.id);
-    });
-
-    const body = document.createElement('div');
-    body.className = 'task-body';
-    body.innerHTML = '<div class="task-title">' + t.title + '</div>' +
-      '<div class="task-meta"><span class="task-tag tag-' + t.tag + '">' + t.tagName + '</span><span>⏰ ' + t.time + '</span></div>';
-
-    const del = document.createElement('button');
-    del.className = 'task-del';
-    del.textContent = '×';
-    del.addEventListener('click', function(e) {
-      e.stopPropagation();
-      delTask(cat, t.id);
-    });
-
-    item.appendChild(check);
-    item.appendChild(body);
-    item.appendChild(del);
-    list.appendChild(item);
-  });
-}
-
-function toggleTask(cat, id) {
-  const t = (allTasks[cat] || []).find(x => x.id === id);
-  if (t) {
-    t.done = !t.done;
-    localStorage.setItem('wb_tasks_v2', JSON.stringify(allTasks));
-    renderTasks(cat);
-    if (cat === 'daily' || document.getElementById('page-daily').classList.contains('active')) renderDailyTasks();
-  }
-}
-
-function delTask(cat, id) {
-  allTasks[cat] = (allTasks[cat] || []).filter(x => x.id !== id);
-  localStorage.setItem('wb_tasks_v2', JSON.stringify(allTasks));
-  renderTasks(cat);
-  if (document.getElementById('page-daily').classList.contains('active')) renderDailyTasks();
-}
-
-// ============ 每日计划汇总 ============
-function renderDailyTasks() {
-  const list = document.getElementById('taskList-daily');
-  if (!list) return;
-  // 汇总所有分类的任务
-  const all = [];
-  Object.keys(allTasks).forEach(cat => {
-    (allTasks[cat] || []).forEach(t => all.push({ ...t, cat }));
-  });
-  list.innerHTML = '';
-  if (all.length === 0) {
-    list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-grey);font-size:13px;">暂无任务</div>';
-    updateDailyStats(0, 0);
-    return;
-  }
-  const total = all.length;
-  const done = all.filter(t => t.done).length;
-  all.forEach(t => {
-    const item = document.createElement('div');
-    item.className = 'task-item' + (t.done ? ' done' : '');
-
-    const check = document.createElement('div');
-    check.className = 'task-check ' + (t.tag !== 'blue' ? t.tag : '') + (t.done ? ' checked' : '');
-    check.addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleTask(t.cat, t.id);
-    });
-
-    const body = document.createElement('div');
-    body.className = 'task-body';
-    body.innerHTML = '<div class="task-title">' + t.title + '</div>' +
-      '<div class="task-meta"><span class="task-tag tag-' + t.tag + '">' + t.tagName + '</span><span>⏰ ' + t.time + '</span></div>';
-
-    const del = document.createElement('button');
-    del.className = 'task-del';
-    del.textContent = '×';
-    del.addEventListener('click', function(e) {
-      e.stopPropagation();
-      delTask(t.cat, t.id);
-    });
-
-    item.appendChild(check);
-    item.appendChild(body);
-    item.appendChild(del);
-    list.appendChild(item);
-  });
-  updateDailyStats(total, done);
-}
-
-function updateDailyStats(total, done) {
-  const todo = total - done;
-  const rate = total ? Math.round(done / total * 100) : 0;
-  document.getElementById('statTotal').textContent = total;
-  document.getElementById('statDone').textContent = done;
-  document.getElementById('statTodo').textContent = todo;
-  document.getElementById('statRate').textContent = rate + '%';
-  document.getElementById('progressPct').textContent = rate + '%';
-  document.getElementById('progressFill').style.width = rate + '%';
-}
-
-// ============ 添加任务 ============
-function openAddTask(target) {
-  currentAddTarget = target;
-  const tagMap = { house: 'blue', english: 'pink', inspire: 'orange', fitness: 'green', sidehustle: 'purple', daily: 'blue' };
-  document.getElementById('newTaskTag').value = tagMap[target] || 'blue';
-  document.getElementById('taskModal').classList.add('show');
-  document.getElementById('newTaskTitle').focus();
-}
-function closeAddTask() {
-  document.getElementById('taskModal').classList.remove('show');
-  document.getElementById('newTaskTitle').value = '';
-  document.getElementById('newTaskTime').value = '';
-}
-function confirmAddTask() {
-  const title = document.getElementById('newTaskTitle').value.trim();
-  const tag = document.getElementById('newTaskTag').value;
-  const tagNames = { blue: '房产', pink: '英语', orange: '灵感', green: '运动', purple: '副业' };
-  const tagName = tagNames[tag] || '其他';
-  const time = document.getElementById('newTaskTime').value.trim() || '随时';
-  if (!title) { alert('请输入任务标题'); return; }
-  const id = 't' + Date.now();
-
-  if (currentAddTarget === 'daily') {
-    // 添加到对应分类
-    const catMap = { blue: 'house', pink: 'english', orange: 'inspire', green: 'fitness', purple: 'sidehustle' };
-    const cat = catMap[tag] || 'house';
-    if (!allTasks[cat]) allTasks[cat] = [];
-    allTasks[cat].push({ id, title, tag, tagName, time, done: false });
-  } else {
-    if (!allTasks[currentAddTarget]) allTasks[currentAddTarget] = [];
-    allTasks[currentAddTarget].push({ id, title, tag, tagName, time, done: false });
-  }
-
-  localStorage.setItem('wb_tasks_v2', JSON.stringify(allTasks));
-
-  // 刷新当前页面
-  if (currentAddTarget === 'daily') {
-    renderDailyTasks();
-  } else {
-    renderTasks(currentAddTarget);
-  }
-  // 同时刷新可能打开的其他页面
-  renderTasks('house');
-  renderTasks('english');
-  renderTasks('inspire');
-  renderTasks('fitness');
-  renderTasks('sidehustle');
-
-  closeAddTask();
-}
-
-// ============ 渲染房产热点（每天轮换） ============
-// ============ API 数据获取 ============
-var API_BASE = window.location.origin; // 同域 API
-
-function fetchAPI(endpoint, callback, fallback) {
-  fetch(API_BASE + endpoint)
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data && data.code === 200 && data.data) {
-        callback(data.data);
-      } else if (fallback) {
-        fallback();
-      }
-    })
-    .catch(function() {
-      if (fallback) fallback();
-    });
-}
-
-// ============ 渲染房产热点（优先API） ============
-function renderHouseHot() {
-  var wrap = document.getElementById('houseHot');
-  wrap.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-grey);">🔥 正在获取今日热点...</div>';
-
-  function renderItems(data) {
-    wrap.innerHTML = '';
-    data.forEach(function(h, i) {
-      var item = document.createElement('div');
-      item.className = 'list-item';
-      var rank = document.createElement('div');
-      rank.className = 'list-rank' + (i < 3 ? ' top' : '');
-      rank.textContent = i + 1;
-      var body = document.createElement('div');
-      body.className = 'list-body';
-      body.innerHTML = '<div class="list-title">' + h.title + '</div>' +
-        '<div class="list-desc">' + h.desc + '</div>' +
-        '<div class="list-meta"><span>📱 ' + h.platform + '</span><span>🔥 实时更新</span></div>';
-      var action = document.createElement('span');
-      action.className = 'list-action';
-      action.textContent = '🔗 打开' + h.platform;
-      (function(platform, search) {
-        action.addEventListener('click', function(e) {
-          e.stopPropagation();
-          window.open(getSearchUrl(platform, search), '_blank');
-        });
-      })(h.platform, h.search);
-      body.appendChild(action);
-      item.appendChild(rank);
-      item.appendChild(body);
-      wrap.appendChild(item);
-    });
-  }
-
-  fetchAPI('/api/house', renderItems, function() {
-    // API 不可用时回退本地
-    var startIdx = getDayOffset(houseHotPool.length);
-    var todayHot = [];
-    for (var i = 0; i < 4; i++) {
-      todayHot.push(houseHotPool[(startIdx + i) % houseHotPool.length]);
-    }
-    renderItems(todayHot);
-  });
-}
-
-// ============ 渲染房产脚本 ============
-function renderHouseScripts() {
-  const grid = document.getElementById('houseScripts');
-  grid.innerHTML = '';
-  houseScripts.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'info-card';
-    card.innerHTML = `
-      <div class="ic-cat">${s.cat}</div>
-      <div class="ic-title">${s.title}</div>
-      <div class="ic-desc">${s.desc}</div>
-      <div class="ic-footer"><span>📝 生成脚本</span><span>⏱ 3min</span></div>
-    `;
-    card.addEventListener('click', function() {
-      // 显示脚本内容弹窗
-      showScriptModal(s.title, s.template);
-    });
-    grid.appendChild(card);
-  });
-}
-
-// ============ 脚本弹窗 ============
-function showScriptModal(title, content) {
-  // 创建弹窗
-  var mask = document.createElement('div');
-  mask.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;';
-
-  var modal = document.createElement('div');
-  modal.style.cssText = 'background:white;border-radius:20px;padding:24px;width:100%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);';
-
-  modal.innerHTML = `
-    <h3 style="font-size:18px;margin-bottom:16px;text-align:center;">📝 ${title}</h3>
-    <pre style="background:#F5F7FA;border-radius:12px;padding:16px;font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word;margin-bottom:16px;max-height:50vh;overflow-y:auto;">${content}</pre>
-    <div style="display:flex;gap:10px;">
-      <button style="flex:1;padding:12px;border-radius:10px;border:none;background:#F0F2F5;color:#888;font-size:14px;font-weight:600;cursor:pointer;" id="scriptClose">关闭</button>
-      <button style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#7AB8C9,#5A9BAB);color:white;font-size:14px;font-weight:600;cursor:pointer;" id="scriptCopy">📋 复制脚本</button>
-    </div>
-  `;
-
-  mask.appendChild(modal);
-  document.body.appendChild(mask);
-
-  // 关闭按钮
-  modal.querySelector('#scriptClose').addEventListener('click', function() {
-    document.body.removeChild(mask);
-  });
-
-  // 复制按钮
-  modal.querySelector('#scriptCopy').addEventListener('click', function() {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(content).then(function() {
-        alert('脚本已复制到剪贴板 ✅');
-      });
-    } else {
-      // 兼容旧浏览器
-      var textarea = document.createElement('textarea');
-      textarea.value = content;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      alert('脚本已复制到剪贴板 ✅');
-    }
-  });
-
-  // 点击遮罩关闭
-  mask.addEventListener('click', function(e) {
-    if (e.target === mask) {
-      document.body.removeChild(mask);
-    }
-  });
-}
-
-// ============ 渲染英语模块 ============
-function renderEngModules() {
-  const grid = document.getElementById('engModules');
-  grid.innerHTML = '';
-  engModules.forEach(m => {
-    const card = document.createElement('div');
-    card.className = 'info-card';
-    card.innerHTML = `
-      <div style="font-size:32px;margin-bottom:8px;">${m.icon}</div>
-      <div class="ic-title">${m.title}</div>
-      <div class="ic-desc">${m.time}</div>
-      <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill blue" style="width:${m.pct}%"></div></div>
-      <div style="font-size:11px;color:var(--text-grey);margin-top:4px;">完成 ${m.pct}%</div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-// ============ 渲染灵感（每天轮换） ============
-// ============ 渲染灵感（优先API） ============
-function renderInspire() {
-  var grid = document.getElementById('inspireGrid');
-  grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-grey);">💡 正在获取今日灵感...</div>';
-
-  var colors = ['pink', 'blue', 'pink', 'blue', 'pink', 'blue'];
-
-  function renderCards(data) {
-    grid.innerHTML = '';
-    data.forEach(function(ins, i) {
-      var card = document.createElement('div');
-      card.className = 'info-card ' + colors[i];
-      var platform = ins.source || ins.platform || '小红书';
-      card.innerHTML = '<div class="ic-cat">' + ins.cat + ' · ' + platform + '</div>' +
-        '<div class="ic-title">' + ins.title + '</div>' +
-        '<div class="ic-desc">' + ins.desc + '</div>' +
-        '<div class="ic-footer"><span>💡 实时更新</span><span>🔗 打开' + platform + '</span></div>';
-      (function(pf, s) {
-        card.addEventListener('click', function() {
-          window.open(getSearchUrl(pf, s), '_blank');
-        });
-      })(platform, ins.search);
-      grid.appendChild(card);
-    });
-  }
-
-  fetchAPI('/api/inspire', renderCards, function() {
-    // 回退本地池
-    var startIdx = getDayOffset(inspirePool.length);
-    var fallback = [];
-    for (var i = 0; i < 6; i++) {
-      fallback.push(inspirePool[(startIdx + i) % inspirePool.length]);
-    }
-    var colors2 = ['pink', 'blue', 'pink', 'blue', 'pink', 'blue'];
-    var platforms2 = ['小红书', 'B站', '抖音', 'B站', '小红书', '抖音'];
-    var data2 = fallback.map(function(ins, i) {
-      return {cat: ins.cat, title: ins.title, desc: ins.desc, source: platforms2[i], search: ins.search};
-    });
-    renderCards(data2);
-  });
-
-  // 热门参考视频（每天轮换3条）
-  const hot = document.getElementById('inspireHot');
-  hot.innerHTML = '';
-  const hotStart = getDayOffset(inspireHotPool.length);
-  for (let i = 0; i < 3; i++) {
-    const h = inspireHotPool[(hotStart + i) % inspireHotPool.length];
-    const item = document.createElement('div');
-    item.className = 'list-item';
-
-    const rank = document.createElement('div');
-    rank.className = 'list-rank' + (i < 3 ? ' top' : '');
-    rank.textContent = i + 1;
-
-    const body = document.createElement('div');
-    body.className = 'list-body';
-    body.innerHTML = '<div class="list-title">' + h.title + '</div>' +
-      '<div class="list-desc">' + h.desc + '</div>' +
-      '<div class="list-meta"><span>📱 ' + h.platform + '</span><span>🔥 今日推荐</span></div>';
-
-    const action = document.createElement('span');
-    action.className = 'list-action';
-    action.textContent = '🔗 打开' + h.platform;
-    action.addEventListener('click', function(e) {
-      e.stopPropagation();
-      window.open(getSearchUrl(h.platform, h.search), '_blank');
-    });
-    body.appendChild(action);
-
-    item.appendChild(rank);
-    item.appendChild(body);
-    hot.appendChild(item);
-  }
-}
-
-// ============ 渲染运动计划（显示今天+本周） ============
-function renderFitnessPlan() {
-  const grid = document.getElementById('fitnessPlan');
-  grid.innerHTML = '';
-
-  // 获取今天是星期几
-  const today = new Date().getDay(); // 0=周日, 1=周一...
-  const dayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-
-  // 找到今天的训练
-  const todayPlan = fitnessPlan.find(p => {
-    const planDay = ['周一','周二','周三','周四','周五','周六','周日'].indexOf(p.day) + 1;
-    return planDay === today;
-  });
-
-  // 如果今天有训练，优先显示
-  if (todayPlan) {
-    const card = document.createElement('div');
-    card.className = 'info-card green';
-    card.style.borderTop = '4px solid #E07B3F';
-    card.innerHTML = `
-      <div class="ic-cat" style="color:#E09B3F;">📌 今日训练 · ${dayNames[today]}</div>
-      <div class="ic-title">${todayPlan.focus}</div>
-      <div class="ic-desc">${todayPlan.detail}</div>
-      <div class="ic-footer"><span>✅ 点击打卡</span><span>⏱ 45min</span></div>
-    `;
-    card.addEventListener('click', function() {
-      alert(todayPlan.day + ' ' + todayPlan.focus + ' 已打卡 ✅\n\n' + todayPlan.detail);
-    });
-    grid.appendChild(card);
-  }
-
-  // 显示本周计划
-  fitnessPlan.forEach(p => {
-    const isToday = todayPlan && p.day === todayPlan.day;
-    if (isToday) return; // 跳过今天（已显示）
-
-    const card = document.createElement('div');
-    card.className = 'info-card green';
-    card.innerHTML = `
-      <div class="ic-cat">${p.day}</div>
-      <div class="ic-title">${p.focus}</div>
-      <div class="ic-desc">${p.detail}</div>
-      <div class="ic-footer"><span>✅ 点击打卡</span><span>⏱ 45min</span></div>
-    `;
-    card.addEventListener('click', function() {
-      alert(p.day + ' ' + p.focus + ' 已打卡 ✅\n\n' + p.detail);
-    });
-    grid.appendChild(card);
-  });
-}
-
-// ============ 渲染副业（优先API） ============
-function renderHustle() {
-  var grid = document.getElementById('hustleList');
-  grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-grey);">💰 正在获取副业方向...</div>';
-
-  function renderCards(data) {
-    grid.innerHTML = '';
-    data.forEach(function(h) {
-      var card = document.createElement('div');
-      card.className = 'info-card ' + h.color;
-      var linksHtml = '';
-      if (h.links && h.links.length > 0) {
-        linksHtml = '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">';
-        h.links.forEach(function(l) {
-          var platform = l.name.replace('热门', '').trim();
-          var url = getSearchUrl(platform, l.search);
-          linksHtml += '<span class="list-action" style="font-size:10px;padding:4px 10px;" data-url="' + url + '">🔗 ' + l.name + '</span>';
-        });
-        linksHtml += '</div>';
-      }
-      card.innerHTML = '<div class="ic-cat">' + h.cat + '</div>' +
-        '<div class="ic-title">' + h.title + '</div>' +
-        '<div class="ic-desc">' + h.desc + '</div>' +
-        '<div class="ic-footer"><span>💰 ' + h.income + '</span><span>📊 查看详情</span></div>' + linksHtml;
-      card.querySelectorAll('[data-url]').forEach(function(linkBtn) {
-        linkBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var url = this.getAttribute('data-url');
-          if (url) window.open(url, '_blank');
-        });
-      });
-      grid.appendChild(card);
-    });
-  }
-
-  fetchAPI('/api/hustle', renderCards, function() {
-    // 回退本地
-    var shuffled = hustleList.slice().sort(function() { return Math.random() - 0.5; });
-    renderCards(shuffled.slice(0, 3));
-  });
-}
-
-// ============ 备忘录 ============
-function renderMemos() {
-  const list = document.getElementById('memoList');
-  list.innerHTML = '';
-  memos.forEach((m, i) => {
-    const note = document.createElement('div');
-    note.className = 'memo-note' + (m.color === 'blue' ? ' blue' : '');
-
-    const text = document.createElement('div');
-    text.className = 'mn-text';
-    text.textContent = m.text;
-
-    const time = document.createElement('div');
-    time.className = 'mn-time';
-    time.textContent = m.time;
-
-    const del = document.createElement('button');
-    del.className = 'mn-del';
-    del.textContent = '×';
-    del.addEventListener('click', function(e) {
-      e.stopPropagation();
-      delMemo(i);
-    });
-
-    note.appendChild(text);
-    note.appendChild(time);
-    note.appendChild(del);
-    list.appendChild(note);
-  });
-}
-function addMemo() {
-  const input = document.getElementById('memoInput');
-  const text = input.value.trim();
-  if (!text) return;
-  memos.unshift({ text, time: '刚刚', color: Math.random() > 0.5 ? 'pink' : 'blue' });
-  localStorage.setItem('wb_memos', JSON.stringify(memos));
-  input.value = '';
-  renderMemos();
-}
-function delMemo(i) {
-  memos.splice(i, 1);
-  localStorage.setItem('wb_memos', JSON.stringify(memos));
-  renderMemos();
-}
-
-// ============ 单词（优先API） ============
-function fetchRandomWord() {
-  fetch(API_BASE + '/api/word')
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data && data.code === 200 && data.data) {
-        document.getElementById('wcWord').textContent = data.data.word || '...';
-        document.getElementById('wcPhonetic').textContent = data.data.phonetic || '';
-        document.getElementById('wcMeaning').textContent = data.data.meaning || '';
-      }
-    })
-    .catch(function() {
-      // 回退本地
-      var w = words[Math.floor(Math.random() * words.length)];
-      document.getElementById('wcWord').textContent = w.word;
-      document.getElementById('wcPhonetic').textContent = w.phonetic;
-      document.getElementById('wcMeaning').textContent = w.meaning;
-    });
-}
-
-function nextWord() {
-  fetchRandomWord();
-}
-
-function speakWord() {
-  var w = document.getElementById('wcWord').textContent;
-  if ('speechSynthesis' in window) {
-    var u = new SpeechSynthesisUtterance(w);
-    u.lang = 'en-US'; u.rate = 0.9;
-    speechSynthesis.speak(u);
-  }
-}
-
-// ============ 日期 ============
-function showDate() {
-  const d = new Date();
-  const week = ['日','一','二','三','四','五','六'][d.getDay()];
-  document.getElementById('todayDate').textContent =
-    `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 · 星期${week} · 今日任务汇总`;
-}
-
-// ============ 换一批功能 ============
-var refreshOffset = {}; // 记录每个分类的偏移量
-
-function refreshContent(target) {
-  if (target === 'houseHot') {
-    // 房产热点换一批
-    if (!refreshOffset.houseHot) refreshOffset.houseHot = 0;
-    refreshOffset.houseHot += 4;
-    renderHouseHotOffset(refreshOffset.houseHot);
-  } else if (target === 'inspire') {
-    // 灵感换一批
-    if (!refreshOffset.inspire) refreshOffset.inspire = 0;
-    refreshOffset.inspire += 6;
-    renderInspireOffset(refreshOffset.inspire);
-  } else if (target === 'fitness') {
-    // 运动换一批（打乱顺序）
-    renderFitnessPlanShuffle();
-  } else if (target === 'hustle') {
-    // 副业换一批（打乱顺序）
-    renderHustleShuffle();
-  }
-}
-
-function renderHouseHotOffset(offset) {
-  const wrap = document.getElementById('houseHot');
-  wrap.innerHTML = '';
-  const startIdx = (getDayOffset(houseHotPool.length) + offset) % houseHotPool.length;
-  for (let i = 0; i < 4; i++) {
-    const h = houseHotPool[(startIdx + i) % houseHotPool.length];
-    const item = document.createElement('div');
-    item.className = 'list-item';
-    const rank = document.createElement('div');
-    rank.className = 'list-rank' + (i < 3 ? ' top' : '');
-    rank.textContent = i + 1;
-    const body = document.createElement('div');
-    body.className = 'list-body';
-    body.innerHTML = '<div class="list-title">' + h.title + '</div>' +
-      '<div class="list-desc">' + h.desc + '</div>' +
-      '<div class="list-meta"><span>📱 ' + h.platform + '</span><span>🔥 已更新</span></div>';
-    const action = document.createElement('span');
-    action.className = 'list-action';
-    action.textContent = '🔗 打开' + h.platform;
-    action.addEventListener('click', function(e) {
-      e.stopPropagation();
-      window.open(getSearchUrl(h.platform, h.search), '_blank');
-    });
-    body.appendChild(action);
-    item.appendChild(rank);
-    item.appendChild(body);
-    wrap.appendChild(item);
-  }
-}
-
-function renderInspireOffset(offset) {
-  const grid = document.getElementById('inspireGrid');
-  grid.innerHTML = '';
-  const startIdx = (getDayOffset(inspirePool.length) + offset) % inspirePool.length;
-  const colors = ['pink', 'blue', 'pink', 'blue', 'pink', 'blue'];
-  const platforms = ['小红书', 'B站', '抖音', 'B站', '小红书', '抖音'];
-  for (let i = 0; i < 6; i++) {
-    const ins = inspirePool[(startIdx + i) % inspirePool.length];
-    const card = document.createElement('div');
-    card.className = 'info-card ' + colors[i];
-    const platform = platforms[i];
-    card.innerHTML = '<div class="ic-cat">' + ins.cat + ' · ' + platform + '</div>' +
-      '<div class="ic-title">' + ins.title + '</div>' +
-      '<div class="ic-desc">' + ins.desc + '</div>' +
-      '<div class="ic-footer"><span>💡 已更新</span><span>🔗 打开' + platform + '</span></div>';
-    card.addEventListener('click', function() {
-      window.open(getSearchUrl(platform, ins.search), '_blank');
-    });
-    grid.appendChild(card);
-  }
-
-  // 热门参考视频也换
-  const hot = document.getElementById('inspireHot');
-  hot.innerHTML = '';
-  const hotStart = (getDayOffset(inspireHotPool.length) + offset) % inspireHotPool.length;
-  for (let i = 0; i < 3; i++) {
-    const h = inspireHotPool[(hotStart + i) % inspireHotPool.length];
-    const item = document.createElement('div');
-    item.className = 'list-item';
-    const rank = document.createElement('div');
-    rank.className = 'list-rank top';
-    rank.textContent = i + 1;
-    const body = document.createElement('div');
-    body.className = 'list-body';
-    body.innerHTML = '<div class="list-title">' + h.title + '</div>' +
-      '<div class="list-desc">' + h.desc + '</div>' +
-      '<div class="list-meta"><span>📱 ' + h.platform + '</span><span>🔥 已更新</span></div>';
-    const action = document.createElement('span');
-    action.className = 'list-action';
-    action.textContent = '🔗 打开' + h.platform;
-    action.addEventListener('click', function(e) {
-      e.stopPropagation();
-      window.open(getSearchUrl(h.platform, h.search), '_blank');
-    });
-    body.appendChild(action);
-    item.appendChild(rank);
-    item.appendChild(body);
-    hot.appendChild(item);
-  }
-}
-
-function renderFitnessPlanShuffle() {
-  const grid = document.getElementById('fitnessPlan');
-  grid.innerHTML = '';
-  // 打乱顺序
-  const shuffled = fitnessPlan.slice().sort(function() { return Math.random() - 0.5; });
-  shuffled.forEach(function(p, i) {
-    const card = document.createElement('div');
-    card.className = 'info-card green';
-    if (i === 0) card.style.borderTop = '4px solid #E07B3F';
-    card.innerHTML = '<div class="ic-cat"' + (i === 0 ? ' style="color:#E09B3F;"' : '') + '>' + (i === 0 ? '📌 推荐训练 · ' : '') + p.day + '</div>' +
-      '<div class="ic-title">' + p.focus + '</div>' +
-      '<div class="ic-desc">' + p.detail + '</div>' +
-      '<div class="ic-footer"><span>✅ 点击打卡</span><span>⏱ 45min</span></div>';
-    card.addEventListener('click', function() {
-      alert(p.day + ' ' + p.focus + ' 已打卡 ✅\n\n' + p.detail);
-    });
-    grid.appendChild(card);
-  });
-}
-
-function renderHustleShuffle() {
-  const grid = document.getElementById('hustleList');
-  grid.innerHTML = '';
-  const shuffled = hustleList.slice().sort(function() { return Math.random() - 0.5; });
-  shuffled.forEach(function(h) {
-    const card = document.createElement('div');
-    card.className = 'info-card ' + h.color;
-    let linksHtml = '';
-    if (h.links && h.links.length > 0) {
-      linksHtml = '<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">';
-      h.links.forEach(function(l) {
-        var platform = l.name.replace('热门', '').trim();
-        var url = getSearchUrl(platform, l.search);
-        linksHtml += '<span class="list-action" style="font-size:10px;padding:4px 10px;" data-url="' + url + '">🔗 ' + l.name + '</span>';
-      });
-      linksHtml += '</div>';
-    }
-    card.innerHTML = '<div class="ic-cat">' + h.cat + '</div>' +
-      '<div class="ic-title">' + h.title + '</div>' +
-      '<div class="ic-desc">' + h.desc + '</div>' +
-      '<div class="ic-footer"><span>💰 ' + h.income + '</span><span>📊 查看详情</span></div>' + linksHtml;
-    card.querySelectorAll('[data-url]').forEach(function(linkBtn) {
-      linkBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var url = this.getAttribute('data-url');
-        if (url) window.open(url, '_blank');
-      });
-    });
-    grid.appendChild(card);
-  });
-}
-
-// ============ 重置任务 ============
-function resetAllTasks() {
-  if (!confirm('确定要重置所有任务为未完成状态吗？')) return;
-  Object.keys(allTasks).forEach(function(cat) {
-    (allTasks[cat] || []).forEach(function(t) { t.done = false; });
-  });
-  localStorage.setItem('wb_tasks_v2', JSON.stringify(allTasks));
-  renderTasks('house');
-  renderTasks('english');
-  renderTasks('inspire');
-  renderTasks('fitness');
-  renderTasks('sidehustle');
-  renderDailyTasks();
-  alert('所有任务已重置为未完成 ✅');
-}
-
-// ============ 每天自动重置任务 ============
-function checkDailyReset() {
-  var today = new Date().toDateString();
-  var lastReset = localStorage.getItem('wb_last_reset');
-  if (lastReset !== today) {
-    // 新的一天，自动重置任务
-    Object.keys(allTasks).forEach(function(cat) {
-      (allTasks[cat] || []).forEach(function(t) { t.done = false; });
-    });
-    localStorage.setItem('wb_tasks_v2', JSON.stringify(allTasks));
-    localStorage.setItem('wb_last_reset', today);
-  }
-}
-
-// ============ 统计卡片可编辑 ============
-function initEditableStats(containerId, storageKey) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-
-  // 从 localStorage 读取保存的值
-  const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
-
-  container.querySelectorAll('.stat-card').forEach(function(card) {
-    const key = card.getAttribute('data-key');
-    const numEl = card.querySelector('.num');
-    if (!numEl || !key) return;
-
-    // 如果有保存的值，恢复
-    if (saved[key] !== undefined) {
-      numEl.textContent = saved[key];
-    }
-
-    // 点击数字进入编辑模式
-    numEl.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if (numEl.querySelector('input')) return; // 已经在编辑中
-
-      const currentValue = numEl.textContent;
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.value = currentValue;
-      input.className = 'num editing';
-
-      numEl.innerHTML = '';
-      numEl.appendChild(input);
-      input.focus();
-      input.select();
-
-      function save() {
-        const newValue = input.value.trim();
-        numEl.textContent = newValue || currentValue;
-        // 保存到 localStorage
-        const allSaved = JSON.parse(localStorage.getItem(storageKey) || '{}');
-        allSaved[key] = numEl.textContent;
-        localStorage.setItem(storageKey, JSON.stringify(allSaved));
-      }
-
-      input.addEventListener('blur', save);
-      input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          input.blur();
-        }
-      });
-    });
-  });
-}
-renderTasks('house');
-renderTasks('english');
-renderTasks('inspire');
-renderTasks('fitness');
-renderTasks('sidehustle');
-renderDailyTasks();
-renderHouseHot();
-renderHouseScripts();
-renderEngModules();
-renderInspire();
-renderFitnessPlan();
-renderHustle();
-renderMemos();
-showDate();
-
-// 初始化可编辑统计卡片
-initEditableStats('houseStats', 'wb_stats_house');
-initEditableStats('englishStats', 'wb_stats_english');
-initEditableStats('inspireStats', 'wb_stats_inspire');
-initEditableStats('fitnessStats', 'wb_stats_fitness');
-initEditableStats('sidehustleStats', 'wb_stats_sidehustle');
-initEditableStats('bodyStats', 'wb_stats_body');
-
-// 检查每日自动重置
-checkDailyReset();
-
-// 页面加载后获取一个新单词
-fetchRandomWord();
-
-// ============ 统一事件绑定（兼容手机Safari） ============
-// 菜单按钮
-document.getElementById('menuToggle').addEventListener('click', function() { toggleSidebar(); });
-document.getElementById('maskOverlay').addEventListener('click', function() { toggleSidebar(); });
-
-// 导航栏
-document.querySelectorAll('.nav-item').forEach(function(nav) {
-  nav.addEventListener('click', function() {
-    var page = this.getAttribute('data-page');
-    var color = this.getAttribute('data-color') || 'blue';
-    switchPage(page, this, color);
-  });
-});
-
-// 所有 data-action 按钮统一绑定
-document.querySelectorAll('[data-action]').forEach(function(btn) {
-  var action = btn.getAttribute('data-action');
-  if (action === 'addTask') {
-    btn.addEventListener('click', function() {
-      openAddTask(btn.getAttribute('data-target'));
-    });
-  } else if (action === 'addMemo') {
-    btn.addEventListener('click', function() { addMemo(); });
-  } else if (action === 'closeAddTask') {
-    btn.addEventListener('click', function() { closeAddTask(); });
-  } else if (action === 'confirmAddTask') {
-    btn.addEventListener('click', function() { confirmAddTask(); });
-  } else if (action === 'nextWord') {
-    btn.addEventListener('click', function() { nextWord(); });
-  } else if (action === 'speakWord') {
-    btn.addEventListener('click', function() { speakWord(); });
-  } else if (action === 'refresh') {
-    btn.addEventListener('click', function() {
-      refreshContent(btn.getAttribute('data-target'));
-    });
-  } else if (action === 'refreshWord') {
-    btn.addEventListener('click', function() { fetchRandomWord(); });
-  } else if (action === 'resetTasks') {
-    btn.addEventListener('click', function() { resetAllTasks(); });
-  }
-});
-
-// 备忘录输入框回车
-document.getElementById('memoInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') addMemo();
-});
-
-// 弹窗遮罩点击关闭
-document.getElementById('taskModal').addEventListener('click', function(e) {
-  if (e.target.id === 'taskModal') closeAddTask();
-});
+// ============ 初始化 ============
+document.getElementById('sidebarDate').textContent = todayStr();
+document.getElementById('houseDate').textContent = todayStr();
+document.getElementById('wordDate').textContent = todayStr();
+document.getElementById('summaryDate').textContent = todayStr();
+renderHouse();
 </script>
 </body>
 </html>
