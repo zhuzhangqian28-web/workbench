@@ -140,7 +140,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 <main class="main">
 <div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产热点</span></div>
 <div class="update-bar"><div><div class="today-label" id="todayLabel">今日内容</div><div class="update-info" id="updateInfo">每日0点自动更新</div></div><button class="update-btn" id="updateBtn" onclick="refreshAll()">🔄 更新内容</button></div>
-<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('calc',this)">购房计算器</div><div class="tab" onclick="switchHouseTab('city',this)">城市速览</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
+<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-inspire"><div class="page-header"><h2>💡 灵感</h2><p class="date">每日灵感 · 创意精选</p></div><div id="inspireContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-hustle"><div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div><div id="hustleContent"></div></section>
 <section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
@@ -207,6 +207,29 @@ var HOUSE_TOPICS=[
   {title:'物业纠纷维权指南',desc:'遇到物业乱收费、服务不到位时的投诉渠道和维权流程。',tag:'攻略',color:'badge-orange'},
   {title:'二手房交易税费详解',desc:'契税、个税、增值税的计算方式，满五唯一等减免条件。',tag:'理财',color:'badge-green'},
   {title:'保障性租赁住房申请',desc:'保租房申请条件、租金标准和退出机制，新市民住房新选择。',tag:'政策',color:'badge-blue'}
+];
+// ============ 全网热搜回退数据（API失败时使用，与房产专题完全不同）============
+var TRENDING_FALLBACK=[
+  {title:'多地楼市政策密集出台',hot:'985万',src:'微博',color:'badge-orange'},
+  {title:'年轻人租房还是买房引热议',hot:'872万',src:'微博',color:'badge-orange'},
+  {title:'公积金贷款新政落地',hot:'756万',src:'百度',color:'badge-blue'},
+  {title:'二手房挂牌量创新高',hot:'698万',src:'百度',color:'badge-blue'},
+  {title:'房贷利率再降购房者关注',hot:'621万',src:'知乎',color:'badge-purple'},
+  {title:'新一线城市人才购房补贴',hot:'583万',src:'知乎',color:'badge-purple'},
+  {title:'保租房申请条件放宽',hot:'534万',src:'抖音',color:'badge-red'},
+  {title:'老旧小区改造最新进展',hot:'487万',src:'抖音',color:'badge-red'},
+  {title:'学区房政策调整讨论',hot:'445万',src:'微博',color:'badge-orange'},
+  {title:'法拍房成交活跃度上升',hot:'412万',src:'百度',color:'badge-blue'},
+  {title:'共有产权房轮候名单',hot:'378万',src:'知乎',color:'badge-purple'},
+  {title:'物业费调整引发讨论',hot:'345万',src:'微博',color:'badge-orange'},
+  {title:'租房市场分化加剧',hot:'312万',src:'百度',color:'badge-blue'},
+  {title:'房产税试点范围讨论',hot:'289万',src:'知乎',color:'badge-purple'},
+  {title:'改善型住房需求增长',hot:'267万',src:'抖音',color:'badge-red'},
+  {title:'长租公寓行业洗牌',hot:'243万',src:'微博',color:'badge-orange'},
+  {title:'人才购房补贴政策对比',hot:'221万',src:'百度',color:'badge-blue'},
+  {title:'存量房贷款利率调整',hot:'198万',src:'知乎',color:'badge-purple'},
+  {title:'城郊新房去化周期变化',hot:'176万',src:'抖音',color:'badge-red'},
+  {title:'保障房供应计划公布',hot:'154万',src:'微博',color:'badge-orange'}
 ];
 var CITY_DATA=[
   {name:'北京',price:'4.8万/㎡',trend:'↓0.3%',info:'五环外限购松绑，新房供应增加'},
@@ -491,53 +514,22 @@ function renderHouse(){
           });
         }
       });
-      if(!hasData)html=renderEstateTopics();
-      else html+='<div class="divider">📋 房产专题精选</div>'+renderEstateTopics();
+      if(!hasData){
+        // API失败时用独立回退数据，不跟房产专题重复
+        html+='<div class="divider">🔥 今日房产热搜（每日更新）</div>';
+        var trending=rotate(TRENDING_FALLBACK,12,0);
+        trending.forEach(function(item,i){
+          html+='<div class="card"><div class="card-meta"><span class="badge '+item.color+'">'+item.src+'</span><span>#'+(i+1)+'</span><span>热度 '+item.hot+'</span></div><div class="card-title">'+item.title+'</div>'+searchBtns(item.title)+'</div>';
+        });
+      }
       c.innerHTML=html;
     });
   }else if(houseTab==='estate'){c.innerHTML='<div class="divider">📋 房产专题（每日轮换10条）</div>'+renderEstateTopics();}
-  else if(houseTab==='calc'){c.innerHTML=renderCalc();}
-  else if(houseTab==='city'){c.innerHTML=renderCity();}
 }
 function renderEstateTopics(){
   return rotate(HOUSE_TOPICS,10,0).map(function(t){
     return '<div class="card"><div class="card-meta"><span class="badge '+t.color+'">'+t.tag+'</span></div><div class="card-title">'+t.title+'</div><div class="card-desc">'+t.desc+'</div>'+searchBtns(t.title)+'</div>';
   }).join('');
-}
-function renderCity(){
-  var html='<div class="divider">🏙️ 主要城市房价速览</div>';
-  CITY_DATA.forEach(function(c){
-    var trendColor=c.trend.indexOf('↑')>=0?'var(--red)':c.trend.indexOf('↓')>=0?'var(--green)':'var(--text-grey)';
-    html+='<div class="city-card"><div><div class="city-name">'+c.name+'</div><div class="city-info">'+c.info+'</div></div><div style="text-align:right"><div class="city-price">'+c.price+'</div><div style="font-size:11px;color:'+trendColor+';font-weight:600">'+c.trend+'</div></div></div>';
-  });
-  html+='<div class="card" style="text-align:center;color:var(--text-grey);font-size:11px">数据为参考均价，实际价格以各楼盘报价为准</div>';
-  return html;
-}
-function renderCalc(){
-  return '<div class="divider">🧮 房贷月供计算器</div>'+
-    '<div class="calc-box">'+
-    '<div class="calc-row"><label>贷款总额</label><input type="number" id="calLoan" value="100" placeholder="万元"></div>'+
-    '<div class="calc-row"><label>年利率</label><input type="number" id="calRate" value="3.5" step="0.01" placeholder="%"></div>'+
-    '<div class="calc-row"><label>贷款年限</label><input type="number" id="calYears" value="30" placeholder="年"></div>'+
-    '<button onclick="calcMortgage()" style="width:100%;padding:10px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">计算月供</button>'+
-    '<div class="calc-result" id="calResult" style="display:none">'+
-    '<div class="calc-label">每月还款</div><div class="calc-num" id="calMonthly">¥0</div>'+
-    '<div style="display:flex;gap:16px;margin-top:10px"><div><div class="calc-label">总利息</div><div style="font-size:14px;font-weight:600;color:var(--orange)" id="calInterest">¥0</div></div>'+
-    '<div><div class="calc-label">总还款</div><div style="font-size:14px;font-weight:600" id="calTotal">¥0</div></div></div>'+
-    '</div></div>'+
-    '<div class="card"><div class="card-title">💡 还款小贴士</div><div class="card-desc">• 等额本息：每月还款固定，前期利息多<br>• 等额本金：月供递减，总利息更少<br>• LPR浮动利率每年调整一次<br>• 提前还款在贷款前期最划算<br>• 公积金贷款利率低于商业贷款</div></div>';
-}
-function calcMortgage(){
-  var loan=parseFloat(document.getElementById('calLoan').value)*10000;
-  var rate=parseFloat(document.getElementById('calRate').value)/100/12;
-  var months=parseInt(document.getElementById('calYears').value)*12;
-  if(!loan||!rate||!months)return;
-  var monthly=loan*rate*Math.pow(1+rate,months)/(Math.pow(1+rate,months)-1);
-  var total=monthly*months;var interest=total-loan;
-  document.getElementById('calResult').style.display='block';
-  document.getElementById('calMonthly').textContent='¥'+Math.round(monthly).toLocaleString();
-  document.getElementById('calInterest').textContent='¥'+Math.round(interest).toLocaleString();
-  document.getElementById('calTotal').textContent='¥'+Math.round(total).toLocaleString();
 }
 
 // ============ 渲染：灵感 ============
@@ -591,7 +583,7 @@ function renderWord(){
     var words=rotate(WORD_LIST,30,2);
     var html='<div class="divider">📖 今日单词（30个）</div>';
     words.forEach(function(w,i){
-      html+='<div class="word-card"><div class="card-meta"><span class="badge badge-purple">#'+(i+1)+'</span></div><div class="word-en">'+w.en+'</div><div class="word-phonetic">'+w.phonetic+'</div><div class="word-cn">'+w.cn+'</div><div class="word-example">"'+w.example+'"</div><div class="word-extra"><b>词根记忆：</b>'+w.root+'<br><b>常用搭配：</b>'+w.collocation+'</div>'+searchBtns(w.en+' 发音 用法')+'</div>';
+      html+='<div class="word-card"><div class="card-meta"><span class="badge badge-purple">#'+(i+1)+'</span></div><div class="word-en">'+w.en+'</div><div class="word-phonetic">'+w.phonetic+'</div><div class="word-cn">'+w.cn+'</div><div class="word-example">"'+w.example+'"</div><div class="word-extra"><b>词根记忆：</b>'+w.root+'<br><b>常用搭配：</b>'+w.collocation+'</div><button class="play-btn" style="margin-top:10px" onclick="speakText(this,\''+w.en.replace(/'/g,"\\'")+'\')">🔊 发音</button>'+searchBtns(w.en+' 发音 用法')+'</div>';
     });
     c.innerHTML=html;
   }else if(wordTab==='speak'){
@@ -614,14 +606,37 @@ function renderSpeak(c){
   c.innerHTML=html;
 }
 
-// 语音播放
+// 语音播放 —— 选择最佳英语发音引擎
+var _enVoice=null;
+function initVoices(){
+  if(!('speechSynthesis' in window))return;
+  var voices=speechSynthesis.getVoices();
+  if(!voices.length)return;
+  // 优先选 en-US 的高质量语音
+  var prefer=[
+    'Google US English','Samantha','Alex','Daniel','Karen','Microsoft Aria Online (Natural) - English (United States)','Microsoft Jenny Online (Natural) - English (United States)','Ting-Ting'
+  ];
+  for(var i=0;i<prefer.length;i++){
+    var v=voices.find(function(vx){return vx.name===prefer[i];});
+    if(v){_enVoice=v;break;}
+  }
+  if(!_enVoice){
+    _enVoice=voices.find(function(vx){return vx.lang&&vx.lang.indexOf('en')===0;})||null;
+  }
+}
+if('speechSynthesis' in window){
+  initVoices();
+  speechSynthesis.onvoiceschanged=initVoices;
+}
 function speakText(btn,text){
   if('speechSynthesis' in window){
     speechSynthesis.cancel();
     var utter=new SpeechSynthesisUtterance(text);
     utter.lang='en-US';
-    utter.rate=0.85;
+    utter.rate=0.9;
     utter.pitch=1;
+    if(_enVoice)utter.voice=_enVoice;
+    utter.volume=1;
     btn.classList.add('playing');
     btn.textContent='⏸ 播放中...';
     utter.onend=function(){
