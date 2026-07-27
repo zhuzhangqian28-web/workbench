@@ -127,6 +127,62 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .city-card .city-name{font-size:14px;font-weight:600}
 .city-card .city-info{font-size:11px;color:var(--text-grey);margin-top:2px}
 .city-card .city-price{font-size:16px;font-weight:700;color:var(--blue)}
+textarea{width:100%;padding:8px 10px;border:1px solid #E0E4E8;border-radius:8px;font-size:13px;outline:none;resize:vertical;font-family:inherit;min-height:56px;line-height:1.5}
+textarea:focus{border-color:var(--blue)}
+select{padding:7px 10px;border:1px solid #E0E4E8;border-radius:8px;font-size:13px;outline:none;background:var(--white);cursor:pointer;font-family:inherit}
+select:focus{border-color:var(--blue)}
+.btn{padding:7px 14px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
+.btn-add{background:var(--blue);color:#fff}.btn-add:hover{background:#6BA8B9}
+.btn-del{background:#FDE8E8;color:#E04545;padding:4px 10px;font-size:11px}.btn-del:hover{background:var(--red);color:#fff}
+.btn-save{background:var(--green);color:#fff}.btn-save:hover{background:#5AB067}
+.btn-edit{background:#F5F7FA;color:var(--text-light);padding:4px 10px;font-size:11px}.btn-edit:hover{background:var(--blue);color:#fff}
+.btn-sm{padding:4px 10px;font-size:11px}
+.fg{margin-bottom:10px}
+.fg label{font-size:12px;color:var(--text-light);display:block;margin-bottom:3px;font-weight:500}
+.fg input,.fg textarea,.fg select{width:100%;padding:7px 10px;border:1px solid #E0E4E8;border-radius:8px;font-size:13px;outline:none;font-family:inherit}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--blue)}
+.fg-row{display:flex;gap:10px}.fg-row .fg{flex:1}
+.sub-sec{margin-bottom:20px}
+.sub-sec-t{font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #F0F2F5}
+.empty-hint{text-align:center;padding:24px 14px;color:var(--text-grey);font-size:12px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:12px}
+.client-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:10px;border-left:4px solid var(--text-grey);position:relative}
+.client-card.grade-a{border-left-color:var(--red)}
+.client-card.grade-b{border-left-color:var(--orange)}
+.client-card.grade-c{border-left-color:var(--green)}
+.client-card .c-name{font-size:14px;font-weight:600}
+.client-card .c-info{font-size:11px;color:var(--text-grey);margin-top:4px;line-height:1.6}
+.client-card .c-actions{position:absolute;top:10px;right:10px;display:flex;gap:6px}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat-item{background:var(--white);border-radius:10px;box-shadow:var(--shadow);padding:14px;text-align:center}
+.stat-item .s-num{font-size:24px;font-weight:700}
+.stat-item .s-num.red{color:var(--red)}.stat-item .s-num.blue{color:var(--blue)}.stat-item .s-num.green{color:var(--green)}
+.stat-item .s-label{font-size:11px;color:var(--text-grey);margin-top:3px}
+.script-item{background:var(--white);border-radius:10px;box-shadow:var(--shadow);padding:14px;margin-bottom:10px;border-left:4px solid var(--text-grey)}
+.script-item.st-1{border-left-color:var(--orange)}
+.script-item.st-2{border-left-color:var(--green)}
+.script-item .s-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.script-item .s-title{font-size:13px;font-weight:600;flex:1}
+.script-item .s-body{font-size:12px;color:var(--text-light);margin-top:8px;line-height:1.7;white-space:pre-wrap;background:#F5F7FA;padding:10px;border-radius:8px}
+.script-item .s-meta{font-size:11px;color:var(--text-grey);margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sched-item{background:var(--white);border-radius:10px;box-shadow:var(--shadow);padding:12px 14px;margin-bottom:10px;display:flex;gap:12px;align-items:center}
+.sched-item.done{opacity:.55}
+.sched-item .sc-date{background:#F5F7FA;border-radius:8px;padding:6px 10px;text-align:center;min-width:60px;flex-shrink:0}
+.sched-item .sc-date .sc-d{font-size:15px;font-weight:700;color:var(--blue);line-height:1.2}
+.sched-item .sc-date .sc-t{font-size:10px;color:var(--text-grey)}
+.sched-item .sc-body{flex:1;min-width:0}
+.sched-item .sc-title{font-size:13px;font-weight:600}
+.sched-item .sc-goal{font-size:11px;color:var(--text-grey);margin-top:2px}
+.sched-item .sc-actions{display:flex;gap:6px;flex-shrink:0}
+.fu-item{background:var(--white);border-radius:10px;box-shadow:var(--shadow);padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--blue)}
+.fu-item.today{border-left-color:var(--red);background:#FFFAFA}
+.fu-item .fu-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.fu-item .fu-client{font-size:13px;font-weight:600}
+.fu-item .fu-note{font-size:12px;color:var(--text-light);margin-top:4px;line-height:1.5}
+.fu-item .fu-meta{font-size:11px;color:var(--text-grey);margin-top:4px}
+.rm-item{background:var(--white);border-radius:10px;box-shadow:var(--shadow);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.rm-item.urgent{border-left:3px solid var(--red);background:#FFFAFA}
+.rm-item.done{opacity:.5}
+.edit-mode{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:12px;border:2px solid var(--blue)}
 .mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:99}
 .mobile-header{display:none;padding:12px 16px;background:var(--white);box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
 .mobile-header .menu-btn{font-size:20px;cursor:pointer;background:none;border:none}
@@ -140,7 +196,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 <main class="main">
 <div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产热点</span></div>
 <div class="update-bar"><div><div class="today-label" id="todayLabel">今日内容</div><div class="update-info" id="updateInfo">每日0点自动更新</div></div><button class="update-btn" id="updateBtn" onclick="refreshAll()">🔄 更新内容</button></div>
-<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
+<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('live',this)">直播工作台</div><div class="tab" onclick="switchHouseTab('shoot',this)">拍摄脚本</div><div class="tab" onclick="switchHouseTab('client',this)">客户跟进</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-inspire"><div class="page-header"><h2>💡 灵感</h2><p class="date">每日灵感 · 创意精选</p></div><div id="inspireContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-hustle"><div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div><div id="hustleContent"></div></section>
 <section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
@@ -525,12 +581,248 @@ function renderHouse(){
       c.innerHTML=html;
     });
   }else if(houseTab==='estate'){c.innerHTML='<div class="divider">📋 房产专题（每日轮换10条）</div>'+renderEstateTopics();}
+  else if(houseTab==='live')renderLive();
+  else if(houseTab==='shoot')renderShootScript();
+  else if(houseTab==='client')renderClient();
 }
 function renderEstateTopics(){
   return rotate(HOUSE_TOPICS,10,0).map(function(t){
     return '<div class="card"><div class="card-meta"><span class="badge '+t.color+'">'+t.tag+'</span></div><div class="card-title">'+t.title+'</div><div class="card-desc">'+t.desc+'</div>'+searchBtns(t.title)+'</div>';
   }).join('');
 }
+
+// ============ localStorage 工具 ============
+function lsGet(key,def){try{var v=localStorage.getItem(key);return v?JSON.parse(v):(def||[]);}catch(e){return def||[];}}
+function lsSet(key,val){try{localStorage.setItem(key,JSON.stringify(val));return true;}catch(e){return false;}}
+function lsId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ============ 直播工作台 ============
+var liveTab='schedule';
+function switchLiveTab(tab,el){liveTab=tab;document.querySelectorAll('#liveTabs .tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');renderLive();}
+function renderLive(){
+  var c=document.getElementById('houseContent');
+  var html='<div class="tabs" id="liveTabs"><div class="tab '+(liveTab==='schedule'?'active':'')+'" onclick="switchLiveTab(\'schedule\',this)">直播排期表</div><div class="tab '+(liveTab==='review'?'active':'')+'" onclick="switchLiveTab(\'review\',this)">数据复盘</div></div>';
+  html+=liveTab==='schedule'?renderLiveSchedule():renderLiveReview();
+  c.innerHTML=html;
+}
+function renderLiveSchedule(){
+  var data=lsGet('ls_live_schedule');
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加直播排期</div>';
+  h+='<div class="fg-row"><div class="fg"><label>日期</label><input type="date" id="scDate"></div><div class="fg"><label>时间</label><input type="time" id="scTime" value="19:00"></div></div>';
+  h+='<div class="fg"><label>直播主题</label><input type="text" id="scTitle" placeholder="如：XX楼盘探房直播"></div>';
+  h+='<div class="fg"><label>目标</label><input type="text" id="scGoal" placeholder="如：留资10组 / 成交1单"></div>';
+  h+='<button class="btn btn-add" onclick="addSchedule()">+ 添加排期</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">排期列表</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无排期，添加你的第一条直播计划</div>';
+  else{data.sort(function(a,b){return(a.date+a.time).localeCompare(b.date+b.time);});data.forEach(function(it){
+    var d=new Date(it.date);var md=(d.getMonth()+1)+'/'+d.getDate();
+    h+='<div class="sched-item '+(it.done?'done':'')+'"><div class="sc-date"><div class="sc-d">'+md+'</div><div class="sc-t">'+esc(it.time)+'</div></div>';
+    h+='<div class="sc-body"><div class="sc-title">'+esc(it.title)+'</div>'+(it.goal?'<div class="sc-goal">目标：'+esc(it.goal)+'</div>':'')+'</div>';
+    h+='<div class="sc-actions"><button class="btn btn-sm '+(it.done?'btn-edit':'btn-save')+'" onclick="toggleSchedule(\''+it.id+'\')">'+(it.done?'↩取消':'✓完成')+'</button><button class="btn btn-del btn-sm" onclick="delSchedule(\''+it.id+'\')">删除</button></div></div>';
+  });}
+  h+='</div>';return h;
+}
+function addSchedule(){var date=document.getElementById('scDate').value;var title=document.getElementById('scTitle').value.trim();if(!date||!title){alert('请填写日期和主题');return;}var data=lsGet('ls_live_schedule');data.push({id:lsId(),date:date,time:document.getElementById('scTime').value||'19:00',title:title,goal:document.getElementById('scGoal').value.trim(),done:false});lsSet('ls_live_schedule',data);renderLive();}
+function delSchedule(id){if(!confirm('删除这条排期？'))return;lsSet('ls_live_schedule',lsGet('ls_live_schedule').filter(function(x){return x.id!==id;}));renderLive();}
+function toggleSchedule(id){var data=lsGet('ls_live_schedule');data.forEach(function(x){if(x.id===id)x.done=!x.done;});lsSet('ls_live_schedule',data);renderLive();}
+function renderLiveReview(){
+  var data=lsGet('ls_live_review');
+  var h='<div class="sub-sec"><div class="sub-sec-t">填写数据复盘</div>';
+  h+='<div class="fg-row"><div class="fg"><label>直播日期</label><input type="date" id="rvDate"></div><div class="fg"><label>时长(分钟)</label><input type="number" id="rvDur" placeholder="120"></div></div>';
+  h+='<div class="fg-row"><div class="fg"><label>最高在线</label><input type="number" id="rvPeak" placeholder="500"></div><div class="fg"><label>平均在线</label><input type="number" id="rvAvg" placeholder="200"></div></div>';
+  h+='<div class="fg-row"><div class="fg"><label>新增粉丝</label><input type="number" id="rvFan" placeholder="30"></div><div class="fg"><label>留资数</label><input type="number" id="rvLead" placeholder="10"></div><div class="fg"><label>成交数</label><input type="number" id="rvDeal" placeholder="1"></div></div>';
+  h+='<div class="fg"><label>复盘总结</label><textarea id="rvNote" placeholder="做得好的地方、需要改进的、下次计划..."></textarea></div>';
+  h+='<button class="btn btn-add" onclick="saveReview()">保存复盘</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">历史复盘记录</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无复盘记录，开始记录第一场直播数据</div>';
+  else{data.sort(function(a,b){return b.date.localeCompare(a.date);});data.forEach(function(it){
+    h+='<div class="card"><div class="card-meta"><span class="badge badge-blue">'+esc(it.date)+'</span>'+(it.dur?'<span>时长 '+esc(it.dur)+'min</span>':'')+'</div>';
+    h+='<div class="stat-grid"><div class="stat-item"><div class="s-num blue">'+esc(it.peak||0)+'</div><div class="s-label">最高在线</div></div>';
+    h+='<div class="stat-item"><div class="s-num blue">'+esc(it.avg||0)+'</div><div class="s-label">平均在线</div></div>';
+    h+='<div class="stat-item"><div class="s-num green">'+esc(it.fan||0)+'</div><div class="s-label">新增粉丝</div></div>';
+    h+='<div class="stat-item"><div class="s-num green">'+esc(it.lead||0)+'</div><div class="s-label">留资</div></div>';
+    h+='<div class="stat-item"><div class="s-num red">'+esc(it.deal||0)+'</div><div class="s-label">成交</div></div></div>';
+    if(it.note)h+='<div class="card-desc" style="white-space:pre-wrap">'+esc(it.note)+'</div>';
+    h+='<div style="margin-top:8px"><button class="btn btn-del btn-sm" onclick="delReview(\''+it.id+'\')">删除</button></div></div>';
+  });}
+  h+='</div>';return h;
+}
+function saveReview(){var date=document.getElementById('rvDate').value;if(!date){alert('请选择直播日期');return;}var data=lsGet('ls_live_review');data.push({id:lsId(),date:date,dur:document.getElementById('rvDur').value,peak:document.getElementById('rvPeak').value,avg:document.getElementById('rvAvg').value,fan:document.getElementById('rvFan').value,lead:document.getElementById('rvLead').value,deal:document.getElementById('rvDeal').value,note:document.getElementById('rvNote').value.trim()});lsSet('ls_live_review',data);renderLive();}
+function delReview(id){if(!confirm('删除这条复盘记录？'))return;lsSet('ls_live_review',lsGet('ls_live_review').filter(function(x){return x.id!==id;}));renderLive();}
+
+// ============ 拍摄脚本 ============
+function renderShootScript(){
+  var c=document.getElementById('houseContent');
+  var data=lsGet('ls_shoot_scripts');
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加拍摄脚本</div>';
+  h+='<div class="fg-row"><div class="fg"><label>脚本标题</label><input type="text" id="spTitle" placeholder="如：XX楼盘探房视频"></div>';
+  h+='<div class="fg" style="max-width:120px"><label>类型</label><select id="spType"><option value="探房">探房</option><option value="科普">科普</option><option value="评测">评测</option><option value="故事">故事</option><option value="其他">其他</option></select></div></div>';
+  h+='<div class="fg"><label>脚本内容</label><textarea id="spContent" style="min-height:100px" placeholder="分镜、台词、拍摄要点...&#10;如：&#10;1.开场：站在小区门口介绍楼盘&#10;2.户型：入户门→客厅→卧室→厨卫&#10;3.周边：地铁/学校/商超&#10;4.优缺点总结&#10;5.引导关注+私信咨询"></textarea></div>';
+  h+='<button class="btn btn-add" onclick="addScript()">+ 添加脚本</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">脚本列表（按日期分组）</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无脚本，添加你的第一条拍摄脚本</div>';
+  else{var groups={};data.forEach(function(it){var k=it.date||'未分类';if(!groups[k])groups[k]=[];groups[k].push(it);});
+  Object.keys(groups).sort().reverse().forEach(function(k){
+    h+='<div class="divider">'+k+'</div>';
+    groups[k].forEach(function(it){
+      h+='<div class="script-item st-'+it.status+'"><div class="s-head"><div class="s-title">'+esc(it.title)+'</div></div>';
+      h+='<div class="s-meta"><span class="badge badge-purple">'+esc(it.type)+'</span>';
+      h+='<select onchange="changeScriptStatus(\''+it.id+'\',this.value)" style="font-size:11px;padding:3px 6px"><option value="0"'+(it.status==0?' selected':'')+'>待拍摄</option><option value="1"'+(it.status==1?' selected':'')+'>拍摄中</option><option value="2"'+(it.status==2?' selected':'')+'>已完成</option></select></div>';
+      if(it.content)h+='<div class="s-body">'+esc(it.content)+'</div>';
+      h+='<div class="s-meta"><button class="btn btn-del btn-sm" onclick="delScript(\''+it.id+'\')">删除</button></div></div>';
+    });
+  });}
+  h+='</div>';c.innerHTML=h;
+}
+function addScript(){var title=document.getElementById('spTitle').value.trim();if(!title){alert('请填写脚本标题');return;}var data=lsGet('ls_shoot_scripts');var t=new Date();var ds=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');data.push({id:lsId(),date:ds,title:title,type:document.getElementById('spType').value,content:document.getElementById('spContent').value.trim(),status:0});lsSet('ls_shoot_scripts',data);renderShootScript();}
+function delScript(id){if(!confirm('删除这条脚本？'))return;lsSet('ls_shoot_scripts',lsGet('ls_shoot_scripts').filter(function(x){return x.id!==id;}));renderShootScript();}
+function changeScriptStatus(id,status){var data=lsGet('ls_shoot_scripts');data.forEach(function(x){if(x.id===id)x.status=parseInt(status);});lsSet('ls_shoot_scripts',data);}
+
+// ============ 客户跟进台 ============
+var clientTab='list';
+function switchClientTab(tab,el){clientTab=tab;document.querySelectorAll('#clientTabs .tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');renderClient();}
+function renderClient(){
+  var c=document.getElementById('houseContent');
+  var h='<div class="tabs" id="clientTabs">'+
+    '<div class="tab '+(clientTab==='list'?'active':'')+'" onclick="switchClientTab(\'list\',this)">客户管理</div>'+
+    '<div class="tab '+(clientTab==='followup'?'active':'')+'" onclick="switchClientTab(\'followup\',this)">跟进记录</div>'+
+    '<div class="tab '+(clientTab==='task'?'active':'')+'" onclick="switchClientTab(\'task\',this)">反馈待办</div>'+
+    '<div class="tab '+(clientTab==='qa'?'active':'')+'" onclick="switchClientTab(\'qa\',this)">常见话术</div>'+
+    '<div class="tab '+(clientTab==='deal'?'active':'')+'" onclick="switchClientTab(\'deal\',this)">带看成交</div>'+
+    '<div class="tab '+(clientTab==='reminder'?'active':'')+'" onclick="switchClientTab(\'reminder\',this)">回访提醒</div></div>';
+  if(clientTab==='list')h+=renderClientList();
+  else if(clientTab==='followup')h+=renderFollowups();
+  else if(clientTab==='task')h+=renderTasks();
+  else if(clientTab==='qa')h+=renderQA();
+  else if(clientTab==='deal')h+=renderDeals();
+  else h+=renderReminders();
+  c.innerHTML=h;
+}
+function renderClientList(){
+  var data=lsGet('ls_clients');
+  var gc={A:'badge-red',B:'badge-orange',C:'badge-green'};
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加客户</div>';
+  h+='<div class="fg-row"><div class="fg"><label>姓名/昵称</label><input type="text" id="clName" placeholder="如：王先生"></div>';
+  h+='<div class="fg" style="max-width:110px"><label>分级</label><select id="clGrade"><option value="A">A 必买</option><option value="B">B 观望</option><option value="C">C 随便看</option></select></div></div>';
+  h+='<div class="fg-row"><div class="fg"><label>电话</label><input type="text" id="clPhone" placeholder="可选"></div><div class="fg"><label>意向楼盘</label><input type="text" id="clEstate" placeholder="如：XX花园"></div></div>';
+  h+='<div class="fg"><label>需求备注</label><textarea id="clNote" placeholder="预算、面积、区域偏好..."></textarea></div>';
+  h+='<button class="btn btn-add" onclick="addClient()">+ 添加客户</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">客户列表（'+data.length+'人）</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无客户，添加你的第一个客户</div>';
+  else{data.forEach(function(it){
+    h+='<div class="client-card grade-'+it.grade.toLowerCase()+'"><div class="c-actions"><button class="btn btn-del btn-sm" onclick="delClient(\''+it.id+'\')">删除</button></div>';
+    h+='<div class="c-name">'+esc(it.name)+' <span class="badge '+(gc[it.grade]||'badge-blue')+'">'+esc(it.grade)+'</span></div>';
+    h+='<div class="c-info">';if(it.phone)h+='电话：'+esc(it.phone)+'　';if(it.estate)h+='意向：'+esc(it.estate)+'<br>';if(it.note)h+=esc(it.note);h+='</div></div>';
+  });}
+  h+='</div>';return h;
+}
+function addClient(){var name=document.getElementById('clName').value.trim();if(!name){alert('请填写客户姓名');return;}var data=lsGet('ls_clients');data.push({id:lsId(),name:name,grade:document.getElementById('clGrade').value,phone:document.getElementById('clPhone').value.trim(),estate:document.getElementById('clEstate').value.trim(),note:document.getElementById('clNote').value.trim()});lsSet('ls_clients',data);renderClient();}
+function delClient(id){if(!confirm('删除这个客户？'))return;lsSet('ls_clients',lsGet('ls_clients').filter(function(x){return x.id!==id;}));renderClient();}
+function renderFollowups(){
+  var clients=lsGet('ls_clients');var data=lsGet('ls_followups');
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加跟进记录</div>';
+  if(!clients.length){h+='<div class="empty-hint">请先在「客户管理」中添加客户</div></div>';return h;}
+  h+='<div class="fg-row"><div class="fg"><label>客户</label><select id="fuClient">'+clients.map(function(c){return '<option value="'+esc(c.name)+'">'+esc(c.name)+(c.estate?'('+esc(c.estate)+')':'')+'</option>';}).join('')+'</select></div>';
+  h+='<div class="fg" style="max-width:120px"><label>态度</label><select id="fuAttitude"><option value="积极">积极</option><option value="中性">中性</option><option value="消极">消极</option></select></div></div>';
+  h+='<div class="fg"><label>跟进内容</label><textarea id="fuNote" placeholder="沟通要点、客户反馈、下一步..."></textarea></div>';
+  h+='<button class="btn btn-add" onclick="addFollowup()">+ 添加记录</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">跟进历史</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无跟进记录</div>';
+  else{data.sort(function(a,b){return b.time.localeCompare(a.time);});data.forEach(function(it){
+    var ac=it.attitude==='积极'?'badge-green':it.attitude==='消极'?'badge-red':'badge-blue';
+    h+='<div class="fu-item"><div class="fu-head"><span class="fu-client">'+esc(it.client)+'</span><span class="badge '+ac+'">'+esc(it.attitude)+'</span></div>';
+    if(it.note)h+='<div class="fu-note">'+esc(it.note)+'</div>';
+    h+='<div class="fu-meta">'+esc(it.time)+' <button class="btn btn-del btn-sm" style="margin-left:8px" onclick="delFollowup(\''+it.id+'\')">删除</button></div></div>';
+  });}
+  h+='</div>';return h;
+}
+function addFollowup(){var note=document.getElementById('fuNote').value.trim();if(!note){alert('请填写跟进内容');return;}var data=lsGet('ls_followups');var t=new Date();var ds=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0')+' '+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0');data.push({id:lsId(),client:document.getElementById('fuClient').value,attitude:document.getElementById('fuAttitude').value,note:note,time:ds});lsSet('ls_followups',data);renderClient();}
+function delFollowup(id){if(!confirm('删除这条记录？'))return;lsSet('ls_followups',lsGet('ls_followups').filter(function(x){return x.id!==id;}));renderClient();}
+function renderTasks(){
+  var clients=lsGet('ls_clients');var data=lsGet('ls_tasks');
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加待办</div>';
+  if(clients.length){h+='<div class="fg-row"><div class="fg"><label>客户</label><select id="tkClient"><option value="">通用</option>'+clients.map(function(c){return '<option value="'+esc(c.name)+'">'+esc(c.name)+'</option>';}).join('')+'</select></div><div class="fg" style="max-width:150px"><label>截止日期</label><input type="date" id="tkDeadline"></div></div>';}
+  else{h+='<div class="fg" style="max-width:150px"><label>截止日期</label><input type="date" id="tkDeadline"></div>';}
+  h+='<div class="fg"><label>待办事项</label><input type="text" id="tkContent" placeholder="如：发户型图给王先生"></div>';
+  h+='<button class="btn btn-add" onclick="addTask()">+ 添加待办</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">待办列表</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无待办事项</div>';
+  else{var today=new Date().toISOString().slice(0,10);data.sort(function(a,b){return(a.deadline||'9999').localeCompare(b.deadline||'9999');});data.forEach(function(it){
+    var urg=it.deadline&&it.deadline<=today&&!it.done;
+    h+='<div class="fu-item '+(urg?'today':'')+'"><div class="fu-head"><span class="fu-client">'+(it.done?'✓ ':'')+esc(it.content)+'</span>'+(it.client?'<span class="badge badge-blue">'+esc(it.client)+'</span>':'')+'</div>';
+    if(it.deadline)h+='<div class="fu-meta">截止：'+esc(it.deadline)+(urg?' ⚠已到期':'')+'</div>';
+    h+='<div style="margin-top:6px"><button class="btn btn-sm '+(it.done?'btn-edit':'btn-save')+'" onclick="toggleTask(\''+it.id+'\')">'+(it.done?'↩取消完成':'✓标记完成')+'</button> <button class="btn btn-del btn-sm" onclick="delTask(\''+it.id+'\')">删除</button></div></div>';
+  });}
+  h+='</div>';return h;
+}
+function addTask(){var content=document.getElementById('tkContent').value.trim();if(!content){alert('请填写待办事项');return;}var data=lsGet('ls_tasks');var ce=document.getElementById('tkClient');data.push({id:lsId(),content:content,client:ce?ce.value:'',deadline:document.getElementById('tkDeadline').value,done:false});lsSet('ls_tasks',data);renderClient();}
+function toggleTask(id){var data=lsGet('ls_tasks');data.forEach(function(x){if(x.id===id)x.done=!x.done;});lsSet('ls_tasks',data);renderClient();}
+function delTask(id){if(!confirm('删除这条待办？'))return;lsSet('ls_tasks',lsGet('ls_tasks').filter(function(x){return x.id!==id;}));renderClient();}
+var DEFAULT_QA=[{q:'这个楼盘现在能入手吗？',a:'看您的需求。如果是自住，现在利率低、选择多，是不错的窗口期。如果是投资，要看具体板块的租金回报率和升值空间。我帮您分析下这个楼盘的优劣势...'},{q:'房价还会跌吗？',a:'不同城市分化很大。核心城市核心地段的优质资产抗跌性强，偏远板块确实还有压力。关键是选对地段和产品，我给您看几个对比数据...'},{q:'贷款利率多少？',a:'目前首套房贷利率大概在3.x%左右，各地略有差异。公积金贷款利率更低，我帮您算下月供和总利息...'},{q:'首付大概多少？',a:'首套一般20%-30%，二套30%-40%，各地政策不同。如果是公积金+商业组合贷，首付压力会更小...'},{q:'这个楼盘什么时候交房？',a:'这个楼盘预计X年X月交房，开发商资质不错，目前施工进度正常。我这边有最新的工程进度照片，发您看看...'}];
+function renderQA(){
+  var data=lsGet('ls_qa');if(!data.length&&!lsGet('ls_qa_init')){lsSet('ls_qa',DEFAULT_QA.map(function(x){x.id=lsId();return x;}));lsSet('ls_qa_init',1);data=lsGet('ls_qa');}
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加话术</div>';
+  h+='<div class="fg"><label>问题</label><input type="text" id="qaQ" placeholder="客户常问的问题"></div>';
+  h+='<div class="fg"><label>回答话术</label><textarea id="qaA" placeholder="标准回答..."></textarea></div>';
+  h+='<button class="btn btn-add" onclick="addQA()">+ 添加话术</button></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">话术库（'+data.length+'条）</div>';
+  data.forEach(function(it){
+    h+='<div class="card"><div class="card-title">Q：'+esc(it.q)+'</div><div class="card-desc">A：'+esc(it.a)+'</div><div style="margin-top:8px"><button class="btn btn-del btn-sm" onclick="delQA(\''+it.id+'\')">删除</button></div></div>';
+  });
+  h+='</div>';return h;
+}
+function addQA(){var q=document.getElementById('qaQ').value.trim();var a=document.getElementById('qaA').value.trim();if(!q||!a){alert('请填写问题和回答');return;}var data=lsGet('ls_qa');data.push({id:lsId(),q:q,a:a});lsSet('ls_qa',data);renderClient();}
+function delQA(id){if(!confirm('删除这条话术？'))return;lsSet('ls_qa',lsGet('ls_qa').filter(function(x){return x.id!==id;}));renderClient();}
+function renderDeals(){
+  var clients=lsGet('ls_clients');var data=lsGet('ls_deals');
+  var month=new Date().toISOString().slice(0,7);
+  var mS=data.filter(function(x){return x.date&&x.date.slice(0,7)===month;});
+  var mT=mS.filter(function(x){return x.type==='带看';}).length;
+  var mD=mS.filter(function(x){return x.type==='成交';}).length;
+  var tD=data.filter(function(x){return x.type==='成交';}).length;
+  var h='<div class="stat-grid"><div class="stat-item"><div class="s-num blue">'+mT+'</div><div class="s-label">本月带看</div></div><div class="stat-item"><div class="s-num red">'+mD+'</div><div class="s-label">本月成交</div></div><div class="stat-item"><div class="s-num green">'+tD+'</div><div class="s-label">累计成交</div></div></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">添加记录</div>';
+  if(clients.length){h+='<div class="fg-row"><div class="fg"><label>客户</label><select id="dlClient">'+clients.map(function(c){return '<option value="'+esc(c.name)+'">'+esc(c.name)+'</option>';}).join('')+'</select></div><div class="fg" style="max-width:100px"><label>类型</label><select id="dlType"><option value="带看">带看</option><option value="成交">成交</option></select></div><div class="fg" style="max-width:130px"><label>日期</label><input type="date" id="dlDate"></div></div>';
+  h+='<div class="fg-row"><div class="fg"><label>楼盘</label><input type="text" id="dlEstate" placeholder="可选"></div><div class="fg"><label>金额(万)</label><input type="text" id="dlAmount" placeholder="可选"></div></div>';
+  h+='<div class="fg"><label>备注</label><input type="text" id="dlNote" placeholder="可选"></div>';
+  h+='<button class="btn btn-add" onclick="addDeal()">+ 添加记录</button></div>';}
+  else h+='<div class="empty-hint">请先在「客户管理」中添加客户</div></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">记录列表</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无记录</div>';
+  else{data.sort(function(a,b){return(b.date||'').localeCompare(a.date||'');});data.forEach(function(it){
+    var tc=it.type==='成交'?'badge-red':'badge-blue';
+    h+='<div class="card"><div class="card-meta"><span class="badge '+tc+'">'+esc(it.type)+'</span>'+(it.date?'<span>'+esc(it.date)+'</span>':'')+'</div><div class="card-title">'+esc(it.client)+(it.estate?' · '+esc(it.estate):'')+'</div>';
+    if(it.amount)h+='<div class="card-desc">金额：'+esc(it.amount)+'万</div>';
+    if(it.note)h+='<div class="card-desc">'+esc(it.note)+'</div>';
+    h+='<div style="margin-top:6px"><button class="btn btn-del btn-sm" onclick="delDeal(\''+it.id+'\')">删除</button></div></div>';
+  });}
+  h+='</div>';return h;
+}
+function addDeal(){var data=lsGet('ls_deals');data.push({id:lsId(),client:document.getElementById('dlClient').value,type:document.getElementById('dlType').value,date:document.getElementById('dlDate').value,estate:document.getElementById('dlEstate').value.trim(),amount:document.getElementById('dlAmount').value.trim(),note:document.getElementById('dlNote').value.trim()});lsSet('ls_deals',data);renderClient();}
+function delDeal(id){if(!confirm('删除这条记录？'))return;lsSet('ls_deals',lsGet('ls_deals').filter(function(x){return x.id!==id;}));renderClient();}
+function renderReminders(){
+  var clients=lsGet('ls_clients');var data=lsGet('ls_reminders');
+  var today=new Date().toISOString().slice(0,10);
+  var h='<div class="sub-sec"><div class="sub-sec-t">添加回访提醒</div>';
+  if(clients.length){h+='<div class="fg-row"><div class="fg"><label>客户</label><select id="rmClient">'+clients.map(function(c){return '<option value="'+esc(c.name)+'">'+esc(c.name)+'</option>';}).join('')+'</select></div><div class="fg" style="max-width:150px"><label>回访日期</label><input type="date" id="rmDate"></div></div>';
+  h+='<div class="fg"><label>备注</label><input type="text" id="rmNote" placeholder="如：发最新房源 / 确认意向"></div>';
+  h+='<button class="btn btn-add" onclick="addReminder()">+ 添加提醒</button></div>';}
+  else h+='<div class="empty-hint">请先在「客户管理」中添加客户</div></div>';
+  h+='<div class="sub-sec"><div class="sub-sec-t">回访提醒</div>';
+  if(!data.length)h+='<div class="empty-hint">暂无回访提醒</div>';
+  else{data.sort(function(a,b){return(a.date||'9999').localeCompare(b.date||'9999');});data.forEach(function(it){
+    var urg=it.date&&it.date<=today&&!it.done;var isT=it.date===today;
+    h+='<div class="rm-item '+(urg?'urgent':'')+' '+(it.done?'done':'')+'"><div><div style="font-size:13px;font-weight:600">'+esc(it.client)+(isT?' <span class="badge badge-red">今日</span>':'')+'</div>';
+    if(it.note)h+='<div style="font-size:11px;color:var(--text-grey);margin-top:2px">'+esc(it.note)+'</div>';
+    if(it.date)h+='<div style="font-size:11px;color:var(--text-grey);margin-top:2px">回访日期：'+esc(it.date)+(urg?' ⚠已到期':'')+'</div></div>';
+    h+='<div style="display:flex;gap:6px"><button class="btn btn-sm '+(it.done?'btn-edit':'btn-save')+'" onclick="toggleReminder(\''+it.id+'\')">'+(it.done?'↩取消':'✓完成')+'</button><button class="btn btn-del btn-sm" onclick="delReminder(\''+it.id+'\')">删除</button></div></div>';
+  });}
+  h+='</div>';return h;
+}
+function addReminder(){var date=document.getElementById('rmDate').value;if(!date){alert('请选择回访日期');return;}var data=lsGet('ls_reminders');data.push({id:lsId(),client:document.getElementById('rmClient').value,date:date,note:document.getElementById('rmNote').value.trim(),done:false});lsSet('ls_reminders',data);renderClient();}
+function delReminder(id){if(!confirm('删除这条提醒？'))return;lsSet('ls_reminders',lsGet('ls_reminders').filter(function(x){return x.id!==id;}));renderClient();}
+function toggleReminder(id){var data=lsGet('ls_reminders');data.forEach(function(x){if(x.id===id)x.done=!x.done;});lsSet('ls_reminders',data);renderClient();}
 
 // ============ 渲染：灵感 ============
 function renderInspire(){
