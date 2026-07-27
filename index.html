@@ -23,6 +23,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .nav-item.active{background:var(--blue);color:#fff}
 .nav-item .icon{font-size:16px;width:20px;text-align:center}
 .main{flex:1;height:100vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.update-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;background:linear-gradient(90deg,#E3F4F7 0%,#FCE8EE 100%);position:sticky;top:0;z-index:40;gap:10px}
+.update-bar .today-label{font-size:13px;font-weight:600;color:var(--text)}
+.update-bar .update-info{font-size:11px;color:var(--text-grey);margin-top:1px}
+.update-btn{padding:7px 16px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.update-btn:hover{background:#6BA8B9;transform:translateY(-1px)}
+.update-btn.spinning{animation:spin .8s linear infinite;pointer-events:none;opacity:.7}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .page{display:none;padding:20px}
 .page.active{display:block;animation:fade .3s}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -51,6 +58,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .word-card .word-example{font-size:12px;color:var(--text-light);margin-top:8px;font-style:italic;line-height:1.6}
 .word-card .word-extra{font-size:11px;color:var(--text-grey);margin-top:10px;padding-top:8px;border-top:1px dashed #E8EAED;line-height:1.8}
 .word-card .word-extra b{color:var(--purple)}
+.speak-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px;border-left:4px solid var(--blue)}
+.speak-card .speak-en{font-size:16px;font-weight:600;line-height:1.6;margin-bottom:6px}
+.speak-card .speak-cn{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:8px}
+.speak-card .speak-tip{font-size:11px;color:var(--text-grey);padding:8px 10px;background:#F5F7FA;border-radius:8px;line-height:1.6;margin-top:8px}
+.speak-card .speak-tip b{color:var(--blue)}
+.play-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;margin-top:8px}
+.play-btn:hover{background:#6BA8B9}
+.play-btn.playing{background:var(--orange)}
+.listen-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px;border-left:4px solid var(--green)}
+.listen-card .listen-passage{font-size:14px;line-height:1.8;color:var(--text);background:#F5F7FA;padding:14px;border-radius:10px;margin-bottom:10px;display:none}
+.listen-card .listen-passage.show{display:block}
+.quiz-box{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px;border-left:4px solid var(--green)}
+.quiz-q{font-size:14px;font-weight:600;margin-bottom:12px}
+.quiz-opt{display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:8px;border:1px solid #E0E4E8;border-radius:8px;background:var(--white);font-size:13px;cursor:pointer;transition:all .15s}
+.quiz-opt:hover{border-color:var(--blue);background:#F0F7FA}
+.quiz-opt.correct{border-color:var(--green);background:#E3F8E8;color:#4FAB5E}
+.quiz-opt.wrong{border-color:var(--red);background:#FDE8E8;color:#E04545}
+.quiz-opt:disabled{cursor:default}
+.quiz-explain{font-size:11px;color:var(--text-light);padding:8px 10px;background:#F5F7FA;border-radius:8px;margin-top:8px;line-height:1.6;display:none}
+.quiz-explain.show{display:block}
+.quiz-score{background:linear-gradient(135deg,#A8D8EA 0%,#7AB8C9 100%);color:#fff;border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:14px}
+.quiz-score .score-num{font-size:32px;font-weight:700}
+.quiz-score .score-label{font-size:12px;opacity:.8;margin-top:4px}
 .fitness-day{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:12px;border-left:4px solid var(--green)}
 .fitness-day.today{border-left-color:var(--orange);background:linear-gradient(135deg,#FFF 0%,#FFF8F0 100%)}
 .fitness-day .day-name{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
@@ -93,13 +123,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .mood-btn{width:44px;height:44px;border-radius:50%;border:2px solid transparent;background:#F5F7FA;font-size:22px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .mood-btn:hover{transform:scale(1.1)}
 .mood-btn.selected{border-color:var(--blue);background:#E3F4F7;transform:scale(1.15)}
-.quiz-box{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px;border-left:4px solid var(--green)}
-.quiz-q{font-size:14px;font-weight:600;margin-bottom:12px}
-.quiz-opt{display:block;width:100%;text-align:left;padding:10px 14px;margin-bottom:8px;border:1px solid #E0E4E8;border-radius:8px;background:var(--white);font-size:13px;cursor:pointer;transition:all .15s}
-.quiz-opt:hover{border-color:var(--blue);background:#F0F7FA}
-.quiz-opt.correct{border-color:var(--green);background:#E3F8E8;color:#4FAB5E}
-.quiz-opt.wrong{border-color:var(--red);background:#FDE8E8;color:#E04545}
-.quiz-opt:disabled{cursor:default}
 .city-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 .city-card .city-name{font-size:14px;font-weight:600}
 .city-card .city-info{font-size:11px;color:var(--text-grey);margin-top:2px}
@@ -108,17 +131,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .mobile-header{display:none;padding:12px 16px;background:var(--white);box-shadow:var(--shadow);position:sticky;top:0;z-index:50}
 .mobile-header .menu-btn{font-size:20px;cursor:pointer;background:none;border:none}
 .mobile-header .title{font-size:15px;font-weight:600;margin-left:12px}
-@media(max-width:768px){.sidebar{position:fixed;left:0;top:0;transform:translateX(-100%)}.sidebar.open{transform:none}.mask.show{display:block}.mobile-header{display:flex;align-items:center}.page{padding:14px}.summary-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.sidebar{position:fixed;left:0;top:0;transform:translateX(-100%)}.sidebar.open{transform:none}.mask.show{display:block}.mobile-header{display:flex;align-items:center}.page{padding:14px}.summary-grid{grid-template-columns:repeat(2,1fr)}.update-bar{padding:8px 14px}}
 </style>
 </head>
 <body>
-<aside class="sidebar" id="sidebar"><div class="sidebar-header"><div class="avatar">📊</div><h1>我的工作台</h1><p id="sidebarDate"></p></div><nav class="nav"><div class="nav-item active" onclick="switchPage('house',this)"><span class="icon">🏠</span>房产热点</div><div class="nav-item" onclick="switchPage('inspire',this)"><span class="icon">💡</span>灵感</div><div class="nav-item" onclick="switchPage('hustle',this)"><span class="icon">💰</span>副业</div><div class="nav-item" onclick="switchPage('word',this)"><span class="icon">📖</span>每日单词</div><div class="nav-item" onclick="switchPage('fitness',this)"><span class="icon">🏃</span>运动计划</div><div class="nav-item" onclick="switchPage('summary',this)"><span class="icon">📝</span>每日小结</div></nav></aside>
+<aside class="sidebar" id="sidebar"><div class="sidebar-header"><div class="avatar">📊</div><h1>我的工作台</h1><p id="sidebarDate"></p></div><nav class="nav"><div class="nav-item active" onclick="switchPage('house',this)"><span class="icon">🏠</span>房产热点</div><div class="nav-item" onclick="switchPage('inspire',this)"><span class="icon">💡</span>灵感</div><div class="nav-item" onclick="switchPage('hustle',this)"><span class="icon">💰</span>副业</div><div class="nav-item" onclick="switchPage('word',this)"><span class="icon">📚</span>学习天地</div><div class="nav-item" onclick="switchPage('fitness',this)"><span class="icon">🏃</span>运动计划</div><div class="nav-item" onclick="switchPage('summary',this)"><span class="icon">📝</span>每日小结</div></nav></aside>
 <div class="mask" id="mask" onclick="toggleSidebar(false)"></div>
-<main class="main"><div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产热点</span></div>
+<main class="main">
+<div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产热点</span></div>
+<div class="update-bar"><div><div class="today-label" id="todayLabel">今日内容</div><div class="update-info" id="updateInfo">每日0点自动更新</div></div><button class="update-btn" id="updateBtn" onclick="refreshAll()">🔄 更新内容</button></div>
 <section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('calc',this)">购房计算器</div><div class="tab" onclick="switchHouseTab('city',this)">城市速览</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-inspire"><div class="page-header"><h2>💡 灵感</h2><p class="date">每日灵感 · 创意精选</p></div><div id="inspireContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-hustle"><div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div><div id="hustleContent"></div></section>
-<section class="page" id="page-word"><div class="page-header"><h2>📖 每日单词</h2><p class="date" id="wordDate"></p></div><div id="wordContent"></div></section>
+<section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-fitness"><div class="page-header"><h2>🏃 运动计划</h2><p class="date">每周训练安排</p></div><div id="fitnessContent"></div></section>
 <section class="page" id="page-summary"><div class="page-header"><h2>📝 每日小结</h2><p class="date" id="summaryDate"></p></div><div id="summaryContent"></div></section>
 </main>
@@ -126,10 +151,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 // ============ 全局工具 ============
 var WEEKDAYS=['周日','周一','周二','周三','周四','周五','周六'];
 var MONTHS=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+var refreshOffset=0;
 function todayStr(){var d=new Date();return d.getFullYear()+'年'+MONTHS[d.getMonth()]+d.getDate()+'日 '+WEEKDAYS[d.getDay()];}
+function todayShort(){var d=new Date();return MONTHS[d.getMonth()]+d.getDate()+'日';}
 function dayNum(){return Math.floor(Date.now()/86400000);}
-function rotate(arr,count,offset){var start=(dayNum()+(offset||0))%arr.length;var r=[];for(var i=0;i<count;i++)r.push(arr[(start+i)%arr.length]);return r;}
+function rotate(arr,count,offset){var start=(dayNum()+(offset||0)+refreshOffset)%arr.length;var r=[];for(var i=0;i<count;i++)r.push(arr[(start+i)%arr.length]);return r;}
 function stars(n){var s='<span class="rating">';for(var i=1;i<=5;i++)s+=i<=n?'<span class="star-on">★</span>':'<span class="star-off">★</span>';return s+'</span>';}
+function timeStr(){var d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');}
 
 // ============ 全网搜索链接 ============
 var PLATFORMS=[
@@ -180,8 +208,6 @@ var HOUSE_TOPICS=[
   {title:'二手房交易税费详解',desc:'契税、个税、增值税的计算方式，满五唯一等减免条件。',tag:'理财',color:'badge-green'},
   {title:'保障性租赁住房申请',desc:'保租房申请条件、租金标准和退出机制，新市民住房新选择。',tag:'政策',color:'badge-blue'}
 ];
-
-// ============ 城市速览 ============
 var CITY_DATA=[
   {name:'北京',price:'4.8万/㎡',trend:'↓0.3%',info:'五环外限购松绑，新房供应增加'},
   {name:'上海',price:'5.2万/㎡',trend:'↓0.1%',info:'临港新片区政策利好'},
@@ -235,8 +261,6 @@ var INSPIRE_IDEAS=[
   {title:'二手书盲盒玩法',desc:'闲鱼二手书+盲盒概念，低成本高互动。',platform:'小红书',tag:'创意',color:'badge-pink'},
   {title:'城市菜市场探店',desc:'本地菜市场烟火气内容，接地气有温度。',platform:'抖音',tag:'美食',color:'badge-red'}
 ];
-
-// ============ 创意方法论 ============
 var METHODS=[
   {title:'热点借势法',desc:'找到当前热搜话题，用自己的领域视角做解读。关键：速度快、角度新、有个人观点。',tag:'方法',color:'badge-orange'},
   {title:'反差对比法',desc:'制造强烈反差（前后对比、价格对比、认知反差），反差越大传播越广。',tag:'方法',color:'badge-red'},
@@ -266,7 +290,7 @@ var HUSTLE_LIST=[
   {cat:'🔥 热门推荐',title:'表情包上架',desc:'设计表情包上架微信/LINE，下载量变现+打赏收入。',income:'¥200-2000/月',diff:3,time:2,color:'badge-orange'}
 ];
 
-// ============ 单词数据 ============
+// ============ 单词数据（60个，每天30个） ============
 var WORD_LIST=[
   {en:'resilient',phonetic:'/rɪˈzɪliənt/',cn:'adj. 有韧性的；能恢复的',example:'She is resilient and always bounces back from setbacks.',root:'re(回)+sili(跳)+ent → 跳回来→有韧性的',collocation:'resilient economy 韧性经济'},
   {en:'meticulous',phonetic:'/məˈtɪkjələs/',cn:'adj. 一丝不苟的；细致的',example:'He is meticulous about every detail in his work.',root:'metus(恐惧) → 因害怕出错而极其小心',collocation:'meticulous records 详尽记录'},
@@ -276,7 +300,7 @@ var WORD_LIST=[
   {en:'innovative',phonetic:'/ˈɪnəvətɪv/',cn:'adj. 创新的；革新的',example:'The company is known for its innovative products.',root:'in(进入)+nov(新)+ative → 引入新事物',collocation:'innovative ideas 创新想法'},
   {en:'profound',phonetic:'/prəˈfaʊnd/',cn:'adj. 深刻的；深远的',example:'The book had a profound impact on my worldview.',root:'pro(深)+found(底部) → 深到底部→深刻的',collocation:'profound impact 深远影响'},
   {en:'versatile',phonetic:'/ˈvɜːsətaɪl/',cn:'adj. 多才多艺的；多功能的',example:'She is a versatile artist who works in multiple mediums.',root:'vers(转动)+atile → 能转向各方向',collocation:'versatile tool 多功能工具'},
-  {en:'scrutinize',phonetic:'/ˈskruːtənaɪz/',cn:'v. 仔细检查；详审',example:'The committee will scrutinize every detail of the proposal.',root:'scrutin(检查)+ize → 仔细检查',collocation:'scrutinize data 审查数据'},
+  {en:'scrutinize',phonetic:'/ˈskruːtɪnaɪz/',cn:'v. 仔细检查；详审',example:'The committee will scrutinize every detail of the proposal.',root:'scrutin(检查)+ize → 仔细检查',collocation:'scrutinize data 审查数据'},
   {en:'diminish',phonetic:'/dɪˈmɪnɪʃ/',cn:'v. 减少；缩小',example:'The pain will gradually diminish over time.',root:'di(分离)+min(小)+ish → 变小→减少',collocation:'diminish returns 递减收益'},
   {en:'endeavor',phonetic:'/ɪnˈdevə/',cn:'v. 努力；n. 尝试',example:'We should endeavor to do our best in everything.',root:'en(使)+deavor(责任) → 尽责任→努力',collocation:'endeavor to 努力去做'},
   {en:'ambivalent',phonetic:'/æmˈbɪvələnt/',cn:'adj. 矛盾的；犹豫不决的',example:'I feel ambivalent about leaving my hometown.',root:'ambi(两)+val(价值)+ent → 两种价值→矛盾的',collocation:'ambivalent attitude 矛盾态度'},
@@ -316,7 +340,124 @@ var WORD_LIST=[
   {en:'tedious',phonetic:'/ˈtiːdiəs/',cn:'adj. 乏味的；单调的',example:'Filing paperwork can be a tedious task.',root:'ted(厌倦)+ious → 令人厌倦的',collocation:'tedious work 乏味工作'},
   {en:'ultimate',phonetic:'/ˈʌltɪmət/',cn:'adj. 最终的；根本的',example:'Her ultimate goal is to become a doctor.',root:'ultim(最后)+ate → 最后的',collocation:'ultimate goal 最终目标'},
   {en:'vibrant',phonetic:'/ˈvaɪbrənt/',cn:'adj. 充满活力的；鲜艳的',example:'The city has a vibrant nightlife.',root:'vibr(振动)+ant → 振动的→充满活力的',collocation:'vibrant city 充满活力的城市'},
-  {en:'wary',phonetic:'/ˈweəri/',cn:'adj. 警惕的；谨慎的',example:'She was wary of strangers offering help.',root:'ware(注意)+y → 注意着的→警惕的',collocation:'wary of 警惕'}
+  {en:'wary',phonetic:'/ˈweəri/',cn:'adj. 警惕的；谨慎的',example:'She was wary of strangers offering help.',root:'ware(注意)+y → 注意着的→警惕的',collocation:'wary of 警惕'},
+  {en:'astute',phonetic:'/əˈstjuːt/',cn:'adj. 敏锐的；精明的',example:'She made an astute observation about the market trend.',root:'astus(敏锐) → 敏锐的',collocation:'astute observation 敏锐观察'},
+  {en:'benevolent',phonetic:'/bəˈnevələnt/',cn:'adj. 仁慈的；慈善的',example:'The benevolent donor helped many children.',root:'bene(好)+vol(意愿)+ent → 好意的',collocation:'benevolent gesture 善意举动'},
+  {en:'concise',phonetic:'/kənˈsaɪs/',cn:'adj. 简明的；简洁的',example:'Please give a concise summary of the report.',root:'con(一起)+cis(切) → 切短→简洁的',collocation:'concise summary 简明摘要'},
+  {en:'daunting',phonetic:'/ˈdɔːntɪŋ/',cn:'adj. 令人畏惧的',example:'The task seemed daunting at first.',root:'daunt(威吓)+ing → 令人畏惧的',collocation:'daunting task 艰巨任务'},
+  {en:'feasible',phonetic:'/ˈfiːzəbl/',cn:'adj. 可行的；行得通的',example:'We need to find a feasible solution.',root:'feas(做)+ible → 能做的',collocation:'feasible solution 可行方案'},
+  {en:'prudent',phonetic:'/ˈpruːdnt/',cn:'adj. 谨慎的；明智的',example:'It would be prudent to save some money.',root:'provident(有远见)的缩写 → 谨慎的',collocation:'prudent decision 明智决定'},
+  {en:'stagnant',phonetic:'/ˈstæɡnənt/',cn:'adj. 停滞的；不景气的',example:'The economy has been stagnant for months.',root:'stagn(站立不动)+ant → 站着不动的',collocation:'stagnant market 停滞市场'},
+  {en:'tenacious',phonetic:'/təˈneɪʃəs/',cn:'adj. 坚韧不拔的；顽强的',example:'She is tenacious in pursuing her goals.',root:'ten(握住)+acious → 紧紧握住的',collocation:'tenacious spirit 坚韧精神'},
+  {en:'viable',phonetic:'/ˈvaɪəbl/',cn:'adj. 可行的；能存活的',example:'This is a viable business model.',root:'vi(生命)+able → 有生命力的',collocation:'viable option 可行选择'},
+  {en:'astound',phonetic:'/əˈstaʊnd/',cn:'v. 使震惊；使大吃一惊',example:'The results astounded everyone.',root:'astonish(惊讶)的变体 → 使震惊',collocation:'astound everyone 使所有人震惊'},
+  {en:'beneath',phonetic:'/bɪˈniːθ/',cn:'prep. 在...之下',example:'The treasure was buried beneath the old tree.',root:'be(在)+neath(下方) → 在下方',collocation:'beneath the surface 表面之下'},
+  {en:'cohesive',phonetic:'/kəʊˈhiːsɪv/',cn:'adj. 凝聚的；有结合力的',example:'The team has a cohesive culture.',root:'co(一起)+hes(粘)+ive → 粘在一起的',collocation:'cohesive team 凝聚的团队'}
+];
+
+// ============ 口语跟读数据（35句，每天5句） ============
+var SPEAK_LIST=[
+  {en:"Could you please tell me how to get to the nearest subway station?",cn:"请问怎么去最近的地铁站？",scene:"问路",tip:"Could you please... 是最常用的礼貌请求句型"},
+  {en:"I'd like to book a table for two at 7 PM.",cn:"我想预订晚上7点两人的桌子。",scene:"餐厅",tip:"I'd like to... 是预订/点餐的常用句型"},
+  {en:"How much does this cost? Is there any discount?",cn:"这个多少钱？有折扣吗？",scene:"购物",tip:"购物砍价必备句型"},
+  {en:"Could you please send me the meeting agenda in advance?",cn:"能否提前把会议议程发给我？",scene:"职场",tip:"in advance 表示'提前'，职场常用"},
+  {en:"It's so nice to finally meet you in person!",cn:"终于见到你本人了，太好了！",scene:"社交",tip:"in person 表示'面对面'，比线上见面更亲切"},
+  {en:"I'm sorry, I didn't quite catch that. Could you repeat it?",cn:"抱歉，我没太听清，能再说一遍吗？",scene:"日常",tip:"没听清时的礼貌表达，比 What? 更得体"},
+  {en:"What time should we check in at the airport?",cn:"我们应该几点到机场值机？",scene:"旅行",tip:"check in 是值机/入住的通用表达"},
+  {en:"I think we need to reconsider our approach to this problem.",cn:"我认为我们需要重新考虑解决这个问题的方法。",scene:"职场",tip:"reconsider 比直接否定更委婉"},
+  {en:"Would you mind if I opened the window?",cn:"你介意我开一下窗户吗？",scene:"日常",tip:"Would you mind... 后面用动名词"},
+  {en:"I'm really looking forward to the weekend.",cn:"我真的很期待周末。",scene:"日常",tip:"look forward to + 名词/动名词"},
+  {en:"Could you recommend a good local restaurant?",cn:"能推荐一家好的本地餐厅吗？",scene:"旅行",tip:"旅行问推荐时的标准句型"},
+  {en:"Let me think about it and get back to you.",cn:"让我想想，回头再答复你。",scene:"职场",tip:"get back to you 表示'稍后回复你'"},
+  {en:"I completely agree with you on this point.",cn:"在这个问题上我完全同意你的看法。",scene:"职场",tip:"completely 加强同意的语气"},
+  {en:"Sorry to bother you, but I have a quick question.",cn:"打扰一下，我有个简单的问题。",scene:"日常",tip:"打扰别人前的礼貌开场白"},
+  {en:"The presentation went really well, didn't it?",cn:"演示进行得很顺利，对吧？",scene:"职场",tip:"反义疑问句用于确认和寻求认同"},
+  {en:"I've been learning English for about three years.",cn:"我学英语大约三年了。",scene:"社交",tip:"have been doing 表示持续到现在的动作"},
+  {en:"What do you usually do in your free time?",cn:"你空闲时间一般做什么？",scene:"社交",tip:"常用的闲聊破冰话题"},
+  {en:"I prefer tea to coffee in the morning.",cn:"早上我更喜欢喝茶而不是咖啡。",scene:"日常",tip:"prefer A to B 表示'比起B更喜欢A'"},
+  {en:"Could you please speak a little slower? I'm still learning.",cn:"能说慢一点吗？我还在学习中。",scene:"日常",tip:"坦诚表达有助于对方理解"},
+  {en:"That sounds like a great idea! Count me in.",cn:"听起来是个好主意！算我一个。",scene:"社交",tip:"Count me in 表示'算上我'，热情参与"},
+  {en:"I'm afraid I have to decline your invitation.",cn:"恐怕我得谢绝你的邀请。",scene:"社交",tip:"I'm afraid 委婉拒绝的开场白"},
+  {en:"How long have you been working on this project?",cn:"你做这个项目多久了？",scene:"职场",tip:"how long 询问持续时间"},
+  {en:"I really appreciate your help. It means a lot to me.",cn:"非常感谢你的帮助，这对我来说意义重大。",scene:"日常",tip:"比简单的 Thank you 更真诚"},
+  {en:"Do you happen to know if there's a pharmacy nearby?",cn:"你知道附近有没有药店吗？",scene:"旅行",tip:"Do you happen to know 委婉询问信息"},
+  {en:"I'll have what she's having.",cn:"我要和她一样的。",scene:"餐厅",tip:"餐厅点餐时指别人的菜品"},
+  {en:"Let's wrap up the meeting and follow up via email.",cn:"我们结束会议吧，后续通过邮件跟进。",scene:"职场",tip:"wrap up 表示'收尾/结束'"},
+  {en:"I'm not sure I follow you. Could you explain that again?",cn:"我不太明白你的意思，能再解释一下吗？",scene:"职场",tip:"I don't follow 表示没听懂"},
+  {en:"It's been a while! How have you been?",cn:"好久不见！你最近怎么样？",scene:"社交",tip:"老友重逢的标准问候"},
+  {en:"I'd like to return this item. Here's my receipt.",cn:"我想退货，这是我的收据。",scene:"购物",tip:"退货时的标准表达"},
+  {en:"Would it be possible to reschedule our appointment?",cn:"能否重新安排我们的预约时间？",scene:"职场",tip:"Would it be possible 委婉请求改期"},
+  {en:"I'm running a bit late. Can you give me five more minutes?",cn:"我要迟到了，能再等我五分钟吗？",scene:"日常",tip:"running late 表示快迟到了"},
+  {en:"This is exactly what I was looking for. Thank you!",cn:"这正是我想要的，谢谢！",scene:"购物",tip:"找到心仪物品时的开心表达"},
+  {en:"Don't worry about it. These things happen.",cn:"别担心，这种事时有发生。",scene:"日常",tip:"安慰别人的常用表达"},
+  {en:"I'll take care of it right away.",cn:"我马上处理。",scene:"职场",tip:"right away 表示'立刻、马上'"},
+  {en:"What's the weather supposed to be like tomorrow?",cn:"明天天气预计怎么样？",scene:"日常",tip:"be supposed to 表示'预计/应该'"}
+];
+
+// ============ 听力练习数据（18段，每天3段） ============
+var LISTEN_LIST=[
+  {passage:"The weather forecast says it will be sunny tomorrow with a high of 25 degrees. It's a perfect day for a picnic in the park.",q:"What is the weather going to be like tomorrow?",opts:["Sunny and warm","Rainy and cold","Cloudy and cool","Snowy and freezing"],answer:0,explain:"sunny + high of 25 degrees = 晴天温暖"},
+  {passage:"Sarah has been working at the tech company for five years. She started as a junior developer and is now the team lead.",q:"How long has Sarah been working at the company?",opts:["Three years","Five years","Seven years","Ten years"],answer:1,explain:"原文明确提到 for five years"},
+  {passage:"The new shopping mall will open next month. It will have over 200 stores, a cinema, and a food court on the top floor.",q:"What will be on the top floor of the new mall?",opts:["A cinema","200 stores","A food court","A parking lot"],answer:2,explain:"原文说 a food court on the top floor"},
+  {passage:"Tom decided to take the train instead of driving because the traffic during rush hour was terrible. The train ride took about 40 minutes.",q:"Why did Tom choose to take the train?",opts:["He doesn't have a car","The traffic was bad","The train is cheaper","His car broke down"],answer:1,explain:"因为交通糟糕 the traffic was terrible"},
+  {passage:"The library is closed on Mondays for maintenance. It's open from Tuesday to Sunday, 9 AM to 8 PM.",q:"When is the library closed?",opts:["On Sundays","On Mondays","On weekends","On holidays"],answer:1,explain:"原文明确说 closed on Mondays"},
+  {passage:"Emma ordered a cappuccino and a chocolate croissant. The total came to 12 dollars. She paid with a 20-dollar bill and got 8 dollars back.",q:"How much did Emma's order cost?",opts:["8 dollars","12 dollars","20 dollars","32 dollars"],answer:1,explain:"The total came to 12 dollars"},
+  {passage:"The company's revenue increased by 15% this quarter, mainly due to the launch of their new product line.",q:"What caused the revenue increase?",opts:["Cost cutting","New product launch","Market expansion","Staff reduction"],answer:1,explain:"mainly due to the launch of their new product line"},
+  {passage:"James usually goes to the gym three times a week, but this week he only went once because he was busy with a project at work.",q:"How many times did James go to the gym this week?",opts:["Once","Twice","Three times","Zero times"],answer:0,explain:"this week he only went once"},
+  {passage:"The flight to Tokyo was delayed by two hours due to bad weather. The passengers were offered free meals while they waited.",q:"Why was the flight delayed?",opts:["Technical issues","Bad weather","Security check","Staff shortage"],answer:1,explain:"due to bad weather"},
+  {passage:"Lisa is planning to study abroad in London next year. She needs to pass the IELTS exam with a score of at least 7.0.",q:"What score does Lisa need on the IELTS?",opts:["At least 6.0","At least 6.5","At least 7.0","At least 7.5"],answer:2,explain:"a score of at least 7.0"},
+  {passage:"The restaurant received a Michelin star last month. Since then, reservations have been fully booked for the next three months.",q:"What happened to the restaurant last month?",opts:["It opened","It closed down","It got a Michelin star","It was renovated"],answer:2,explain:"received a Michelin star last month"},
+  {passage:"David bought a new laptop online. It cost 1,200 dollars, but he got a 200-dollar discount using a coupon code.",q:"How much did David actually pay for the laptop?",opts:["1,000 dollars","1,200 dollars","1,400 dollars","800 dollars"],answer:0,explain:"1200 - 200 = 1000 dollars"},
+  {passage:"The museum offers free entry on the first Sunday of every month. Normally, adult tickets cost 15 dollars each.",q:"When can you visit the museum for free?",opts:["Every Sunday","First Sunday of every month","Every weekend","On holidays"],answer:1,explain:"free entry on the first Sunday of every month"},
+  {passage:"Anna has been practicing piano since she was six years old. Now at twenty, she can play over 50 pieces.",q:"How many pieces can Anna play?",opts:["Over 20","Over 30","Over 50","Over 100"],answer:2,explain:"she can play over 50 pieces"},
+  {passage:"The new policy allows employees to work from home two days a week. Previously, they could only work remotely one day a week.",q:"How many days can employees work from home now?",opts:["One day","Two days","Three days","Five days"],answer:1,explain:"two days a week"},
+  {passage:"The hotel offers a complimentary breakfast buffet from 6 to 10 AM. Guests can also use the gym and pool for free.",q:"What is NOT mentioned as free for hotel guests?",opts:["Breakfast buffet","Gym access","Pool access","Parking"],answer:3,explain:"原文提到了breakfast、gym和pool免费，没提到parking"},
+  {passage:"Michael wanted to buy a house, but the interest rates were too high. He decided to wait another year before applying for a mortgage.",q:"Why did Michael decide to wait?",opts:["He doesn't have enough savings","Interest rates were too high","He can't find a good house","He's changing jobs"],answer:1,explain:"the interest rates were too high"},
+  {passage:"The school will hold its annual sports day next Friday. Students can participate in running, jumping, and relay races.",q:"What event is NOT mentioned for sports day?",opts:["Running","Jumping","Relay races","Swimming"],answer:3,explain:"原文提到了running、jumping和relay races，没有swimming"}
+];
+
+// ============ 综合测试题库（40题，每天10题） ============
+var QUIZ_BANK=[
+  {q:"选择正确的词语填空：The new policy will ___ a significant impact on the housing market.",opts:["have","make","take","do"],answer:0,explain:"have an impact on 是固定搭配，表示'对...有影响'"},
+  {q:"\"resilient\" 的中文意思是？",opts:["有韧性的","犹豫的","创新的","冗长的"],answer:0,explain:"resilient = 有韧性的，能恢复的"},
+  {q:"选择正确的介词：She is wary ___ strangers.",opts:["of","to","with","about"],answer:0,explain:"wary of 是固定搭配，表示'警惕...'"},
+  {q:"以下哪个是 \"pragmatic\" 的近义词？",opts:["practical","emotional","theoretical","imaginative"],answer:0,explain:"pragmatic(务实的) ≈ practical(实际的)"},
+  {q:"选择正确时态：I ___ English for three years.",opts:["have been learning","learn","learned","am learning"],answer:0,explain:"持续到现在的动作用现在完成进行时 have been doing"},
+  {q:"\"I'd like to book a table for two.\" 这句话用在什么场景？",opts:["餐厅预订","酒店入住","购票","购物"],answer:0,explain:"book a table 是餐厅预订桌位"},
+  {q:"选择正确的短语：Could you please speak ___ slower?",opts:["a little","little","few","a few"],answer:0,explain:"a little 修饰不可比较的形容词/副词，表示'稍微'"},
+  {q:"\"lucrative\" 的中文意思是？",opts:["获利的","幸运的','诱人的","奢侈的"],answer:0,explain:"lucrative = 获利丰厚的"},
+  {q:"选择正确的句型：Would you mind ___ the window?",opts:["opening","to open","open","opened"],answer:0,explain:"Would you mind + 动名词(ing)"},
+  {q:"以下哪个词表示 \"不可避免的\"？",opts:["inevitable","credible","flexible","available"],answer:0,explain:"inevitable = 不可避免的"},
+  {q:"选择正确的搭配：___ an impact on",opts:["have","make","give","take"],answer:0,explain:"have an impact on 固定搭配"},
+  {q:"\"profound\" 的反义词是？",opts:["shallow","deep","serious","important"],answer:0,explain:"profound(深刻的) ↔ shallow(浅薄的)"},
+  {q:"选择正确形式：The committee will ___ every detail.",opts:["scrutinize","scrutinizes","scrutinized","scrutinizing"],answer:0,explain:"will + 动词原形"},
+  {q:"\"I'm running a bit late.\" 的意思是？",opts:["我要迟到了","我在跑步","我很累","我迷路了"],answer:0,explain:"running late = 快迟到了"},
+  {q:"以下哪个是 \"diminish\" 的近义词？",opts:["decrease","increase","maintain","expand"],answer:0,explain:"diminish(减少) ≈ decrease(减少)"},
+  {q:"选择正确的介词：She persevered ___ her studies despite difficulties.",opts:["with","in","at","on"],answer:0,explain:"persevere with 坚持（做某事）"},
+  {q:"\"tentative plan\" 的意思是？",opts:["暂定计划","最终计划","详细计划","取消计划"],answer:0,explain:"tentative = 试探性的，暂定的"},
+  {q:"选择正确的句型：I prefer tea ___ coffee.",opts:["to","than","over","against"],answer:0,explain:"prefer A to B 是固定搭配"},
+  {q:"\"vibrant\" 的中文意思是？",opts:["充满活力的","疲惫的","安静的","灰暗的"],answer:0,explain:"vibrant = 充满活力的，鲜艳的"},
+  {q:"选择正确的短语：Count me ___!",opts:["in","on","up","out"],answer:0,explain:"Count me in = 算我一个"},
+  {q:"\"comprehensive\" 的近义词是？",opts:["thorough","partial","limited","brief"],answer:0,explain:"comprehensive(全面的) ≈ thorough(彻底的)"},
+  {q:"选择正确形式：___ you mind if I opened the window?",opts:["Would","Will","Do","Are"],answer:0,explain:"Would you mind 委婉请求"},
+  {q:"\"gregarious\" 的中文意思是？",opts:["爱交际的","孤僻的","严肃的","随意的"],answer:0,explain:"gregarious = 爱交际的，合群的"},
+  {q:"选择正确的搭配：___ goal",opts:["ultimate","ultimately","ultimation","ultimatum"],answer:0,explain:"ultimate goal = 最终目标"},
+  {q:"\"get back to you\" 的意思是？",opts:["稍后回复你","回到你身边","给你回电话","去找你"],answer:0,explain:"get back to you = 稍后回复/答复你"},
+  {q:"以下哪个词表示 \"节俭的\"？",opts:["frugal","generous","luxurious","extravagant"],answer:0,explain:"frugal = 节俭的"},
+  {q:"选择正确形式：The economy has been ___ for months.",opts:["stagnant","stagnate","stagnating","stagnation"],answer:0,explain:"has been + 形容词，stagnant 是形容词"},
+  {q:"\"wrap up\" 在职场中的意思是？",opts:["收尾/结束","打包","穿上","包裹"],answer:0,explain:"wrap up a meeting = 结束会议"},
+  {q:"\"serene\" 的近义词是？",opts:["calm","noisy","busy","tense"],answer:0,explain:"serene(宁静的) ≈ calm(平静的)"},
+  {q:"选择正确的时态：I ___ looking forward to the weekend.",opts:["am","is","are","be"],answer:0,explain:"I 用 am"},
+  {q:"\"novice\" 的反义词是？",opts:["expert","beginner","learner","amateur"],answer:0,explain:"novice(新手) ↔ expert(专家)"},
+  {q:"选择正确的介词：He was reluctant ___ leave.",opts:["to","for","at","from"],answer:0,explain:"reluctant to do something"},
+  {q:"\"right away\" 的意思是？",opts:["立刻","右边","正确方向","马上回来"],answer:0,explain:"right away = 立刻，马上"},
+  {q:"\"prudent decision\" 的意思是？",opts:["明智的决定","草率的决定","推迟的决定","错误的决定"],answer:0,explain:"prudent = 谨慎的，明智的"},
+  {q:"选择正确的形式：This is a ___ business model.",opts:["viable","viably","viability","viablely"],answer:0,explain:"形容词修饰名词"},
+  {q:"\"It's been a while!\" 的意思是？",opts:["好久不见","等一下","很快","一会儿"],answer:0,explain:"It's been a while = 好久不见"},
+  {q:"\"candid\" 的中文意思是？",opts:["坦率的","隐藏的","小心的","虚伪的"],answer:0,explain:"candid = 坦率的，直言的"},
+  {q:"选择正确的搭配：___ records",opts:["meticulous","meticulously","meticulosity","meticulousness"],answer:0,explain:"形容词修饰名词"},
+  {q:"\"These things happen.\" 的意思是？",opts:["这种事时有发生","这些事发生了","事情很多","发生了很多事"],answer:0,explain:"安慰别人时的表达，意为'这种事常有'"},
+  {q:"\"tenacious\" 的近义词是？",opts:["persistent","weak","careless","lazy"],answer:0,explain:"tenacious(坚韧的) ≈ persistent(坚持的)"}
 ];
 
 // ============ 运动数据 ============
@@ -333,7 +474,6 @@ var FITNESS_PLAN=[
 // ============ 渲染：房产热点 ============
 var houseTab='trending';
 function switchHouseTab(tab,el){houseTab=tab;document.querySelectorAll('#houseTabs .tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');renderHouse();}
-
 function renderHouse(){
   var c=document.getElementById('houseContent');
   if(houseTab==='trending'){
@@ -359,13 +499,11 @@ function renderHouse(){
   else if(houseTab==='calc'){c.innerHTML=renderCalc();}
   else if(houseTab==='city'){c.innerHTML=renderCity();}
 }
-
 function renderEstateTopics(){
   return rotate(HOUSE_TOPICS,10,0).map(function(t){
     return '<div class="card"><div class="card-meta"><span class="badge '+t.color+'">'+t.tag+'</span></div><div class="card-title">'+t.title+'</div><div class="card-desc">'+t.desc+'</div>'+searchBtns(t.title)+'</div>';
   }).join('');
 }
-
 function renderCity(){
   var html='<div class="divider">🏙️ 主要城市房价速览</div>';
   CITY_DATA.forEach(function(c){
@@ -375,7 +513,6 @@ function renderCity(){
   html+='<div class="card" style="text-align:center;color:var(--text-grey);font-size:11px">数据为参考均价，实际价格以各楼盘报价为准</div>';
   return html;
 }
-
 function renderCalc(){
   return '<div class="divider">🧮 房贷月供计算器</div>'+
     '<div class="calc-box">'+
@@ -390,7 +527,6 @@ function renderCalc(){
     '</div></div>'+
     '<div class="card"><div class="card-title">💡 还款小贴士</div><div class="card-desc">• 等额本息：每月还款固定，前期利息多<br>• 等额本金：月供递减，总利息更少<br>• LPR浮动利率每年调整一次<br>• 提前还款在贷款前期最划算<br>• 公积金贷款利率低于商业贷款</div></div>';
 }
-
 function calcMortgage(){
   var loan=parseFloat(document.getElementById('calLoan').value)*10000;
   var rate=parseFloat(document.getElementById('calRate').value)/100/12;
@@ -440,35 +576,155 @@ function renderHustle(){
   c.innerHTML=html;
 }
 
-// ============ 渲染：每日单词 ============
+// ============ 渲染：学习天地 ============
+var wordTab='words';
+function switchWordTab(tab,el){
+  wordTab=tab;
+  document.querySelectorAll('#wordTabs .tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  renderWord();
+}
+
 function renderWord(){
   var c=document.getElementById('wordContent');
-  var words=rotate(WORD_LIST,8,2);
-  var html='<div class="divider">📖 今日单词（8个）</div>';
-  words.forEach(function(w){
-    html+='<div class="word-card"><div class="word-en">'+w.en+'</div><div class="word-phonetic">'+w.phonetic+'</div><div class="word-cn">'+w.cn+'</div><div class="word-example">"'+w.example+'"</div><div class="word-extra"><b>词根记忆：</b>'+w.root+'<br><b>常用搭配：</b>'+w.collocation+'</div>'+searchBtns(w.en+' 发音 用法')+'</div>';
+  if(wordTab==='words'){
+    var words=rotate(WORD_LIST,30,2);
+    var html='<div class="divider">📖 今日单词（30个）</div>';
+    words.forEach(function(w,i){
+      html+='<div class="word-card"><div class="card-meta"><span class="badge badge-purple">#'+(i+1)+'</span></div><div class="word-en">'+w.en+'</div><div class="word-phonetic">'+w.phonetic+'</div><div class="word-cn">'+w.cn+'</div><div class="word-example">"'+w.example+'"</div><div class="word-extra"><b>词根记忆：</b>'+w.root+'<br><b>常用搭配：</b>'+w.collocation+'</div>'+searchBtns(w.en+' 发音 用法')+'</div>';
+    });
+    c.innerHTML=html;
+  }else if(wordTab==='speak'){
+    renderSpeak(c);
+  }else if(wordTab==='listen'){
+    renderListen(c);
+  }else if(wordTab==='quiz'){
+    renderQuizAll(c);
+  }
+}
+
+// 口语跟读
+function renderSpeak(c){
+  var speaks=rotate(SPEAK_LIST,5,3);
+  var html='<div class="divider">🗣️ 今日口语跟读（5句）</div>';
+  html+='<div class="card" style="background:linear-gradient(135deg,#E3F4F7 0%,#FCE8EE 100%);border:none"><div class="card-title">💡 跟读方法</div><div class="card-desc">1. 点击「🔊 播放」听标准发音<br>2. 跟着朗读，注意语调和节奏<br>3. 反复练习直到流利<br>4. 尝试不看中文，直接用英文表达</div></div>';
+  speaks.forEach(function(s,i){
+    html+='<div class="speak-card"><div class="card-meta"><span class="badge badge-blue">'+s.scene+'</span><span>第'+(i+1)+'句</span></div><div class="speak-en">'+s.en+'</div><div class="speak-cn">'+s.cn+'</div><div class="speak-tip"><b>💡 语法提示：</b>'+s.tip+'</div><button class="play-btn" onclick="speakText(this,\''+s.en.replace(/'/g,"\\'")+'\')">🔊 播放</button>'+searchBtns(s.en)+'</div>';
   });
-  html+='<div class="divider">🧪 词汇小测验</div>'+renderQuiz(words);
   c.innerHTML=html;
 }
 
-function renderQuiz(words){
-  var correct=words[Math.floor(Math.random()*4)];
-  var wrongs=rotate(WORD_LIST.filter(function(w){return w.en!==correct.en;}),3,5);
-  var opts=[correct].concat(wrongs);
-  opts.sort(function(){return Math.random()-0.5;});
-  var html='<div class="quiz-box"><div class="quiz-q">"'+correct.cn+'" 对应的英文单词是？</div>';
-  opts.forEach(function(o){
-    html+='<button class="quiz-opt" onclick="checkQuiz(this,\''+correct.en+'\',\''+o.en+'\')">'+o.en+'</button>';
-  });
-  html+='</div>';
-  return html;
+// 语音播放
+function speakText(btn,text){
+  if('speechSynthesis' in window){
+    speechSynthesis.cancel();
+    var utter=new SpeechSynthesisUtterance(text);
+    utter.lang='en-US';
+    utter.rate=0.85;
+    utter.pitch=1;
+    btn.classList.add('playing');
+    btn.textContent='⏸ 播放中...';
+    utter.onend=function(){
+      btn.classList.remove('playing');
+      btn.textContent='🔊 再播一次';
+    };
+    utter.onerror=function(){
+      btn.classList.remove('playing');
+      btn.textContent='🔊 播放';
+    };
+    speechSynthesis.speak(utter);
+  }else{
+    alert('您的浏览器不支持语音播放功能，建议使用Chrome或Safari浏览器');
+  }
 }
-function checkQuiz(btn,correct,chosen){
-  var opts=btn.parentElement.querySelectorAll('.quiz-opt');
+
+// 听力练习
+function renderListen(c){
+  var listens=rotate(LISTEN_LIST,3,4);
+  var html='<div class="divider">🎧 今日听力练习（3段）</div>';
+  html+='<div class="card" style="background:linear-gradient(135deg,#E3F8E8 0%,#E3F4F7 100%);border:none"><div class="card-title">💡 练习方法</div><div class="card-desc">1. 先不看原文，点击播放听2-3遍<br>2. 尝试理解大意，回答问题<br>3. 答完后查看原文核对<br>4. 找出没听懂的词，反复听</div></div>';
+  listens.forEach(function(l,i){
+    html+='<div class="listen-card" id="listenCard'+i+'"><div class="card-meta"><span class="badge badge-green">听力 #'+(i+1)+'</span></div>';
+    html+='<div class="quiz-q">'+l.q+'</div>';
+    html+='<div id="listenOpts'+i+'">';
+    l.opts.forEach(function(opt,j){
+      html+='<button class="quiz-opt" onclick="checkListen('+i+','+j+')">'+opt+'</button>';
+    });
+    html+='</div>';
+    html+='<div class="listen-passage" id="listenPassage'+i+'"><b>📝 原文：</b><br>'+l.passage+'</div>';
+    html+='<div class="quiz-explain" id="listenExplain'+i+'"><b>解析：</b>'+l.explain+'</div>';
+    html+='<button class="play-btn" style="background:var(--green)" onclick="speakText(this,\''+l.passage.replace(/'/g,"\\'")+'\')">🔊 播放原文</button>';
+    html+='</div>';
+  });
+  c.innerHTML=html;
+}
+
+function checkListen(idx,chosen){
+  var listens=rotate(LISTEN_LIST,3,4);
+  var l=listens[idx];
+  var opts=document.querySelectorAll('#listenOpts'+idx+' .quiz-opt');
   opts.forEach(function(o){o.disabled=true;});
-  if(correct===chosen){btn.classList.add('correct');}
-  else{btn.classList.add('wrong');opts.forEach(function(o){if(o.textContent.trim()===correct)o.classList.add('correct');});}
+  if(chosen===l.answer){
+    opts[chosen].classList.add('correct');
+  }else{
+    opts[chosen].classList.add('wrong');
+    opts[l.answer].classList.add('correct');
+  }
+  document.getElementById('listenPassage'+idx).classList.add('show');
+  document.getElementById('listenExplain'+idx).classList.add('show');
+}
+
+// 综合测试
+var quizAnswered=[];
+function renderQuizAll(c){
+  var quizzes=rotate(QUIZ_BANK,10,5);
+  quizAnswered=new Array(10).fill(false);
+  var html='<div class="divider">✏️ 今日综合测试（10题）</div>';
+  html+='<div id="quizScore" style="display:none"></div>';
+  html+='<div class="card" style="background:linear-gradient(135deg,#EFE8F7 0%,#E3F4F7 100%);border:none"><div class="card-title">📋 测试说明</div><div class="card-desc">• 共10题：词汇、语法、口语情境、听力理解<br>• 每题4个选项，选错可看到正确答案和解析<br>• 全部答完后显示总分<br>• 每日0点更新新题</div></div>';
+  quizzes.forEach(function(qz,i){
+    html+='<div class="quiz-box" id="quizBox'+i+'"><div class="card-meta"><span class="badge badge-purple">第'+(i+1)+'题</span></div>';
+    html+='<div class="quiz-q">'+qz.q+'</div>';
+    qz.opts.forEach(function(opt,j){
+      html+='<button class="quiz-opt" onclick="checkQuizAll('+i+','+j+')">'+opt+'</button>';
+    });
+    html+='<div class="quiz-explain" id="quizExplain'+i+'"><b>解析：</b>'+qz.explain+'</div>';
+    html+='</div>';
+  });
+  c.innerHTML=html;
+}
+
+function checkQuizAll(idx,chosen){
+  if(quizAnswered[idx])return;
+  quizAnswered[idx]=true;
+  var quizzes=rotate(QUIZ_BANK,10,5);
+  var qz=quizzes[idx];
+  var opts=document.querySelectorAll('#quizBox'+idx+' .quiz-opt');
+  opts.forEach(function(o){o.disabled=true;});
+  if(chosen===qz.answer){
+    opts[chosen].classList.add('correct');
+  }else{
+    opts[chosen].classList.add('wrong');
+    opts[qz.answer].classList.add('correct');
+  }
+  document.getElementById('quizExplain'+idx).classList.add('show');
+  // 检查是否全部答完
+  if(quizAnswered.every(function(a){return a;})){
+    var correct=0;
+    quizzes.forEach(function(qz,i){
+      // 简单统计：通过按钮颜色判断
+      var box=document.getElementById('quizBox'+i);
+      var correctBtn=box.querySelector('.quiz-opt.correct');
+      var wrongBtn=box.querySelector('.quiz-opt.wrong');
+      if(correctBtn&&!wrongBtn)correct++;
+    });
+    var scoreEl=document.getElementById('quizScore');
+    var pct=Math.round(correct/10*100);
+    var grade=pct>=90?'🏆 优秀！':pct>=70?'👍 不错！':pct>=50?'💪 继续努力！':'📖 多复习哦！';
+    scoreEl.innerHTML='<div class="quiz-score"><div class="score-num">'+correct+'/10</div><div class="score-label">'+pct+'分 · '+grade+'</div></div>';
+    scoreEl.style.display='block';
+    scoreEl.scrollIntoView({behavior:'smooth',block:'center'});
+  }
 }
 
 // ============ 渲染：运动计划 ============
@@ -485,7 +741,7 @@ function renderFitness(){
 // ============ 渲染：每日小结 ============
 function renderSummary(){
   var c=document.getElementById('summaryContent');
-  var words=rotate(WORD_LIST,8,2);
+  var words=rotate(WORD_LIST,30,2);
   var ideas=rotate(INSPIRE_IDEAS,10,1);
   var topics=rotate(HOUSE_TOPICS,10,0);
   var today=new Date();
@@ -494,40 +750,29 @@ function renderSummary(){
   var todoKey='todo_'+today.toISOString().slice(0,10);
   var todos=JSON.parse(localStorage.getItem(todoKey)||'[]');
   var doneCount=todos.filter(function(t){return t.done;}).length;
-
   var html='<div class="summary-grid">'+
-    '<div class="summary-item" onclick="switchPage(\'word\',document.querySelectorAll(\'.nav-item\')[3])"><div class="num" style="color:var(--purple)">8</div><div class="label">今日单词</div></div>'+
+    '<div class="summary-item" onclick="switchPage(\'word\',document.querySelectorAll(\'.nav-item\')[3])"><div class="num" style="color:var(--purple)">30</div><div class="label">今日单词</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'inspire\',document.querySelectorAll(\'.nav-item\')[1])"><div class="num" style="color:var(--pink)">10</div><div class="label">灵感卡片</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'hustle\',document.querySelectorAll(\'.nav-item\')[2])"><div class="num" style="color:var(--green)">18</div><div class="label">副业思路</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'fitness\',document.querySelectorAll(\'.nav-item\')[4])"><div class="num" style="color:var(--orange)">'+(fitnessToday==='休息日'?'💤':'🏃')+'</div><div class="label">'+fitnessToday+'</div></div>'+
     '</div>';
-
-  // 天气
   html+='<div class="divider">🌤️ 今日天气</div><div class="card" id="weatherCard"><div class="loading" style="padding:10px">获取天气中...</div></div>';
-
-  // 待办清单
   html+='<div class="divider">✅ 今日待办</div>';
   html+='<div class="todo-add"><input type="text" id="todoInput" placeholder="添加待办事项..." onkeypress="if(event.key===\'Enter\')addTodo()"><button onclick="addTodo()">添加</button></div>';
   html+='<div id="todoList"></div>';
   html+='<div style="font-size:11px;color:var(--text-grey);text-align:center;margin-top:4px">已完成 '+doneCount+'/'+todos.length+'</div>';
-
-  // 心情记录
   var moodKey='mood_'+today.toISOString().slice(0,10);
   var savedMood=localStorage.getItem(moodKey)||'';
   html+='<div class="divider">😊 今日心情</div><div class="card"><div class="mood-row">';
   var moods=[{e:'😄',n:'开心'},{e:'🙂',n:'平静'},{e:'😐',n:'一般'},{e:'😔',n:'低落'},{e:'😴',n:'疲惫'}];
   moods.forEach(function(m){html+='<div class="mood-btn'+(savedMood===m.n?' selected':'')+'" onclick="setMood(this,\''+m.n+'\')">'+m.e+'</div>';});
   html+='</div><div style="text-align:center;font-size:12px;color:var(--text-grey)" id="moodLabel">'+(savedMood?'今天心情：'+savedMood:'点击选择今天的心情')+'</div></div>';
-
-  // 精华预览
   html+='<div class="divider">📌 今日精华</div>';
   html+='<div class="card" onclick="switchPage(\'word\',document.querySelectorAll(\'.nav-item\')[3])" style="cursor:pointer"><div class="card-meta"><span class="badge badge-purple">今日单词</span></div><div class="card-title">'+words[0].en+' <span style="font-size:12px;color:var(--text-grey)">'+words[0].phonetic+'</span></div><div class="card-desc">'+words[0].cn+'</div>'+searchBtns(words[0].en)+'</div>';
   html+='<div class="card" onclick="switchPage(\'inspire\',document.querySelectorAll(\'.nav-item\')[1])" style="cursor:pointer"><div class="card-meta"><span class="badge badge-pink">今日灵感</span></div><div class="card-title">'+ideas[0].title+'</div><div class="card-desc">'+ideas[0].desc+'</div>'+searchBtns(ideas[0].title)+'</div>';
   html+='<div class="card" onclick="switchPage(\'house\',document.querySelectorAll(\'.nav-item\')[0])" style="cursor:pointer"><div class="card-meta"><span class="badge badge-blue">房产关注</span></div><div class="card-title">'+topics[0].title+'</div><div class="card-desc">'+topics[0].desc+'</div>'+searchBtns(topics[0].title)+'</div>';
-
   c.innerHTML=html;
   renderTodoList();
-  // 获取天气
   fetchWeather().then(function(w){
     var wc=document.getElementById('weatherCard');
     if(w){wc.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:16px;font-weight:600">'+w.city+'</div><div style="font-size:12px;color:var(--text-light)">'+w.desc+'</div></div><div style="font-size:28px;font-weight:700;color:var(--blue)">'+w.temp+'°C</div></div><div style="font-size:11px;color:var(--text-grey);margin-top:8px">湿度 '+w.humidity+'%</div>';}
@@ -578,8 +823,52 @@ function setMood(btn,mood){
   document.getElementById('moodLabel').textContent='今天心情：'+mood;
 }
 
+// ============ 刷新功能 ============
+function refreshAll(){
+  var btn=document.getElementById('updateBtn');
+  btn.classList.add('spinning');
+  btn.textContent='🔄 更新中...';
+  refreshOffset=Math.floor(Math.random()*100000);
+  setTimeout(function(){
+    var activePage=document.querySelector('.page.active');
+    if(activePage){
+      var pageId=activePage.id.replace('page-','');
+      var navItem=document.querySelector('.nav-item.active');
+      switchPage(pageId,navItem);
+    }
+    btn.classList.remove('spinning');
+    btn.textContent='🔄 更新内容';
+    document.getElementById('updateInfo').textContent='已更新于 '+timeStr()+' · 每日0点自动更新';
+  },600);
+}
+
+// ============ 跨天检测 ============
+var lastDay=dayNum();
+setInterval(function(){
+  if(dayNum()!==lastDay){
+    lastDay=dayNum();
+    refreshOffset=0;
+    document.getElementById('sidebarDate').textContent=todayStr();
+    document.getElementById('houseDate').textContent=todayStr();
+    document.getElementById('wordDate').textContent=todayStr();
+    document.getElementById('summaryDate').textContent=todayStr();
+    updateTodayLabel();
+    var activePage=document.querySelector('.page.active');
+    if(activePage){
+      var pageId=activePage.id.replace('page-','');
+      var navItem=document.querySelector('.nav-item.active');
+      switchPage(pageId,navItem);
+    }
+    document.getElementById('updateInfo').textContent='已跨天更新 · 每日0点自动更新';
+  }
+},60000);
+
+function updateTodayLabel(){
+  document.getElementById('todayLabel').textContent='今日内容 · '+todayShort();
+}
+
 // ============ 页面切换 ============
-var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'每日单词',fitness:'运动计划',summary:'每日小结'};
+var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',summary:'每日小结'};
 function switchPage(page,el){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+page).classList.add('active');
@@ -605,6 +894,7 @@ document.getElementById('sidebarDate').textContent=todayStr();
 document.getElementById('houseDate').textContent=todayStr();
 document.getElementById('wordDate').textContent=todayStr();
 document.getElementById('summaryDate').textContent=todayStr();
+updateTodayLabel();
 renderHouse();
 </script>
 </body>
