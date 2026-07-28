@@ -191,15 +191,15 @@ select:focus{border-color:var(--blue)}
 </style>
 </head>
 <body>
-<aside class="sidebar" id="sidebar"><div class="sidebar-header"><div class="avatar">📊</div><h1>我的工作台</h1><p id="sidebarDate"></p></div><nav class="nav"><div class="nav-item active" onclick="switchPage('house',this)"><span class="icon">🏠</span>房产热点</div><div class="nav-item" onclick="switchPage('inspire',this)"><span class="icon">💡</span>灵感</div><div class="nav-item" onclick="switchPage('hustle',this)"><span class="icon">💰</span>副业</div><div class="nav-item" onclick="switchPage('word',this)"><span class="icon">📚</span>学习天地</div><div class="nav-item" onclick="switchPage('fitness',this)"><span class="icon">🏃</span>运动计划</div><div class="nav-item" onclick="switchPage('summary',this)"><span class="icon">📝</span>每日小结</div></nav></aside>
+<aside class="sidebar" id="sidebar"><div class="sidebar-header"><div class="avatar">📊</div><h1>我的工作台</h1><p id="sidebarDate"></p></div><nav class="nav"><div class="nav-item active" onclick="switchPage('house',this)"><span class="icon">🏠</span>房产工作</div><div class="nav-item" onclick="switchPage('inspire',this)"><span class="icon">💡</span>灵感</div><div class="nav-item" onclick="switchPage('hustle',this)"><span class="icon">💰</span>副业</div><div class="nav-item" onclick="switchPage('word',this)"><span class="icon">📚</span>英语学习</div><div class="nav-item" onclick="switchPage('fitness',this)"><span class="icon">🏃</span>运动计划</div><div class="nav-item" onclick="switchPage('summary',this)"><span class="icon">📝</span>每日小结</div></nav></aside>
 <div class="mask" id="mask" onclick="toggleSidebar(false)"></div>
 <main class="main">
-<div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产热点</span></div>
+<div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产工作</span></div>
 <div class="update-bar"><div><div class="today-label" id="todayLabel">今日内容</div><div class="update-info" id="updateInfo">每日0点自动更新</div></div><button class="update-btn" id="updateBtn" onclick="refreshAll()">🔄 更新内容</button></div>
-<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('live',this)">直播工作台</div><div class="tab" onclick="switchHouseTab('shoot',this)">拍摄脚本</div><div class="tab" onclick="switchHouseTab('client',this)">客户跟进</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
+<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产工作</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('live',this)">直播工作台</div><div class="tab" onclick="switchHouseTab('shoot',this)">拍摄脚本</div><div class="tab" onclick="switchHouseTab('client',this)">客户跟进</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-inspire"><div class="page-header"><h2>💡 灵感</h2><p class="date">每日灵感 · 创意精选</p></div><div id="inspireContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-hustle"><div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div><div id="hustleContent"></div></section>
-<section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
+<section class="page" id="page-word"><div class="page-header"><h2>📚 英语学习</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-fitness"><div class="page-header"><h2>🏃 运动计划</h2><p class="date">每周训练安排</p></div><div id="fitnessContent"></div></section>
 <section class="page" id="page-summary"><div class="page-header"><h2>📝 每日小结</h2><p class="date" id="summaryDate"></p></div><div id="summaryContent"></div></section>
 </main>
@@ -231,7 +231,47 @@ var HOT_API='https://api-hot.imsyy.top';
 var HOT_SOURCES=[{key:'Douyin',name:'抖音',color:'badge-red'},{key:'Bilibili',name:'B站',color:'badge-blue'},{key:'Weibo',name:'微博',color:'badge-orange'},{key:'Zhihu',name:'知乎',color:'badge-purple'},{key:'Tieba',name:'百度',color:'badge-blue'}];
 function fetchHot(s){return fetch(HOT_API+'/'+s,{signal:AbortSignal.timeout?AbortSignal.timeout(6000):undefined}).then(function(r){return r.json();}).then(function(d){return(d&&d.data)?d.data:null;}).catch(function(){return null;});}
 function fetchQuote(){return fetch('https://v1.hitokoto.cn/?c=i&c=k').then(function(r){return r.json();}).catch(function(){return null;});}
-function fetchWeather(){return fetch('https://wttr.in/?format=j1',{signal:AbortSignal.timeout?AbortSignal.timeout(5000):undefined}).then(function(r){return r.json();}).then(function(d){if(d&&d.current_condition&&d.nearest_area){return{city:d.nearest_area[0].areaName[0].value,temp:d.current_condition[0].temp_C,desc:d.current_condition[0].weatherDesc[0].value,humidity:d.current_condition[0].humidity};}return null;}).catch(function(){return null;});}
+function fetchWeather(){
+  if(navigator.geolocation){
+    return new Promise(function(resolve){
+      navigator.geolocation.getCurrentPosition(
+        function(pos){
+          var lat=pos.coords.latitude.toFixed(2);
+          var lon=pos.coords.longitude.toFixed(2);
+          fetchWeatherFromWttr(lat+','+lon).then(resolve);
+        },
+        function(){fetchWeatherByIP().then(resolve);},
+        {timeout:5000,enableHighAccuracy:false,maximumAge:600000}
+      );
+    });
+  }
+  return fetchWeatherByIP();
+}
+function fetchWeatherByIP(){
+  return fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout?AbortSignal.timeout(5000):undefined})
+    .then(function(r){return r.json();})
+    .then(function(loc){
+      if(loc&&loc.city)return fetchWeatherFromWttr(encodeURIComponent(loc.city));
+      return fetchWeatherFromWttr('');
+    })
+    .catch(function(){return fetchWeatherFromWttr('');});
+}
+function fetchWeatherFromWttr(query){
+  var url='https://wttr.in/'+(query||'')+'?format=j1&lang=zh';
+  return fetch(url,{signal:AbortSignal.timeout?AbortSignal.timeout(5000):undefined})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d&&d.current_condition&&d.nearest_area){
+        var area=d.nearest_area[0];
+        var city=area.areaName[0].value;
+        if(area.region&&area.region[0].value)city=area.region[0].value;
+        var desc=d.current_condition[0].lang_zh&&d.current_condition[0].lang_zh[0]?d.current_condition[0].lang_zh[0].value:d.current_condition[0].weatherDesc[0].value;
+        return{city:city,temp:d.current_condition[0].temp_C,desc:desc,humidity:d.current_condition[0].humidity};
+      }
+      return null;
+    })
+    .catch(function(){return null;});
+}
 
 // ============ 房产专题 ============
 var HOUSE_TOPICS=[
@@ -550,7 +590,7 @@ var FITNESS_PLAN=[
   {day:'周日',focus:'全身循环',detail:'深蹲 3×15\n俯卧撑 3×12\n平板支撑 60s×3\n拉伸放松 15min',cal:'约220千卡',tip:'综合训练日，每个动作间休息30-60秒',color:'badge-blue'}
 ];
 
-// ============ 渲染：房产热点 ============
+// ============ 渲染：房产工作 ============
 var houseTab='trending';
 function switchHouseTab(tab,el){houseTab=tab;document.querySelectorAll('#houseTabs .tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');renderHouse();}
 function renderHouse(){
@@ -860,7 +900,7 @@ function renderHustle(){
   c.innerHTML=html;
 }
 
-// ============ 渲染：学习天地 ============
+// ============ 渲染：英语学习 ============
 var wordTab='words';
 function switchWordTab(tab,el){
   wordTab=tab;
@@ -1063,7 +1103,7 @@ function renderSummary(){
     '<div class="summary-item" onclick="switchPage(\'hustle\',document.querySelectorAll(\'.nav-item\')[2])"><div class="num" style="color:var(--green)">18</div><div class="label">副业思路</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'fitness\',document.querySelectorAll(\'.nav-item\')[4])"><div class="num" style="color:var(--orange)">'+(fitnessToday==='休息日'?'💤':'🏃')+'</div><div class="label">'+fitnessToday+'</div></div>'+
     '</div>';
-  html+='<div class="divider">🌤️ 今日天气</div><div class="card" id="weatherCard"><div class="loading" style="padding:10px">获取天气中...</div></div>';
+  html+='<div class="divider">🌤️ 今日天气</div><div class="card" id="weatherCard"><div class="loading" style="padding:10px">正在定位并获取天气...</div></div>';
   html+='<div class="divider">✅ 今日待办</div>';
   html+='<div class="todo-add"><input type="text" id="todoInput" placeholder="添加待办事项..." onkeypress="if(event.key===\'Enter\')addTodo()"><button onclick="addTodo()">添加</button></div>';
   html+='<div id="todoList"></div>';
@@ -1083,7 +1123,7 @@ function renderSummary(){
   fetchWeather().then(function(w){
     var wc=document.getElementById('weatherCard');
     if(w){wc.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:16px;font-weight:600">'+w.city+'</div><div style="font-size:12px;color:var(--text-light)">'+w.desc+'</div></div><div style="font-size:28px;font-weight:700;color:var(--blue)">'+w.temp+'°C</div></div><div style="font-size:11px;color:var(--text-grey);margin-top:8px">湿度 '+w.humidity+'%</div>';}
-    else{wc.innerHTML='<div style="font-size:13px;color:var(--text-light)">天气获取失败，请稍后重试</div>';}
+    else{wc.innerHTML='<div style="font-size:13px;color:var(--text-light)">定位获取天气失败，请允许浏览器定位权限<br><button onclick="retryWeather()" style="margin-top:8px;padding:4px 12px;background:var(--blue);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer">重试</button></div>';}
   });
 }
 
@@ -1131,6 +1171,15 @@ function setMood(btn,mood){
 }
 
 // ============ 刷新功能 ============
+function retryWeather(){
+  var wc=document.getElementById('weatherCard');
+  if(wc)wc.innerHTML='<div class="loading" style="padding:10px">正在重新获取天气...</div>';
+  fetchWeather().then(function(w){
+    if(!wc)return;
+    if(w){wc.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:16px;font-weight:600">'+w.city+'</div><div style="font-size:12px;color:var(--text-light)">'+w.desc+'</div></div><div style="font-size:28px;font-weight:700;color:var(--blue)">'+w.temp+'°C</div></div><div style="font-size:11px;color:var(--text-grey);margin-top:8px">湿度 '+w.humidity+'%</div>';}
+    else{wc.innerHTML='<div style="font-size:13px;color:var(--text-light)">定位获取天气失败，请允许浏览器定位权限<br><button onclick="retryWeather()" style="margin-top:8px;padding:4px 12px;background:var(--blue);color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer">重试</button></div>';}
+  });
+}
 function refreshAll(){
   var btn=document.getElementById('updateBtn');
   btn.classList.add('spinning');
@@ -1175,13 +1224,15 @@ function updateTodayLabel(){
 }
 
 // ============ 页面切换 ============
-var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',summary:'每日小结'};
+var PAGE_TITLES={house:'房产工作',inspire:'灵感',hustle:'副业',word:'英语学习',fitness:'运动计划',summary:'每日小结'};
 function switchPage(page,el){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
   if(el)el.classList.add('active');
   document.getElementById('mobileTitle').textContent=PAGE_TITLES[page]||'';
+  var updateBar=document.querySelector('.update-bar');
+  if(updateBar){updateBar.style.display=(page==='summary')?'none':'flex';}
   if(window.innerWidth<=768)toggleSidebar(false);
   if(page==='house')renderHouse();
   else if(page==='inspire')renderInspire();
