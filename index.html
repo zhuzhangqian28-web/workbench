@@ -41,6 +41,12 @@ color:var(--text-light);font-size:13px;font-weight:600;transition:all .25s;margi
 box-shadow:0 4px 20px rgba(99,102,241,0.12)}
 .nav-item .nav-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,0.08)}
 .sidebar-footer{padding:12px 16px 18px;text-align:center}
+.sidebar-backup{margin:6px 12px 2px;padding:12px;background:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.65);border-radius:16px;box-shadow:0 4px 16px rgba(80,80,160,0.08)}
+.sidebar-backup .backup-title{font-size:11px;font-weight:600;color:rgba(71,85,105,0.7);margin-bottom:8px;text-align:center}
+.sidebar-backup .backup-btns{display:flex;gap:8px}
+.sidebar-backup .backup-btn{flex:1;padding:8px 0;border:none;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#818cf8,#a78bfa);color:#fff;box-shadow:0 3px 10px rgba(129,140,248,0.25);transition:all .15s}
+.sidebar-backup .backup-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(129,140,248,0.35)}
+.sidebar-backup .backup-tip{font-size:10px;color:rgba(71,85,105,0.55);margin-top:7px;text-align:center;line-height:1.4}
 .main{flex:1;height:calc(100vh - 28px);margin:14px 14px 14px 0;
 background:var(--glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
 border:1px solid var(--glass-border);border-radius:var(--radius-lg);
@@ -264,6 +270,15 @@ select:focus{border-color:var(--blue)}
 <div class="nav-item" onclick="switchPage('fitness',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="13" cy="4" r="2" fill="white"/><path d="M13 6l-3 3 2 2-2 5 3 3M8 11l-4 2M16 9l3 2-1 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>运动计划</div>
 <div class="nav-item" onclick="switchPage('summary',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#f472b6,#ec4899)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="white" stroke-width="2"/><path d="M9 3v2h6V3M9 12h6M9 16h4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>每日小结</div>
 </nav>
+<div class="sidebar-backup">
+<div class="backup-title">⚙ 数据备份（防丢失）</div>
+<div class="backup-btns">
+<button class="backup-btn" onclick="exportBackup()">📤 导出</button>
+<button class="backup-btn" onclick="document.getElementById('importFile').click()">📥 导入</button>
+</div>
+<input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importBackup(this)">
+<div class="backup-tip">换网址/清缓存前先导出，<br>数据存成文件永不丢失</div>
+</div>
 <div class="sidebar-footer">
 <svg width="100%" height="80" viewBox="0 0 200 80" fill="none">
 <rect x="20" y="40" width="28" height="35" rx="4" fill="rgba(167,139,250,0.25)"/>
@@ -727,6 +742,40 @@ function lsGet(key,def){try{var v=localStorage.getItem(key);return v?JSON.parse(
 function lsSet(key,val){try{localStorage.setItem(key,JSON.stringify(val));return true;}catch(e){return false;}}
 function lsId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ============ 数据备份（导出/导入） ============
+function exportBackup(){
+  var data={};
+  for(var i=0;i<localStorage.length;i++){
+    var k=localStorage.key(i);
+    data[k]=localStorage.getItem(k);
+  }
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  var d=new Date();
+  var ds=d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');
+  a.href=url;a.download='workbench-backup-'+ds+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert('✅ 已导出备份：workbench-backup-'+ds+'.json\n\n请把这个文件保存到电脑/网盘。\n以后换网址、清缓存或换设备，点「导入」选这个文件即可恢复全部数据。');
+}
+function importBackup(input){
+  var file=input.files[0];
+  if(!file){input.value='';return;}
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      var n=0;
+      for(var k in data){if(data.hasOwnProperty(k)){localStorage.setItem(k,data[k]);n++;}}
+      alert('✅ 已导入 '+n+' 项数据，正在刷新...');
+      location.reload();
+    }catch(err){alert('❌ 导入失败：文件格式不正确，请选择之前导出的备份文件');}
+  };
+  reader.readAsText(file);
+  input.value='';
+}
 
 // ============ 直播工作台 ============
 var liveTab='schedule';
