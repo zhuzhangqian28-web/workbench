@@ -312,6 +312,28 @@ select:focus{border-color:var(--blue)}
 .video-modal .vclose:hover{background:rgba(255,255,255,.32)}
 .video-modal .vopen{position:absolute;bottom:-38px;left:0;font-size:12px;color:#cbd5e1;text-decoration:none}
 .video-modal .vopen:hover{color:#fff}
+.fit-stat{display:flex;align-items:center;gap:18px}
+.fit-stat-item{text-align:center}
+.fit-stat-item .num{font-size:24px;font-weight:700;line-height:1.1}
+.fit-stat-item .label{font-size:11px;color:var(--text-grey);margin-top:2px}
+.body-form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.body-form input{flex:1;min-width:88px;padding:8px 12px;border:1px solid var(--glass-border);border-radius:12px;font-size:13px;outline:none;background:rgba(255,255,255,0.4);color:var(--text)}
+.body-form input::placeholder{color:var(--text-grey)}
+.body-form input:focus{border-color:var(--blue);background:rgba(255,255,255,0.6)}
+.body-form button{padding:8px 16px;background:var(--blue);color:#fff;border:none;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer}
+.body-form button:hover{background:#2563eb}
+.body-hint{font-size:11px;color:var(--text-grey);margin-top:6px}
+.trend-svg{width:100%;height:80px;margin-top:4px;background:rgba(255,255,255,0.35);border-radius:10px}
+.ex-list{margin:8px 0 4px}
+.ex-item{padding:9px 11px;background:rgba(255,255,255,0.28);border-radius:10px;margin-bottom:6px}
+.ex-head{display:flex;align-items:center;gap:8px}
+.ex-name{font-size:13px;font-weight:600;color:var(--text);flex:1}
+.ex-sets{font-size:12px;color:var(--text-light)}
+.ex-detail{font-size:11px;color:var(--text-light);margin-top:4px;line-height:1.6}
+.ex-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr 1.4fr 1fr;gap:6px;margin-bottom:6px}
+.ex-row input{padding:6px 8px;border:1px solid var(--glass-border);border-radius:8px;font-size:11px;outline:none;background:rgba(255,255,255,0.4);color:var(--text)}
+.ex-row input::placeholder{color:var(--text-grey)}
+.ex-row input:focus{border-color:var(--blue);background:rgba(255,255,255,0.7)}
 </style>
 </head>
 <body>
@@ -745,13 +767,47 @@ var QUIZ_BANK=[
 
 // ============ 运动数据 ============
 var FITNESS_PLAN=[
-  {day:'周一',focus:'上肢塑形',detail:'哑铃推举 3×12\n哑铃弯举 3×15\n哑铃飞鸟 3×12\n平板支撑 60s×3',cal:'约200千卡',tip:'注意肩部热身，避免受伤',color:'badge-blue'},
-  {day:'周二',focus:'有氧燃脂',detail:'跳绳 15min\n开合跳 3×30\n高抬腿 3×30\n波比跳 3×10',cal:'约300千卡',tip:'心率保持在130-150区间燃脂效果最佳',color:'badge-orange'},
-  {day:'周三',focus:'下肢塑形',detail:'深蹲 3×15\n臀桥 3×20\n弓步蹲 3×12（每侧）\n靠墙静蹲 60s×3',cal:'约250千卡',tip:'深蹲时膝盖不要超过脚尖，保护膝关节',color:'badge-pink'},
-  {day:'周四',focus:'拉伸放松',detail:'全身拉伸 20min\n泡沫轴放松 15min\n瑜伽拜日式 5组\n冥想呼吸 10min',cal:'约80千卡',tip:'恢复日很重要，帮助肌肉修复防止过度训练',color:'badge-green'},
-  {day:'周五',focus:'核心训练',detail:'平板支撑 60s×3\n卷腹 3×20\n俄罗斯转体 3×20\n登山者 3×15',cal:'约180千卡',tip:'核心训练时保持呼吸节奏，不要憋气',color:'badge-green'},
-  {day:'周六',focus:'户外运动',detail:'慢跑/骑行 40min\n户外拉伸 10min\n补充水分电解质',cal:'约350千卡',tip:'户外运动注意防晒和补水，避开正午时段',color:'badge-orange'},
-  {day:'周日',focus:'全身循环',detail:'深蹲 3×15\n俯卧撑 3×12\n平板支撑 60s×3\n拉伸放松 15min',cal:'约220千卡',tip:'综合训练日，每个动作间休息30-60秒',color:'badge-blue'}
+  {day:'周一',focus:'上肢塑形',cat:'哑铃上肢',cal:'约200千卡',tip:'注意肩部热身，避免受伤',color:'badge-blue',exercises:[
+    {name:'哑铃推举',sets:'3×12',weight:'建议 5-8kg',rest:'组间休60s',tip:'核心收紧，不要耸肩',demo:'哑铃推举 教学'},
+    {name:'哑铃弯举',sets:'3×15',weight:'建议 4-6kg',rest:'组间休45s',tip:'大臂贴紧身体，慢起慢落',demo:'哑铃弯举 教学'},
+    {name:'哑铃飞鸟',sets:'3×12',weight:'建议 3-5kg',rest:'组间休60s',tip:'手肘微屈不锁死，感受胸肌拉伸',demo:'哑铃飞鸟 教学'},
+    {name:'平板支撑',sets:'60s×3',weight:'自重',rest:'组间休45s',tip:'身体成一条直线，不塌腰',demo:'平板支撑 标准'}
+  ]},
+  {day:'周二',focus:'有氧燃脂',cat:'有氧操燃脂',cal:'约300千卡',tip:'心率保持130-150区间燃脂最佳',color:'badge-orange',exercises:[
+    {name:'跳绳',sets:'15min',weight:'自重',rest:'—',tip:'前脚掌着地，减少膝盖冲击',demo:'跳绳 减脂 跟练'},
+    {name:'开合跳',sets:'3×30',weight:'自重',rest:'组间休30s',tip:'落地轻，脚尖先着地',demo:'开合跳 教学'},
+    {name:'高抬腿',sets:'3×30',weight:'自重',rest:'组间休30s',tip:'膝盖抬至腰部高度',demo:'高抬腿 教学'},
+    {name:'波比跳',sets:'3×10',weight:'自重',rest:'组间休60s',tip:'落地缓冲，核心收紧',demo:'波比跳 教学'}
+  ]},
+  {day:'周三',focus:'下肢塑形',cat:'臀腿塑形',cal:'约250千卡',tip:'深蹲时膝盖不要超过脚尖',color:'badge-pink',exercises:[
+    {name:'深蹲',sets:'3×15',weight:'自重/哑铃',rest:'组间休60s',tip:'膝盖朝脚尖方向，不内扣',demo:'深蹲 标准 教学'},
+    {name:'臀桥',sets:'3×20',weight:'自重',rest:'组间休45s',tip:'顶峰收缩1秒，感受臀肌发力',demo:'臀桥 教学'},
+    {name:'弓步蹲',sets:'3×12/侧',weight:'自重',rest:'组间休60s',tip:'前膝不超过脚尖，上身直立',demo:'弓步蹲 教学'},
+    {name:'靠墙静蹲',sets:'60s×3',weight:'自重',rest:'组间休45s',tip:'大腿尽量平行地面',demo:'靠墙静蹲 教学'}
+  ]},
+  {day:'周四',focus:'拉伸放松',cat:'拉伸放松',cal:'约80千卡',tip:'恢复日很重要，帮助肌肉修复',color:'badge-green',exercises:[
+    {name:'全身拉伸',sets:'20min',weight:'自重',rest:'—',tip:'静态拉伸，不弹震，每个动作保持30s',demo:'全身拉伸 跟练'},
+    {name:'泡沫轴放松',sets:'15min',weight:'自重',rest:'—',tip:'慢速滚动，痛点停留',demo:'泡沫轴 放松 教学'},
+    {name:'瑜伽拜日式',sets:'5组',weight:'自重',rest:'配合呼吸',tip:'动作与呼吸同步，不憋气',demo:'瑜伽 拜日式 教学'},
+    {name:'冥想呼吸',sets:'10min',weight:'自重',rest:'—',tip:'腹式呼吸，放松神经',demo:'冥想 呼吸 引导'}
+  ]},
+  {day:'周五',focus:'核心训练',cat:'腹肌训练',cal:'约180千卡',tip:'核心训练保持呼吸节奏',color:'badge-green',exercises:[
+    {name:'平板支撑',sets:'60s×3',weight:'自重',rest:'组间休45s',tip:'不塌腰不撅臀',demo:'平板支撑 标准'},
+    {name:'卷腹',sets:'3×20',weight:'自重',rest:'组间休30s',tip:'下背贴地，用腹部卷起',demo:'卷腹 标准 教学'},
+    {name:'俄罗斯转体',sets:'3×20',weight:'自重',rest:'组间休30s',tip:'核心主导，身体微后倾',demo:'俄罗斯转体 教学'},
+    {name:'登山者',sets:'3×15',weight:'自重',rest:'组间休30s',tip:'核心收紧，节奏稳定',demo:'登山者 教学'}
+  ]},
+  {day:'周六',focus:'户外运动',cat:'有氧操燃脂',cal:'约350千卡',tip:'户外运动注意防晒补水',color:'badge-orange',exercises:[
+    {name:'慢跑/骑行',sets:'40min',weight:'自重',rest:'—',tip:'心率保持在燃脂区间，匀速',demo:'慢跑 燃脂 教学'},
+    {name:'户外拉伸',sets:'10min',weight:'自重',rest:'—',tip:'跑后慢走+拉伸小腿',demo:'跑后拉伸 教学'},
+    {name:'补充水分电解质',sets:'—',weight:'—',rest:'—',tip:'每20分钟补水一次',demo:''}
+  ]},
+  {day:'周日',focus:'全身循环',cat:'HIIT',cal:'约220千卡',tip:'综合训练日，动作间休30-60秒',color:'badge-blue',exercises:[
+    {name:'深蹲',sets:'3×15',weight:'自重',rest:'组间休45s',tip:'膝盖不超脚尖',demo:'深蹲 标准 教学'},
+    {name:'俯卧撑',sets:'3×12',weight:'自重',rest:'组间休45s',tip:'身体成直线，可跪姿降难度',demo:'俯卧撑 标准 教学'},
+    {name:'平板支撑',sets:'60s×3',weight:'自重',rest:'组间休45s',tip:'不塌腰',demo:'平板支撑 标准'},
+    {name:'拉伸放松',sets:'15min',weight:'自重',rest:'—',tip:'静态拉伸全身',demo:'全身拉伸 跟练'}
+  ]}
 ];
 
 // ============ 渲染：房产工作 ============
@@ -1393,32 +1449,106 @@ function checkQuizAll(idx,chosen){
 }
 
 // ============ 渲染：运动计划 ============
+function getPlan(){
+  var custom=lsGet('ls_fitness_plan_custom',null);
+  return (custom&&custom.length)?custom:FITNESS_PLAN;
+}
+function todayDateStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function checkinStats(){
+  var ck=lsGet('ls_fitness_checkins',{});
+  var done=0;
+  var now=new Date();var dow=now.getDay();var monday=new Date(now);monday.setDate(now.getDate()-(dow===0?6:dow-1));
+  for(var i=0;i<7;i++){var d=new Date(monday);d.setDate(monday.getDate()+i);var ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);if(ck[ds])done++;}
+  var streak=0;var cur=new Date();
+  for(;;){var cs=cur.getFullYear()+'-'+('0'+(cur.getMonth()+1)).slice(-2)+'-'+('0'+cur.getDate()).slice(-2);if(ck[cs]){streak++;cur.setDate(cur.getDate()-1);}else break;}
+  return {weekDone:done,streak:streak};
+}
+function toggleCheckin(){
+  var ck=lsGet('ls_fitness_checkins',{});var ds=todayDateStr();
+  if(ck[ds])delete ck[ds];else ck[ds]=1;
+  lsSet('ls_fitness_checkins',ck);renderFitness();
+}
+function renderBodyTrend(){
+  var recs=lsGet('ls_fitness_body',[]).slice(-14);
+  var ws=recs.map(function(r){return parseFloat(r.weight);}).filter(function(v){return !isNaN(v);});
+  if(ws.length<2)return '';
+  var min=Math.min.apply(null,ws),max=Math.max.apply(null,ws),range=(max-min)||1;
+  var W=300,H=80,pad=10;
+  var pts=ws.map(function(v,i){var x=pad+(W-2*pad)*i/(ws.length-1);var y=H-pad-(H-2*pad)*(v-min)/range;return x.toFixed(1)+','+y.toFixed(1);}).join(' ');
+  return '<svg class="trend-svg" viewBox="0 0 '+W+' '+H+'"><polyline points="'+pts+'" fill="none" stroke="#f472b6" stroke-width="2"/>'+
+    '<text x="2" y="12" fill="#94a3b8" font-size="9">'+max.toFixed(1)+'</text><text x="2" y="'+(H-3)+'" fill="#94a3b8" font-size="9">'+min.toFixed(1)+'</text></svg>';
+}
+function addBodyRecord(){
+  var w=document.getElementById('bodyWeight').value.trim();
+  if(!w){alert('请填写体重');return;}
+  var recs=lsGet('ls_fitness_body',[]);
+  recs.push({date:todayDateStr(),weight:w,waist:document.getElementById('bodyWaist').value.trim(),fat:document.getElementById('bodyFat').value.trim()});
+  lsSet('ls_fitness_body',recs);renderFitness();
+}
+function enterEditPlan(idx){window._editPlanIdx=idx;renderFitness();}
+function saveEditPlan(){
+  var custom=lsGet('ls_fitness_plan_custom',null);
+  var plan=custom?JSON.parse(JSON.stringify(custom)):JSON.parse(JSON.stringify(FITNESS_PLAN));
+  var idx=window._editPlanIdx;var day=plan[idx];
+  day.day=document.getElementById('ep_day').value.trim()||day.day;
+  day.focus=document.getElementById('ep_focus').value.trim()||day.focus;
+  day.tip=document.getElementById('ep_tip').value.trim();
+  var exs=[];document.querySelectorAll('#ep_exercises .ex-row').forEach(function(row){
+    var g=function(f){var el=row.querySelector('[data-f="'+f+'"]');return el?el.value.trim():'';};
+    exs.push({name:g('name'),sets:g('sets'),weight:g('weight'),rest:g('rest'),tip:g('tip'),demo:g('demo')});
+  });
+  day.exercises=exs;lsSet('ls_fitness_plan_custom',plan);window._editPlanIdx=null;renderFitness();
+}
+function addPlanDay(){
+  var custom=lsGet('ls_fitness_plan_custom',null);
+  var plan=custom?JSON.parse(JSON.stringify(custom)):JSON.parse(JSON.stringify(FITNESS_PLAN));
+  plan.push({day:'新的一天',focus:'自定义训练',cat:'',cal:'—',tip:'',color:'badge-blue',exercises:[{name:'新动作',sets:'3×12',weight:'',rest:'',tip:'',demo:''}]});
+  lsSet('ls_fitness_plan_custom',plan);renderFitness();
+}
+function delPlanDay(idx){if(!confirm('删除这一天的训练计划？'))return;var custom=lsGet('ls_fitness_plan_custom',null);var plan=custom?JSON.parse(JSON.stringify(custom)):JSON.parse(JSON.stringify(FITNESS_PLAN));plan.splice(idx,1);lsSet('ls_fitness_plan_custom',plan);renderFitness();}
+function resetPlan(){if(!confirm('恢复为默认计划？你自定义的修改将清除。'))return;localStorage.removeItem('ls_fitness_plan_custom');window._editPlanIdx=null;renderFitness();}
 function renderFitness(){
   var c=document.getElementById('fitnessContent');
+  var plan=getPlan();
   var today=new Date().getDay();
   var todayIdx=today===0?6:today-1;
-  var html='<div class="divider">📺 视频跟练</div>';
-  html+='<div class="card"><div class="card-title">跟着视频练，不靠想象</div><div class="card-desc">点主题在 B站打开对应跟练视频；也可把常用跟练链接加进来，点开即播。</div>';
-  html+='<div class="video-favbar">';
-  FITNESS_VIDEO_TOPICS.forEach(function(t){
-    var q='https://search.bilibili.com/all?keyword='+encodeURIComponent(t.kw);
-    html+='<span class="video-chip" onclick="window.open(\''+q+'\',\'_blank\')">▶ '+esc(t.name)+'</span>';
-  });
+  var st=checkinStats();
+  var ck=lsGet('ls_fitness_checkins',{});
+  var td=todayDateStr();
+  var html='';
+  html+='<div class="card fit-stat"><div class="fit-stat-item"><div class="num" style="color:var(--blue)">'+st.weekDone+'/7</div><div class="label">本周打卡</div></div><div class="fit-stat-item"><div class="num" style="color:var(--orange)">'+st.streak+'</div><div class="label">连续天数</div></div><div class="fit-stat-item" style="flex:1;text-align:right"><button class="btn '+(ck[td]?'btn-del':'btn-add')+'" onclick="toggleCheckin()">'+(ck[td]?'✓ 今日已打卡':'⭕ 标记今日完成')+'</button></div></div>';
+  var lastBody=lsGet('ls_fitness_body',[]).slice(-1)[0];
+  html+='<div class="card"><div class="card-title">📏 身体数据记录'+(lastBody?' <span class="badge badge-pink">最近 '+esc(lastBody.weight)+'kg</span>':'')+'</div><div class="body-form"><input id="bodyWeight" placeholder="体重kg"/><input id="bodyWaist" placeholder="腰围cm(选)"/><input id="bodyFat" placeholder="体脂%(选)"/><button onclick="addBodyRecord()">记录</button></div>'+renderBodyTrend()+'<div class="body-hint">数据仅存本地，可配合侧边栏「导出备份」保存。</div></div>';
+  html+='<div class="divider">📺 视频跟练</div>';
+  html+='<div class="card"><div class="card-title">跟着视频练，不靠想象</div><div class="card-desc">点主题在 B站打开对应跟练视频；也可把常用跟练链接加进来，点开即播。</div><div class="video-favbar">';
+  FITNESS_VIDEO_TOPICS.forEach(function(t){var q='https://search.bilibili.com/all?keyword='+encodeURIComponent(t.kw);html+='<span class="video-chip" onclick="window.open(\''+q+'\',\'_blank\')">▶ '+esc(t.name)+'</span>';});
   html+='</div>';
   var myV=lsGet('ls_fitness_videos',[]);
   html+='<div class="video-tip">我的跟练（'+myV.length+'）：</div><div class="video-list">';
-  if(myV.length){
-    myV.forEach(function(v){
-      html+='<div class="video-item" onclick="openVideoModal(\''+esc(v.url)+'\')"><div class="v-thumb">▶</div><div class="v-title">'+esc(v.title)+'</div><button class="v-del" onclick="event.stopPropagation();delFitnessVideo(\''+v.id+'\')">删除</button></div>';
-    });
-  }else{
-    html+='<div class="empty-hint">还没有添加。把常用的 B站 / YouTube 跟练链接贴到下面即可。</div>';
-  }
-  html+='</div><div class="video-add"><input id="videoTitle" placeholder="名称，如：帕梅拉腹肌" /><input id="videoUrl" placeholder="粘贴视频链接（B站 / YouTube）" /><button onclick="addFitnessVideo()">添加</button></div></div>';
-  html+=FITNESS_PLAN.map(function(f,i){
+  if(myV.length){myV.forEach(function(v){html+='<div class="video-item" onclick="openVideoModal(\''+esc(v.url)+'\')"><div class="v-thumb">▶</div><div class="v-title">'+esc(v.title)+'</div><button class="v-del" onclick="event.stopPropagation();delFitnessVideo(\''+v.id+'\')">删除</button></div>';});}
+  else{html+='<div class="empty-hint">还没有添加。把常用的 B站 / YouTube 跟练链接贴到下面即可。</div>';}
+  html+='</div><div class="video-add"><input id="videoTitle" placeholder="名称，如：帕梅拉腹肌"/><input id="videoUrl" placeholder="粘贴视频链接（B站 / YouTube）"/><button onclick="addFitnessVideo()">添加</button></div></div>';
+  html+='<div class="divider">📅 每周训练计划 <button class="mini-btn" onclick="addPlanDay()">+ 加一天</button> <button class="mini-btn" onclick="resetPlan()">恢复默认</button></div>';
+  plan.forEach(function(f,i){
     var isToday=(i===todayIdx);
-    return '<div class="fitness-day'+(isToday?' today':'')+'"><div class="day-name">'+(isToday?'📍 ':'')+f.day+' · '+f.focus+(isToday?' <span class="badge badge-orange">今天</span>':'')+'</div><div class="day-detail">'+f.detail.replace(/\n/g,'<br>')+'</div><div class="day-cal">🔥 '+f.cal+'</div><div class="day-tip">💡 '+f.tip+'</div></div>';
-  }).join('')+'<div class="card"><div class="card-title">📊 每周运动概览</div><div class="card-desc">• 训练频率：每周6天训练+1天拉伸恢复<br>• 总消耗：约1580千卡/周<br>• 建议：训练前热身5分钟，训练后拉伸10分钟<br>• 饮食：运动后30分钟内补充蛋白质<br>• 休息：保证每天7-8小时睡眠</div></div>';
+    var done=ck[td]&&i===todayIdx;
+    if(window._editPlanIdx===i){
+      html+='<div class="card edit-mode"><div class="fg-row"><div class="fg"><label>星期</label><input id="ep_day" value="'+esc(f.day)+'"/></div><div class="fg"><label>重点</label><input id="ep_focus" value="'+esc(f.focus)+'"/></div></div><div class="fg"><label>消耗 / 提示</label><input id="ep_tip" value="'+esc(f.tip)+'"/></div><div class="sub-sec-t">动作列表（每组一行：名称 / 组数 / 重量 / 间歇 / 要点 / 示范词）</div><div id="ep_exercises">';
+      (f.exercises||[]).forEach(function(ex){html+='<div class="ex-row"><input data-f="name" placeholder="动作" value="'+esc(ex.name)+'"/><input data-f="sets" placeholder="组数" value="'+esc(ex.sets)+'"/><input data-f="weight" placeholder="重量" value="'+esc(ex.weight)+'"/><input data-f="rest" placeholder="间歇" value="'+esc(ex.rest)+'"/><input data-f="tip" placeholder="要点" value="'+esc(ex.tip)+'"/><input data-f="demo" placeholder="示范词" value="'+esc(ex.demo||'')+'"/></div>';});
+      html+='</div><div style="margin-top:10px"><button class="btn btn-save" onclick="saveEditPlan()">保存</button> <button class="btn btn-del" onclick="window._editPlanIdx=null;renderFitness()">取消</button> <button class="btn btn-del" onclick="delPlanDay('+i+')">删除这天</button></div></div>';
+      return;
+    }
+    html+='<div class="fitness-day'+(isToday?' today':'')+'"><div class="day-name">'+(isToday?'📍 ':'')+esc(f.day)+' · '+esc(f.focus)+(isToday?' <span class="badge badge-orange">今天</span>':'')+(done?' <span class="badge badge-green">已打卡</span>':'')+'<button class="mini-btn" style="float:right" onclick="enterEditPlan('+i+')">✏️ 编辑</button></div>';
+    html+='<div class="ex-list">';
+    (f.exercises||[]).forEach(function(ex){
+      html+='<div class="ex-item"><div class="ex-head"><span class="ex-name">'+esc(ex.name)+'</span><span class="ex-sets">'+esc(ex.sets)+'</span>'+(ex.demo?'<button class="mini-btn" onclick="window.open(\'https://search.bilibili.com/all?keyword='+encodeURIComponent(ex.demo)+'\',\'_blank\')">▶ 示范</button>':'')+'</div>';
+      if(ex.weight||ex.rest||ex.tip) html+='<div class="ex-detail">'+[ex.weight?('💪 '+ex.weight):'',ex.rest&&ex.rest!=='—'?('⏱ '+ex.rest):'',ex.tip?('💡 '+ex.tip):''].filter(Boolean).join('　')+'</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+    html+='<div class="day-cal">🔥 '+esc(f.cal)+'</div><div class="day-tip">💡 '+esc(f.tip)+'</div></div>';
+  });
+  html+='<div class="card"><div class="card-title">📊 每周运动概览</div><div class="card-desc">• 训练频率：每周6天训练+1天拉伸恢复<br>• 总消耗：约1580千卡/周<br>• 建议：训练前热身5分钟，训练后拉伸10分钟<br>• 饮食：运动后30分钟内补充蛋白质<br>• 休息：保证每天7-8小时睡眠</div></div>';
   c.innerHTML=html;
 }
 var FITNESS_VIDEO_TOPICS=[
