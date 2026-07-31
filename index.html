@@ -1610,6 +1610,7 @@ function renderSummary(){
   var c=document.getElementById('summaryContent');
   var words=rotate(WORD_LIST,30,2);
   var topics=rotate(HOUSE_TOPICS,10,0);
+  var ideas=rotate(INSPIRE_IDEAS,10,1);
   var today=new Date();
   var todayIdx=today.getDay()===0?6:today.getDay()-1;
   var fitnessToday=FITNESS_PLAN[todayIdx]?FITNESS_PLAN[todayIdx].focus:'休息日';
