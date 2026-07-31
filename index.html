@@ -254,6 +254,36 @@ select:focus{border-color:var(--blue)}
 .summary-grid{grid-template-columns:repeat(2,1fr)}
 .update-bar{padding:10px 16px}
 }
+.inspire-actions{display:flex;gap:8px;margin-top:10px}
+.mini-btn{padding:5px 12px;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid rgba(148,163,184,0.4);background:rgba(255,255,255,0.5);color:#475569;transition:all .15s}
+.mini-btn:hover{background:rgba(255,255,255,0.8);color:#1e293b}
+.mini-btn.fav-on{background:rgba(251,191,36,0.2);color:#b45309;border-color:rgba(251,191,36,0.5)}
+.mini-btn.del{background:rgba(248,113,113,0.15);color:#dc2626;border-color:rgba(248,113,113,0.3)}
+.mini-btn.del:hover{background:#ef4444;color:#fff}
+.inspire-note{display:none;margin-top:8px}
+.inspire-note.show{display:block}
+.inspire-note textarea{width:100%;min-height:60px}
+.inspire-favbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.inspire-favtag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:12px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.4);color:#b45309;cursor:pointer;transition:all .15s}
+.inspire-favtag:hover{background:rgba(251,191,36,0.25)}
+.inspire-favtag b{color:#ef4444;font-weight:700;cursor:pointer;padding:0 2px}
+.challenge-card{background:linear-gradient(135deg,rgba(129,140,248,0.18),rgba(167,139,250,0.18));border:1px solid rgba(129,140,248,0.4);border-radius:var(--radius);padding:18px;margin-bottom:14px;position:relative;overflow:hidden}
+.challenge-card .challenge-tag{display:inline-block;font-size:11px;font-weight:700;color:#4f46e5;background:rgba(255,255,255,0.7);padding:3px 10px;border-radius:8px;margin-bottom:8px}
+.challenge-card .challenge-text{font-size:15px;font-weight:600;line-height:1.6;color:#1e293b}
+.challenge-card .challenge-tip{font-size:11px;color:#64748b;margin-top:8px}
+.hustle-tip{font-size:11px;color:#64748b;background:rgba(255,255,255,0.45);padding:8px 12px;border-radius:10px;margin-bottom:12px;line-height:1.6}
+.hustle-add{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.hustle-add input{flex:1;min-width:140px;padding:10px 14px;border:1px solid rgba(148,163,184,0.4);border-radius:12px;font-size:13px;outline:none;background:rgba(255,255,255,0.55);color:#1e293b}
+.hustle-add input::placeholder{color:#94a3b8}
+.hustle-add input:focus{border-color:#6366f1;background:#fff}
+.hustle-income{margin-top:10px;padding-top:10px;border-top:1px solid rgba(148,163,184,0.25)}
+.hustle-income label{font-size:11px;color:#475569;display:block;margin-bottom:4px;font-weight:500}
+.hustle-income input{width:100%;padding:8px 12px;border:1px solid rgba(148,163,184,0.4);border-radius:10px;font-size:13px;outline:none;background:rgba(255,255,255,0.55);color:#1e293b}
+.hustle-income input::placeholder{color:#94a3b8}
+.hustle-income input:focus{border-color:#6366f1;background:#fff}
+.card select{padding:4px 8px;border-radius:8px;font-size:11px;border:1px solid rgba(148,163,184,0.4);background:rgba(255,255,255,0.6);color:#1e293b;cursor:pointer}
+.card select:focus{border-color:#6366f1}
+#hustleSummary{margin-top:8px}
 </style>
 </head>
 <body>
@@ -450,41 +480,44 @@ var CITY_DATA=[
 
 // ============ 灵感数据 ============
 var INSPIRE_IDEAS=[
-  {title:'「我家猫的迷惑行为」合集',desc:'宠物搞笑合集类，互动率高，适合抖音和小红书。',platform:'抖音',tag:'短视频',color:'badge-red'},
-  {title:'手机摄影构图9宫格详解',desc:'干货教程类，收藏率极高，B站长视频效果好。',platform:'B站',tag:'教程',color:'badge-blue'},
-  {title:'治愈系窗边猫咪写真',desc:'氛围感+治愈系，小红书爆款方向。',platform:'小红书',tag:'图文',color:'badge-pink'},
-  {title:'宠物vlog拍摄教程',desc:'教你怎么拍出高赞宠物视频，从选题到剪辑全流程。',platform:'B站',tag:'教程',color:'badge-blue'},
-  {title:'独居女生精致生活分享',desc:'生活美学类，容易引发共鸣，小红书自然流量大。',platform:'小红书',tag:'生活',color:'badge-pink'},
-  {title:'手机拍出电影感',desc:'调色+构图+运镜，干货满满，适合做系列内容。',platform:'抖音',tag:'教程',color:'badge-red'},
-  {title:'一周穿搭不重样',desc:'胶囊衣橱概念，每天一套look，互动性很强。',platform:'小红书',tag:'穿搭',color:'badge-pink'},
-  {title:'10分钟快手早餐',desc:'简单易学的早餐教程，打工人刚需内容。',platform:'抖音',tag:'美食',color:'badge-red'},
-  {title:'租房改造前后对比',desc:'低预算出租屋大改造，反差感带来高传播。',platform:'小红书',tag:'家居',color:'badge-pink'},
-  {title:'职场新人避坑指南',desc:'从学生到职场人的心态转变，容易引发讨论。',platform:'知乎',tag:'职场',color:'badge-purple'},
-  {title:'城市漫步路线推荐',desc:'City Walk系列，结合本地特色，小红书爆款。',platform:'小红书',tag:'旅行',color:'badge-pink'},
-  {title:'手账排版灵感分享',desc:'手作+美学，小众但粘性高的内容方向。',platform:'小红书',tag:'手作',color:'badge-pink'},
-  {title:'英语口语跟练系列',desc:'每日一句实用口语，适合做日更内容积累粉丝。',platform:'B站',tag:'学习',color:'badge-blue'},
-  {title:'摄影后期调色预设分享',desc:'分享LR预设和调色思路，干货收藏类内容。',platform:'小红书',tag:'摄影',color:'badge-pink'},
-  {title:'一人食治愈系视频',desc:'安静做饭+吃饭的过程，ASMR感，B站效果好。',platform:'B站',tag:'美食',color:'badge-blue'},
-  {title:'收纳整理前后对比',desc:'断舍离+收纳技巧，解压又实用。',platform:'小红书',tag:'生活',color:'badge-pink'},
-  {title:'宠物用品好物推荐',desc:'真实使用感受分享，带货转化率高。',platform:'小红书',tag:'好物',color:'badge-pink'},
-  {title:'城市夜景观赏攻略',desc:'各地最佳夜景拍摄点位+机位分享。',platform:'抖音',tag:'旅行',color:'badge-red'},
-  {title:'零基础学画画系列',desc:'从简笔画开始，适合做长期系列教程。',platform:'B站',tag:'教程',color:'badge-blue'},
-  {title:'理财入门知识科普',desc:'用大白话讲理财，年轻人刚需内容。',platform:'知乎',tag:'理财',color:'badge-purple'},
-  {title:'露营装备平替推荐',desc:'高性价比露营装备清单，户外热度持续。',platform:'小红书',tag:'户外',color:'badge-pink'},
-  {title:'手机修图教程系列',desc:'Snapseed/醒图修图技巧，实操性强。',platform:'抖音',tag:'教程',color:'badge-red'},
-  {title:'考研复习时间线规划',desc:'从备考到冲刺的完整时间线，考研党刚需。',platform:'知乎',tag:'学习',color:'badge-purple'},
-  {title:'家常菜改良计划',desc:'给经典家常菜加点创意，简单又好看。',platform:'抖音',tag:'美食',color:'badge-red'},
-  {title:'旧衣改造DIY',desc:'不穿的旧衣服改造成新款式，环保又省钱。',platform:'小红书',tag:'手作',color:'badge-pink'},
-  {title:'城市周边一日游攻略',desc:'周末短途游路线+费用明细，实用性强。',platform:'小红书',tag:'旅行',color:'badge-pink'},
-  {title:'表情包制作教程',desc:'用手机就能做表情包，有趣又简单。',platform:'B站',tag:'教程',color:'badge-blue'},
-  {title:'早起打卡vlog',desc:'记录早晨的仪式感，正能量内容容易传播。',platform:'抖音',tag:'生活',color:'badge-red'},
-  {title:'读书笔记分享',desc:'每周一本书的精华提炼，知识博主方向。',platform:'知乎',tag:'学习',color:'badge-purple'},
-  {title:'插花入门教程',desc:'用平价花材做出高级感插花，治愈系内容。',platform:'小红书',tag:'生活',color:'badge-pink'},
-  {title:'AI工具实测分享',desc:'ChatGPT/Midjourney等AI工具使用技巧，热度高。',platform:'B站',tag:'科技',color:'badge-blue'},
-  {title:'低卡减脂餐教程',desc:'好吃不胖的减脂餐，健康饮食赛道持续增长。',platform:'抖音',tag:'美食',color:'badge-red'},
-  {title:'居家有氧运动跟练',desc:'无器械居家训练，适合做系列跟练视频。',platform:'B站',tag:'运动',color:'badge-blue'},
-  {title:'二手书盲盒玩法',desc:'闲鱼二手书+盲盒概念，低成本高互动。',platform:'小红书',tag:'创意',color:'badge-pink'},
-  {title:'城市菜市场探店',desc:'本地菜市场烟火气内容，接地气有温度。',platform:'抖音',tag:'美食',color:'badge-red'}
+  {cat:'探盘选题',title:'同城新盘首开实测',desc:'去售楼处拍"真实体验"，优缺点都讲，不尬吹，信任感拉满。'},
+  {cat:'探盘选题',title:'老小区改造前后对比',desc:'同一小区改造前vs后，讲居住体验变化，本地流量大。'},
+  {cat:'探盘选题',title:'这个户型我劝你别买',desc:'挑一个槽点户型做"避坑"，争议带来播放和评论。'},
+  {cat:'直播话术',title:'3秒留人开场白',desc:'"今天带你看一套，中介不敢说的真相"式钩子，开场就抓人。'},
+  {cat:'直播话术',title:'逼单不招人烦的话术',desc:'用"本周截止/仅剩几套"制造稀缺，但必须有真实依据。'},
+  {cat:'直播话术',title:'每5分钟抛个问题',desc:'让观众把答案打在公屏，停留时长翻倍，算法更推。'},
+  {cat:'避坑科普',title:'定金vs订金差一字亏几万',desc:'普法向，收藏率高，建立专业信任。'},
+  {cat:'避坑科普',title:'满五唯一能省多少税',desc:'算账类实用内容，精准吸购房粉。'},
+  {cat:'避坑科普',title:'公摊面积到底含哪些',desc:'概念科普，容易引发讨论和转发。'},
+  {cat:'拍摄技巧',title:'手机拍出大平层感',desc:'低角度+广角+自然光，3个机位教学，新手可复制。'},
+  {cat:'拍摄技巧',title:'样板间怎么拍不假',desc:'带真人尺度和生活感，避免空镜假大空。'},
+  {cat:'拍摄技巧',title:'夜景房源怎么拍',desc:'黄金时刻+窗内暖光，氛围感拉满。'},
+  {cat:'业主访谈',title:'采访业主真实入住感受',desc:'事前准备5个问题，让业主说真话，故事性强。'},
+  {cat:'业主访谈',title:'房东为什么卖这套房',desc:'挖出售动机，叙事性强，完播率高。'},
+  {cat:'政策解读',title:'房贷利率下调怎么讲',desc:'翻译成"月供少还多少"，人话讲政策。'},
+  {cat:'政策解读',title:'限购松绑对刚需意味着什么',desc:'分人群讲影响，评论区必吵，互动拉满。'},
+  {cat:'人设打造',title:'专业但亲切的购房顾问',desc:'不端着，用"帮你避坑"定位，建立人设。'},
+  {cat:'人设打造',title:'本地房产百事通',desc:'持续讲本城板块/学区/交通，建专业信任。'},
+  {cat:'直播选题',title:'周末带粉丝云看房',desc:'连麦+实时答疑，直播人气来源。'},
+  {cat:'直播选题',title:'一个月帮粉丝找房vlog',desc:'连续剧式内容，培养追更习惯。'},
+  {cat:'内容选题',title:'租房vs买房哪个划算',desc:'算总账，争议话题引流。'},
+  {cat:'内容选题',title:'年轻人第一套房怎么选',desc:'人群精准，共鸣强。'},
+  {cat:'内容选题',title:'远郊新区能不能买',desc:'讲规划兑现周期，理性分析。'},
+  {cat:'拍摄选题',title:'一个小区配套怎么拍全',desc:'学校/商超/地铁/医院，清单式探盘。'},
+  {cat:'直播话术',title:'留资话术不尴尬',desc:'用"发你资料/算月供"自然要到微信。'},
+  {cat:'避坑科普',title:'中介费到底能不能谈',desc:'实操经验，实用干货。'},
+  {cat:'内容选题',title:'房价跌了要不要卖',desc:'情绪话题，引发互动。'},
+  {cat:'创作方法',title:'用评论区选题法',desc:'把粉丝提问做成下期内容，选题不愁。'}
+];
+var INSPIRE_CAT_COLOR={ '探盘选题':'badge-red','直播话术':'badge-blue','避坑科普':'badge-orange','拍摄技巧':'badge-green','业主访谈':'badge-purple','政策解读':'badge-green','人设打造':'badge-pink','直播选题':'badge-blue','内容选题':'badge-orange','创作方法':'badge-purple' };
+var INSPIRE_CHALLENGES=[
+  '今天拍一条"劝退"视频：挑一个你真心不建议买的户型，讲清理由。',
+  '今天直播开场用一句话钩子，测试停留时长有没有提升。',
+  '今天采访一位真实业主，问出3个别人没问过的问题。',
+  '今天只用一部手机，拍一套夜景房源。',
+  '今天把一条房产政策翻译成"月供少还多少"的人话。',
+  '今天用评论区的一个提问做选题，下期就拍它。',
+  '今天做一条"满五唯一能省多少税"的算账视频。'
 ];
 var METHODS=[
   {title:'热点借势法',desc:'找到当前热搜话题，用自己的领域视角做解读。关键：速度快、角度新、有个人观点。',tag:'方法',color:'badge-orange'},
@@ -495,24 +528,18 @@ var METHODS=[
 
 // ============ 副业数据 ============
 var HUSTLE_LIST=[
-  {cat:'进行中',title:'短视频代运营',desc:'为本地商家做房产/生活类短视频代运营，利用内容能力变现。',income:'¥800/月',diff:3,time:4,color:'badge-blue'},
-  {cat:'探索中',title:'摄影约拍',desc:'利用摄影技能接宠物/人像约拍单，小红书引流获客。',income:'待验证',diff:3,time:3,color:'badge-pink'},
-  {cat:'探索中',title:'小红书博主',desc:'生活美学+宠物方向，积累粉丝后接商单。',income:'待验证',diff:2,time:3,color:'badge-pink'},
-  {cat:'探索中',title:'知识付费',desc:'房产选房经验做成课程/电子书，持续被动收入。',income:'待验证',diff:4,time:2,color:'badge-pink'},
-  {cat:'探索中',title:'PPT定制',desc:'接企业/个人PPT定制单，利用设计能力变现。',income:'待验证',diff:3,time:3,color:'badge-orange'},
-  {cat:'探索中',title:'二手好物',desc:'闲鱼+小红书做二手好物推荐，赚差价和佣金。',income:'待验证',diff:2,time:2,color:'badge-green'},
-  {cat:'计划中',title:'英语陪练',desc:'备考经验+口语能力，做初级英语陪练服务。',income:'待启动',diff:3,time:3,color:'badge-purple'},
-  {cat:'计划中',title:'宠物周边',desc:'利用宠物IP做周边产品（贴纸/手机壳/日历），小红书+抖音带货。',income:'待启动',diff:4,time:3,color:'badge-blue'},
-  {cat:'计划中',title:'摄影教程',desc:'把摄影技巧做成系列教程，B站+小红书引流变现。',income:'待启动',diff:3,time:4,color:'badge-purple'},
-  {cat:'计划中',title:'线上花店',desc:'干花/永生花线上销售，小红书种草+私域转化。',income:'待启动',diff:3,time:3,color:'badge-green'},
-  {cat:'计划中',title:'社群运营',desc:'建付费社群分享摄影/房产/生活经验，社群费变现。',income:'待启动',diff:4,time:3,color:'badge-purple'},
-  {cat:'计划中',title:'播客节目',desc:'做生活/职场方向播客，积累听众后接广告。',income:'待启动',diff:3,time:2,color:'badge-orange'},
-  {cat:'🔥 热门推荐',title:'AI绘图接单',desc:'用Midjourney/SD生成头像、壁纸、插画，小红书接单变现。入门门槛低，市场需求大。',income:'¥500-3000/月',diff:2,time:3,color:'badge-blue'},
-  {cat:'🔥 热门推荐',title:'短视频剪辑',desc:'帮博主/商家剪辑短视频，剪映即可上手，需求量大。',income:'¥2000-5000/月',diff:2,time:4,color:'badge-red'},
-  {cat:'🔥 热门推荐',title:'闲鱼无货源',desc:'从拼多多/1688搬砖到闲鱼，信息差赚差价，零成本启动。',income:'¥1000-3000/月',diff:2,time:3,color:'badge-green'},
-  {cat:'🔥 热门推荐',title:'小红书图文代写',desc:'帮品牌/商家写种草文案，文字能力变现，远程接单。',income:'¥50-300/篇',diff:2,time:2,color:'badge-pink'},
-  {cat:'🔥 热门推荐',title:'线上家教',desc:'利用专业知识做线上1对1辅导，平台接单或私域招生。',income:'¥100-300/小时',diff:3,time:3,color:'badge-purple'},
-  {cat:'🔥 热门推荐',title:'表情包上架',desc:'设计表情包上架微信/LINE，下载量变现+打赏收入。',income:'¥200-2000/月',diff:3,time:2,color:'badge-orange'}
+  {title:'探盘/带看佣金',desc:'带粉丝看房、促成成交，拿开发商或房东佣金。房产主播最直接的变现。',diff:3,time:4,income:'按成交'},
+  {title:'房源代找/陪看',desc:'按客户预算和需求筛房、陪看，收一对一服务费。',diff:2,time:3,income:'¥200-500/次'},
+  {title:'装修/家居返佣',desc:'谈家居建材商家合作，粉丝下单你拿佣金，和探盘内容天然结合。',diff:3,time:3,income:'佣金分成'},
+  {title:'房产选房课',desc:'把选房/避坑经验做成线上课或训练营，一次制作持续售卖。',diff:4,time:2,income:'¥199-999'},
+  {title:'按揭/贷款咨询',desc:'对接贷款渠道，帮客户匹配方案，成交拿咨询佣金。',diff:3,time:2,income:'按单结算'},
+  {title:'法拍房代拍',desc:'帮客户参拍法拍房、做尽调，收服务费。专业门槛高但客单价高。',diff:4,time:3,income:'¥1000+/单'},
+  {title:'房产自媒体商单',desc:'接家居/装修/银行品牌广告，粉丝量起来后稳定收入。',diff:2,time:2,income:'¥500-5000'},
+  {title:'直播带货（家居好物）',desc:'直播间带家居/家电，赚带货佣金，复用你的直播能力。',diff:3,time:4,income:'佣金'},
+  {title:'私域房产社群',desc:'建付费社群分享房源/政策/答疑，收会员费，沉淀私域。',diff:3,time:3,income:'¥99-299/月'},
+  {title:'买房顾问1v1',desc:'一对一购房咨询，按次或包月收费，时间灵活。',diff:2,time:2,income:'¥199/次'},
+  {title:'小区探盘团购',desc:'组织粉丝团购新盘，集中带看拿团购佣金。',diff:4,time:4,income:'按套'},
+  {title:'房产文案代写',desc:'给同行/中介写探盘脚本和种草文案，文字能力变现。',diff:2,time:2,income:'¥50-300/篇'}
 ];
 
 // ============ 单词数据（60个，每天30个） ============
@@ -1010,34 +1037,152 @@ function renderInspire(){
   c.innerHTML='<div class="loading">获取灵感中...</div>';
   fetchQuote().then(function(quote){
     var html='';
-    if(quote){html+='<div class="quote-card"><div class="quote-text">"'+quote.hitokoto+'"</div><div class="quote-from">—— '+(quote.from||'佚名')+'</div></div>';}
+    if(quote){html+='<div class="quote-card"><div class="quote-text">"'+esc(quote.hitokoto)+'"</div><div class="quote-from">—— '+(quote.from||'佚名')+'</div></div>';}
+    var favs=lsGet('ls_inspire_fav',[]);
+    html+='<div class="divider">⭐ 我的灵感收藏（'+favs.length+'）</div>';
+    if(favs.length){
+      html+='<div class="inspire-favbar">';
+      favs.forEach(function(idx){
+        var idea=INSPIRE_IDEAS[idx];
+        if(idea) html+='<span class="inspire-favtag" onclick="scrollToInspire('+idx+')">'+esc(idea.title)+' <b onclick="event.stopPropagation();toggleInspireFav('+idx+',true)">✕</b></span>';
+      });
+      html+='</div>';
+    } else {
+      html+='<div class="empty-hint">还没有收藏，看到合适的灵感点 ⭐ 收藏，它会进到这里。</div>';
+    }
+    var ch=rotate(INSPIRE_CHALLENGES,1,dayNum()%7)[0];
+    html+='<div class="divider">🔥 今日创作挑战</div>';
+    html+='<div class="challenge-card"><div class="challenge-tag">DAY '+((dayNum()%30)+1)+'</div><div class="challenge-text">'+esc(ch)+'</div><div class="challenge-tip">完成它并拍下来，今天的选题就有了。</div></div>';
     var ideas=rotate(INSPIRE_IDEAS,10,1);
-    html+='<div class="divider">💡 今日灵感推荐（10条）</div>';
+    html+='<div class="divider">💡 今日灵感推荐（'+ideas.length+'条）</div>';
+    var favSet={}; favs.forEach(function(i){favSet[i]=1;});
     ideas.forEach(function(idea){
-      html+='<div class="card"><div class="card-meta"><span class="badge '+idea.color+'">'+idea.tag+'</span><span>'+idea.platform+'</span></div><div class="card-title">'+idea.title+'</div><div class="card-desc">'+idea.desc+'</div>'+searchBtns(idea.title)+'</div>';
+      var idx=INSPIRE_IDEAS.indexOf(idea);
+      var col=INSPIRE_CAT_COLOR[idea.cat]||'badge-blue';
+      var isFav=favSet[idx];
+      var note=(lsGet('ls_inspire_note',{}))[idx]||'';
+      html+='<div class="card" id="insp-'+idx+'"><div class="card-meta"><span class="badge '+col+'">'+idea.cat+'</span></div>'+
+        '<div class="card-title">'+esc(idea.title)+'</div>'+
+        '<div class="card-desc">'+esc(idea.desc)+'</div>'+
+        '<div class="inspire-actions">'+
+          '<button class="mini-btn '+(isFav?'fav-on':'')+'" onclick="toggleInspireFav('+idx+')">'+(isFav?'★ 已收藏':'☆ 收藏')+'</button>'+
+          '<button class="mini-btn" onclick="toggleInspireNote('+idx+')">📝 笔记</button>'+
+        '</div>'+
+        '<div class="inspire-note" id="note-'+idx+'">'+
+          '<textarea placeholder="写写你对这条灵感的落地想法…" oninput="saveInspireNote('+idx+',this.value)">'+esc(note)+'</textarea>'+
+        '</div>'+
+        searchBtns(idea.title)+
+      '</div>';
     });
     html+='<div class="divider">🧠 创意方法论</div>';
     METHODS.forEach(function(m){
-      html+='<div class="card"><div class="card-meta"><span class="badge '+m.color+'">'+m.tag+'</span></div><div class="card-title">'+m.title+'</div><div class="card-desc">'+m.desc+'</div></div>';
+      html+='<div class="card"><div class="card-meta"><span class="badge '+m.color+'">'+m.tag+'</span></div><div class="card-title">'+esc(m.title)+'</div><div class="card-desc">'+esc(m.desc)+'</div></div>';
     });
     c.innerHTML=html;
   });
+}
+function toggleInspireFav(idx,remove){
+  var favs=lsGet('ls_inspire_fav',[]);
+  var i=favs.indexOf(idx);
+  if(remove){ if(i>=0)favs.splice(i,1); }
+  else { if(i>=0)favs.splice(i,1); else favs.push(idx); }
+  lsSet('ls_inspire_fav',favs);
+  renderInspire();
+}
+function toggleInspireNote(idx){
+  var el=document.getElementById('note-'+idx);
+  if(el) el.classList.toggle('show');
+}
+function saveInspireNote(idx,val){
+  var notes=lsGet('ls_inspire_note',{});
+  if(val&&val.trim()) notes[idx]=val; else delete notes[idx];
+  lsSet('ls_inspire_note',notes);
+}
+function scrollToInspire(idx){
+  var el=document.getElementById('insp-'+idx);
+  if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); var n=document.getElementById('note-'+idx); if(n&&!n.classList.contains('show')) n.classList.add('show'); }
 }
 
 // ============ 渲染：副业 ============
 function renderHustle(){
   var c=document.getElementById('hustleContent');
-  var html='';
-  var cats=['🔥 热门推荐','进行中','探索中','计划中'];
-  cats.forEach(function(cat){
-    var items=HUSTLE_LIST.filter(function(h){return h.cat===cat;});
-    if(!items.length)return;
-    html+='<div class="divider">'+cat+'</div>';
-    items.forEach(function(h){
-      html+='<div class="card"><div class="card-meta"><span class="badge '+h.color+'">'+h.cat+'</span><span>💰 '+h.income+'</span></div><div class="card-title">'+h.title+'</div><div class="card-desc">'+h.desc+'</div><div class="card-meta" style="margin-top:4px"><span>难度 '+stars(h.diff)+'</span><span>时间投入 '+stars(h.time)+'</span></div>'+searchBtns(h.title)+'</div>';
-    });
+  var statusMap=lsGet('ls_hustle_status',{});
+  var incomeMap=lsGet('ls_hustle_income',{});
+  var custom=lsGet('ls_hustle_custom',[]);
+  var html='<div class="divider">💰 我的副业（记录真实进度与收入）</div>';
+  html+='<div class="hustle-tip">状态、收入都能自己改；底部还能新增你正在做的副业。</div>';
+  HUSTLE_LIST.forEach(function(h,idx){
+    var id='s'+idx;
+    var cat=statusMap[id]||'计划中';
+    var income=incomeMap[id]!=null?incomeMap[id]:h.income;
+    html+=hustleCard(id,h.title,h.desc,cat,income,h.diff,h.time,false);
   });
+  custom.forEach(function(h){
+    var id='c'+h.id;
+    var cat=statusMap[id]||h.cat||'计划中';
+    var income=incomeMap[id]!=null?incomeMap[id]:(h.income||'待填');
+    html+=hustleCard(id,h.title,h.desc,cat,income,h.diff||3,h.time||3,true);
+  });
+  html+='<div class="divider">➕ 添加我的副业</div>';
+  html+='<div class="hustle-add"><input id="hustleNewTitle" placeholder="副业名称，如：周末带看" /><input id="hustleNewDesc" placeholder="简单描述怎么赚钱" /><button class="btn btn-add" onclick="addHustle()">添加</button></div>';
+  html+='<div id="hustleSummary">'+renderHustleSummary(statusMap,incomeMap,custom)+'</div>';
   c.innerHTML=html;
+}
+function hustleCard(id,title,desc,cat,income,diff,time,canDel){
+  var opts=['进行中','探索中','计划中'];
+  var sel='<select onchange="setHustleStatus(\''+id+'\',this.value)">'+opts.map(function(o){return '<option '+(o===cat?'selected':'')+'>'+o+'</option>';}).join('')+'</select>';
+  var col=cat==='进行中'?'badge-blue':cat==='探索中'?'badge-orange':'badge-green';
+  var del=canDel?'<button class="mini-btn del" onclick="delHustle(\''+id+'\')">删除</button>':'';
+  return '<div class="card"><div class="card-meta"><span class="badge '+col+'">'+cat+'</span>'+sel+'</div>'+
+    '<div class="card-title">'+esc(title)+'</div>'+
+    '<div class="card-desc">'+esc(desc)+'</div>'+
+    '<div class="hustle-income"><label>收入记录</label><input value="'+esc(income)+'" placeholder="如 ¥800/月 或 待验证" oninput="setHustleIncome(\''+id+'\',this.value)" /></div>'+
+    '<div class="card-meta" style="margin-top:6px"><span>难度 '+stars(diff)+'</span><span>时间投入 '+stars(time)+'</span>'+del+'</div></div>';
+}
+function setHustleStatus(id,val){ var m=lsGet('ls_hustle_status',{}); m[id]=val; lsSet('ls_hustle_status',m); renderHustle(); }
+function setHustleIncome(id,val){ var m=lsGet('ls_hustle_income',{}); m[id]=val; lsSet('ls_hustle_income',m); updateHustleSummaryOnly(); }
+function addHustle(){
+  var t=document.getElementById('hustleNewTitle').value.trim();
+  var d=document.getElementById('hustleNewDesc').value.trim();
+  if(!t){alert('请填写副业名称');return;}
+  var custom=lsGet('ls_hustle_custom',[]);
+  custom.push({id:lsId(),title:t,desc:d||'（待补充描述）',cat:'计划中'});
+  lsSet('ls_hustle_custom',custom);
+  renderHustle();
+}
+function delHustle(id){
+  if(!confirm('确定删除这条副业？'))return;
+  var custom=lsGet('ls_hustle_custom',[]);
+  var cid=id.replace('c','');
+  custom=custom.filter(function(h){return h.id!==cid;});
+  lsSet('ls_hustle_custom',custom);
+  renderHustle();
+}
+function renderHustleSummary(statusMap,incomeMap,custom){
+  var ids=[];
+  HUSTLE_LIST.forEach(function(h,idx){ids.push('s'+idx);});
+  custom.forEach(function(h){ids.push('c'+h.id);});
+  var total=0,count=0;
+  ids.forEach(function(id){
+    var v=incomeMap[id]; if(v==null) return;
+    var nums=v.replace(/[^0-9.]/g,'').match(/[0-9.]+/g);
+    if(nums&&nums.length){ total+=parseFloat(nums[0]); count++; }
+  });
+  return '<div class="divider">📊 副业收入统计</div>'+
+    '<div class="stat-grid">'+
+      '<div class="stat-item"><div class="s-num blue">'+ids.length+'</div><div class="s-label">在跟副业</div></div>'+
+      '<div class="stat-item"><div class="s-num green">'+count+'</div><div class="s-label">已填收入</div></div>'+
+      '<div class="stat-item"><div class="s-num">¥'+total.toLocaleString()+'</div><div class="s-label">可统计金额(估算)</div></div>'+
+    '</div>'+
+    '<div class="hustle-tip">「可统计金额」按你填写的数字估算（如 ¥800/月 计 800）。范围或文字类收入不计入，仅作参考。</div>';
+}
+function updateHustleSummaryOnly(){
+  var el=document.getElementById('hustleSummary');
+  if(!el)return;
+  var statusMap=lsGet('ls_hustle_status',{});
+  var incomeMap=lsGet('ls_hustle_income',{});
+  var custom=lsGet('ls_hustle_custom',[]);
+  el.innerHTML=renderHustleSummary(statusMap,incomeMap,custom);
 }
 
 // ============ 渲染：英语学习 ============
@@ -1229,7 +1374,6 @@ function renderFitness(){
 function renderSummary(){
   var c=document.getElementById('summaryContent');
   var words=rotate(WORD_LIST,30,2);
-  var ideas=rotate(INSPIRE_IDEAS,10,1);
   var topics=rotate(HOUSE_TOPICS,10,0);
   var today=new Date();
   var todayIdx=today.getDay()===0?6:today.getDay()-1;
@@ -1240,7 +1384,7 @@ function renderSummary(){
   var html='<div class="summary-grid">'+
     '<div class="summary-item" onclick="switchPage(\'word\',document.querySelectorAll(\'.nav-item\')[3])"><div class="num" style="color:var(--purple)">30</div><div class="label">今日单词</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'inspire\',document.querySelectorAll(\'.nav-item\')[1])"><div class="num" style="color:var(--pink)">10</div><div class="label">灵感卡片</div></div>'+
-    '<div class="summary-item" onclick="switchPage(\'hustle\',document.querySelectorAll(\'.nav-item\')[2])"><div class="num" style="color:var(--green)">18</div><div class="label">副业思路</div></div>'+
+    '<div class="summary-item" onclick="switchPage(\'hustle\',document.querySelectorAll(\'.nav-item\')[2])"><div class="num" style="color:var(--green)">'+HUSTLE_LIST.length+'</div><div class="label">副业思路</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'fitness\',document.querySelectorAll(\'.nav-item\')[4])"><div class="num" style="color:var(--orange)">'+(fitnessToday==='休息日'?'💤':'🏃')+'</div><div class="label">'+fitnessToday+'</div></div>'+
     '</div>';
   html+='<div class="divider">🌤️ 今日天气</div><div class="card" id="weatherCard"><div class="loading" style="padding:10px">正在定位并获取天气...</div></div>';
