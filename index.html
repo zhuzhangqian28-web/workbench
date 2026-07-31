@@ -48,7 +48,9 @@ box-shadow:0 4px 20px rgba(99,102,241,0.12)}
 .sidebar-backup .backup-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(129,140,248,0.35)}
 .sidebar-backup .backup-tip{font-size:10px;color:rgba(71,85,105,0.55);margin-top:7px;text-align:center;line-height:1.4}
 .sidebar-sync{margin-top:14px;border-top:1px dashed rgba(129,140,248,0.3);padding-top:12px}
-.sidebar-sync .sync-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px}
+.sidebar-sync .sync-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none}
+.sidebar-sync .sync-caret{font-size:10px;color:#64748b;transition:transform .15s}
+.sidebar-sync .sync-tip{font-size:10px;color:rgba(71,85,105,0.72);line-height:1.5;margin-bottom:8px}
 .sidebar-sync .sync-field{margin-bottom:6px}
 .sidebar-sync .sync-input{width:100%;box-sizing:border-box;padding:7px 10px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.5);font-size:12px;color:var(--text);outline:none}
 .sidebar-sync .sync-input:focus{border-color:var(--blue)}
@@ -434,6 +436,7 @@ select:focus{border-color:var(--blue)}
 .ex-row input::placeholder{color:var(--text-grey)}
 .ex-row input:focus{border-color:var(--blue);background:rgba(255,255,255,0.7)}
 </style>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
 <aside class="sidebar" id="sidebar">
@@ -458,13 +461,17 @@ select:focus{border-color:var(--blue)}
 </div>
 <input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importBackup(this)">
 <div class="backup-tip">换网址/清缓存前先导出，<br>文字+旅游图片一并存成文件永不丢失</div>
-<div class="sidebar-sync">
-<div class="sync-title">☁ 云同步（多端共享）</div>
-<div class="sync-field"><input type="password" id="syncToken" class="sync-input" placeholder="GitHub 令牌(仅 gist 权限)" onchange="syncSaveConfig()"></div>
-<div class="sync-field"><input type="password" id="syncPass" class="sync-input" placeholder="同步密码(两端一致)" onchange="syncSaveConfig()"></div>
-<div class="backup-btns"><button class="backup-btn" onclick="syncTest()">连接测试</button></div>
-<div class="backup-btns"><button class="backup-btn" onclick="syncUpload()">☁️ 上传到云</button><button class="backup-btn" onclick="syncDownload()">☁️ 从云下载</button></div>
-<div class="backup-tip" id="syncStatus">未配置</div>
+<div class="sidebar-sync collapsed" id="sidebarSync">
+<div class="sync-title" onclick="syncTogglePanel()">☁ 云同步（多端互传）<span class="sync-caret" id="syncCaret">▸</span></div>
+<div class="sync-body" id="syncBody" style="display:none">
+<div class="sync-tip">电脑+手机打开同一网址，填相同「房间码」即可互传，无需令牌/账号。传输经 WebRTC 端到端加密。</div>
+<div class="sync-field"><input class="sync-input" id="syncRoom" placeholder="房间码（两端一致，如 travel26）"></div>
+<div class="backup-btns">
+<button class="backup-btn" onclick="syncStart('send')">📤 我是发送方</button>
+<button class="backup-btn" onclick="syncStart('recv')">📥 我是接收方</button>
+</div>
+<div class="backup-tip" id="syncStatus">未连接</div>
+</div>
 </div>
 </div>
 <div class="sidebar-footer">
@@ -1027,61 +1034,59 @@ function finishImport(n,imgCount){
   location.reload();
 }
 
-// ============ 云同步（GitHub Gist + 端到端加密） ============
-var SYNC_GIST_FILE='workbench-sync.json';
-function bytesToB64(bytes){var bin='';var chunk=0x8000;for(var i=0;i<bytes.length;i+=chunk){bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+chunk));}return btoa(bin);}
-function b64ToBytes(b64){var bin=atob(b64);var bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return bytes;}
-function syncCfg(){return {token:localStorage.getItem('ls_sync_token')||'',pass:localStorage.getItem('ls_sync_pass')||'',gist:localStorage.getItem('ls_sync_gist')||''};}
-function syncSaveConfig(){localStorage.setItem('ls_sync_token',(document.getElementById('syncToken').value||'').trim());localStorage.setItem('ls_sync_pass',(document.getElementById('syncPass').value||'').trim());syncShowStatus('配置已保存');}
+// ============ 云同步（PeerJS 点对点，免令牌） ============
+function syncTogglePanel(){var b=document.getElementById('syncBody');var c=document.getElementById('syncCaret');if(!b)return;if(b.style.display==='none'){b.style.display='block';c.textContent='▾';}else{b.style.display='none';c.textContent='▸';}}
 function syncShowStatus(msg){var el=document.getElementById('syncStatus');if(el)el.textContent=msg;}
-function syncInitInputs(){var c=syncCfg();if(document.getElementById('syncToken'))document.getElementById('syncToken').value=c.token;if(document.getElementById('syncPass'))document.getElementById('syncPass').value=c.pass;var last=localStorage.getItem('ls_sync_last');if(last&&document.getElementById('syncStatus'))document.getElementById('syncStatus').textContent='上次同步：'+new Date(last).toLocaleString();}
-function syncDeriveKey(password,salt){return crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveKey']).then(function(base){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:100000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);});}
-function syncEncrypt(obj,password){if(!crypto||!crypto.subtle)return Promise.reject(new Error('当前环境不支持加密(需用 https 访问)'));var salt=crypto.getRandomValues(new Uint8Array(16));var iv=crypto.getRandomValues(new Uint8Array(12));return syncDeriveKey(password,salt).then(function(key){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,new TextEncoder().encode(JSON.stringify(obj))).then(function(ct){var out=new Uint8Array(16+12+ct.byteLength);out.set(salt,0);out.set(iv,16);out.set(new Uint8Array(ct),28);return bytesToB64(out);});});}
-function syncDecrypt(b64,password){var buf=b64ToBytes(b64);var salt=buf.slice(0,16),iv=buf.slice(16,28),ct=buf.slice(28);return syncDeriveKey(password,salt).then(function(key){return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct).then(function(pt){return JSON.parse(new TextDecoder().decode(pt));});});}
-function syncCollect(){return new Promise(function(resolve){var data={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);data[k]=localStorage.getItem(k);}var done=function(){resolve(data);};try{tvDB().then(function(db){var tx=db.transaction('images','readonly');var rq=tx.objectStore('images').getAll();rq.onsuccess=function(){var rows=rq.result||[];var ps=rows.map(function(row){return new Promise(function(r){if(!row.blob){r(null);return;}var fr=new FileReader();fr.onload=function(){r({id:row.id,data:fr.result});};fr.onerror=function(){r(null);};fr.readAsDataURL(row.blob);});});Promise.all(ps).then(function(imgs){var list=imgs.filter(Boolean);if(list.length)data['_idb_images']=JSON.stringify(list);done();});};rq.onerror=function(){done();};});}catch(e){done();}});}
-function gistHeaders(token){return {'Authorization':'token '+token,'Content-Type':'application/json','Accept':'application/vnd.github+json'};}
-function filesObj(payload){var f={};f[SYNC_GIST_FILE]={content:payload};return f;}
-function gistCreate(token,payload){return fetch('https://api.github.com/gists',{method:'POST',headers:gistHeaders(token),body:JSON.stringify({description:'workbench-sync',public:false,files:filesObj(payload)})}).then(function(r){if(!r.ok)return r.text().then(function(t){throw new Error('创建失败('+r.status+')');});return r.json();});}
-function gistUpdate(token,id,payload){return fetch('https://api.github.com/gists/'+id,{method:'PATCH',headers:gistHeaders(token),body:JSON.stringify({files:filesObj(payload)})}).then(function(r){if(!r.ok)return r.text().then(function(t){throw new Error('更新失败('+r.status+')');});return r.json();});}
-function gistGet(token,id){return fetch('https://api.github.com/gists/'+id,{headers:gistHeaders(token)}).then(function(r){if(!r.ok)return r.text().then(function(t){throw new Error('读取失败('+r.status+')');});return r.json();});}
-function gistTest(token){return fetch('https://api.github.com/user',{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github+json'}}).then(function(r){if(!r.ok)throw new Error('令牌无效或无 gist 权限');return r.json();});}
-function syncUpload(){
-  var c=syncCfg();
-  if(!c.token||!c.pass){syncShowStatus('请先填写令牌和同步密码');alert('请先在上方填写：\n1) GitHub 令牌(仅 gist 权限)\n2) 同步密码(两端一致)');return;}
-  syncShowStatus('正在上传...');
-  syncCollect().then(function(data){return syncEncrypt(data,c.pass);})
-  .then(function(payload){
-    if(payload.length>900000 && !confirm('同步数据较大(约'+(payload.length/1000).toFixed(0)+'KB)，可能超过 Gist 上限(1MB)。仍要尝试上传吗？')){syncShowStatus('已取消上传');throw new Error('__cancel__');}
-    if(c.gist)return gistUpdate(c.token,c.gist,payload);
-    return gistCreate(c.token,payload).then(function(g){localStorage.setItem('ls_sync_gist',g.id);return g;});
-  })
-  .then(function(g){localStorage.setItem('ls_sync_last',new Date().toISOString());syncShowStatus('✅ 已上传 '+new Date().toLocaleString());})
-  .catch(function(e){if(e.message==='__cancel__')return;syncShowStatus('❌ '+e.message);});
+var _syncPeer=null,_syncConn=null;
+function syncCollect(){return new Promise(function(resolve){var data={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);data[k]=localStorage.getItem(k);}try{tvDB().then(function(db){var tx=db.transaction('images','readonly');var rq=tx.objectStore('images').getAll();rq.onsuccess=function(){var rows=rq.result||[];var ps=rows.map(function(row){return new Promise(function(r){if(!row.blob){r(null);return;}var fr=new FileReader();fr.onload=function(){r({id:row.id,data:fr.result});};fr.onerror=function(){r(null);};fr.readAsDataURL(row.blob);});});Promise.all(ps).then(function(imgs){var list=imgs.filter(Boolean);if(list.length)data['_idb_images']=JSON.stringify(list);resolve(data);});};rq.onerror=function(){resolve(data);};});}catch(e){resolve(data);}});}
+function syncApplyData(data){return new Promise(function(resolve){var n=0,idbImages=[];for(var k in data){if(!data.hasOwnProperty(k))continue;if(k==='_idb_images'){try{idbImages=JSON.parse(data[k]||'[]');}catch(_){idbImages=[];}continue;}localStorage.setItem(k,data[k]);n++;}if(idbImages.length){tvDB().then(function(){Promise.all(idbImages.map(function(im){return new Promise(function(r){try{tvImgPut(im.id,dataURLtoBlob(im.data)).then(function(){r();}).catch(function(){r();});}catch(_){r();}});})).then(function(){resolve({n:n,imgs:idbImages.length});});});}else{resolve({n:n,imgs:0});}});}
+function syncStart(role){
+  if(typeof Peer==='undefined'){alert('同步组件未能加载（可能网络受限）。请联网后刷新页面再试。');return;}
+  var room=(document.getElementById('syncRoom').value||'').trim();
+  if(!room){alert('请先填写「房间码」——电脑和手机用同一个，例如 travel26');return;}
+  room=room.replace(/[^A-Za-z0-9_-]/g,'').slice(0,30);
+  if(!room){alert('房间码只能含字母、数字、_ 和 -');return;}
+  syncShowStatus('正在连接...');
+  if(_syncPeer){try{_syncPeer.destroy();}catch(_){}}
+  var hostId=room+'_wb';
+  var peer=role==='send'?new Peer(hostId):new Peer();
+  _syncPeer=peer;
+  var meta=null,chunks=null;
+  function sendPayload(conn){
+    syncCollect().then(function(d){
+      var payload=JSON.stringify(d);
+      var CH=8000,total=Math.ceil(payload.length/CH);
+      conn.send({t:'meta',total:total,size:payload.length});
+      var i=0;
+      (function step(){
+        if(i>=total){syncShowStatus('✅ 已发送（'+total+' 包），等待对方接收');return;}
+        conn.send({t:'chunk',i:i,data:payload.substr(i*CH,CH)});
+        i++;
+        if(i%40===0)syncShowStatus('发送中... '+i+'/'+total);
+        setTimeout(step,4);
+      })();
+    });
+  }
+  function wire(conn,isSend){
+    _syncConn=conn;
+    conn.on('open',function(){
+      if(isSend){syncShowStatus('✅ 已连接，正在发送...');sendPayload(conn);}
+      else{syncShowStatus('✅ 已连接，等待对方发送...');}
+    });
+    conn.on('data',function(msg){
+      if(msg.t==='meta'){meta=msg;chunks=new Array(msg.total);syncShowStatus('接收中... 0/'+meta.total);}
+      else if(msg.t==='chunk'){if(!chunks)return;chunks[msg.i]=msg.data;var got=0;for(var x=0;x<chunks.length;x++)if(chunks[x]!==undefined)got++;syncShowStatus('接收中... '+got+'/'+meta.total);if(got===meta.total){syncShowStatus('正在写入数据...');syncApplyData(JSON.parse(chunks.join(''))).then(function(res){syncShowStatus('✅ 已接收 '+res.n+' 项文字'+(res.imgs?('，'+res.imgs+' 张图'):'')+'，刷新中...');setTimeout(function(){location.reload();},900);});}}
+    });
+    conn.on('close',function(){if(meta)return;syncShowStatus('连接已关闭');});
+    conn.on('error',function(){syncShowStatus('❌ 传输出错');});
+  }
+  peer.on('open',function(){
+    if(role==='send'){syncShowStatus('已就绪，请在手机点「我是接收方」（房间：'+room+'）');}
+    else{var conn=peer.connect(hostId,{reliable:true});if(conn)wire(conn,false);}
+  });
+  peer.on('connection',function(conn){wire(conn,true);});
+  peer.on('error',function(err){if(err.type==='unavailable-id'){syncShowStatus('❌ 该房间已被占用，换一个房间码');}else if(err.type==='peer-unavailable'){syncShowStatus('❌ 未找到发送方，请先让电脑点「我是发送方」');}else{syncShowStatus('❌ 连接错误：'+err.type);}});
 }
-function syncDownload(){
-  var c=syncCfg();
-  if(!c.token||!c.pass){syncShowStatus('请先填写令牌和同步密码');return;}
-  if(!c.gist){syncShowStatus('尚未上传过，请先上传');return;}
-  syncShowStatus('正在下载...');
-  gistGet(c.token,c.gist).then(function(g){
-    var file=g.files&&g.files[SYNC_GIST_FILE];
-    if(!file||!file.content)throw new Error('云上没有同步数据');
-    return syncDecrypt(file.content,c.pass);
-  }).then(function(data){
-    var n=0,idbImages=[];
-    for(var k in data){if(!data.hasOwnProperty(k))continue;if(k==='_idb_images'){try{idbImages=JSON.parse(data[k]||'[]');}catch(_){idbImages=[];}continue;}localStorage.setItem(k,data[k]);n++;}
-    if(idbImages.length){
-      return tvDB().then(function(){return Promise.all(idbImages.map(function(im){return new Promise(function(r){try{tvImgPut(im.id,dataURLtoBlob(im.data)).then(function(){r();}).catch(function(){r();});}catch(_){r();}});}));}).then(function(){return {n:n,imgs:idbImages.length};});
-    }
-    return {n:n,imgs:0};
-  }).then(function(res){
-    localStorage.setItem('ls_sync_last',new Date().toISOString());
-    syncShowStatus('✅ 已下载 '+res.n+' 项文字'+(res.imgs?('，'+res.imgs+' 张图'):'')+'，刷新中...');
-    setTimeout(function(){location.reload();},900);
-  }).catch(function(e){syncShowStatus('❌ '+e.message);});
-}
-function syncTest(){var c=syncCfg();if(!c.token){syncShowStatus('请先填写令牌');return;}syncShowStatus('测试连接...');gistTest(c.token).then(function(u){syncShowStatus('✅ 令牌有效('+(u.login||'')+')');}).catch(function(e){syncShowStatus('❌ '+e.message);});}
-if(document.readyState!=='loading'){syncInitInputs();}else{document.addEventListener('DOMContentLoaded',syncInitInputs);}
 
 // ============ 直播工作台 ============
 var liveTab='schedule';
