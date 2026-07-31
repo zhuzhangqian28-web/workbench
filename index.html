@@ -257,6 +257,61 @@ select:focus{border-color:var(--blue)}
 .inspire-actions{display:flex;gap:8px;margin-top:10px}
 .mini-btn{padding:5px 12px;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid rgba(148,163,184,0.4);background:rgba(255,255,255,0.5);color:#475569;transition:all .15s}
 .mini-btn:hover{background:rgba(255,255,255,0.8);color:#1e293b}
+/* ===== 旅游计划 ===== */
+.travel-top{margin-bottom:18px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin:8px 0 10px}
+.cal-nav .cal-m{font-size:14px;font-weight:700;color:var(--text)}
+.cal-nav .cal-arr{cursor:pointer;font-size:18px;padding:2px 10px;color:#475569;user-select:none;border-radius:8px}
+.cal-nav .cal-arr:hover{background:rgba(255,255,255,0.6)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-dow{font-size:10px;text-align:center;color:var(--text-grey);padding:4px 0}
+.cal-cell{position:relative;min-height:46px;border-radius:10px;background:rgba(255,255,255,0.35);border:1px solid var(--glass-border);padding:4px;font-size:11px;color:var(--text);cursor:pointer;overflow:hidden}
+.cal-cell.empty{background:transparent;border:none;cursor:default}
+.cal-cell.today{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.cal-cell.has-trip{background:rgba(34,211,238,0.18);border-color:rgba(34,211,238,0.5)}
+.cal-cell .cal-d{font-weight:700}
+.cal-cell .cal-trip{font-size:9px;line-height:1.2;color:#0e7490;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trip-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:6px}
+.trip-card{background:var(--glass);backdrop-filter:var(--blur-light);border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;cursor:pointer;transition:transform .15s}
+.trip-card:hover{transform:translateY(-3px)}
+.trip-card .t-cover{width:100%;height:96px;border-radius:10px;object-fit:cover;background:rgba(34,211,238,0.15);margin-bottom:10px}
+.trip-card .t-name{font-size:14px;font-weight:700;color:var(--text)}
+.trip-card .t-date{font-size:11px;color:var(--text-grey);margin-top:4px}
+.trip-card .t-tag{display:inline-block;margin-top:8px;font-size:10px;padding:2px 8px;border-radius:8px;background:rgba(34,211,238,0.2);color:#0e7490}
+.travel-edit{margin-top:6px}
+.back-btn{font-size:12px;color:#475569;cursor:pointer;display:inline-block;margin-bottom:10px}
+.day-card{background:var(--glass);backdrop-filter:var(--blur-light);border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
+.day-card .dc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.day-card .dc-day{font-size:13px;font-weight:800;color:var(--blue)}
+.day-card .dc-city{font-size:12px;color:var(--text-grey)}
+.spot-item{background:rgba(255,255,255,0.4);border-radius:10px;padding:10px 12px;margin-bottom:8px;border-left:3px solid #22d3ee}
+.spot-item.done{opacity:.55}
+.spot-item .sp-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.spot-item .sp-name{font-size:13px;font-weight:700;color:var(--text)}
+.spot-item .sp-meta{font-size:11px;color:var(--text-light);margin-top:4px;line-height:1.6}
+.spot-item .sp-photo{width:78px;height:78px;object-fit:cover;border-radius:8px;margin-top:6px;cursor:pointer;border:1px solid var(--glass-border)}
+.info-row{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text);margin:6px 0;flex-wrap:wrap}
+.info-row .ir-label{font-weight:700;color:var(--text-grey);min-width:46px;flex-shrink:0}
+.budget-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.4);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:12px;gap:8px}
+.budget-row .br-cat{color:var(--text-grey);font-size:11px;min-width:38px}
+.budget-total{font-weight:800;color:#dc2626;font-size:14px}
+.budget-total.ok{color:#059669}
+.pack-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.4);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:12px}
+.pack-item.done{opacity:.5;text-decoration:line-through}
+.checkbox{width:18px;height:18px;border-radius:5px;border:2px solid var(--blue);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:12px;flex-shrink:0;background:transparent}
+.checkbox.on{background:var(--blue)}
+.cover-img{width:100%;height:140px;object-fit:cover;border-radius:12px;background:rgba(34,211,238,0.12);cursor:pointer;margin-bottom:12px}
+.img-empty{display:flex;align-items:center;justify-content:center;color:var(--text-grey);font-size:12px;border:2px dashed rgba(34,211,238,0.4)}
+.countdown-card{background:linear-gradient(135deg,rgba(34,211,238,0.28),rgba(59,130,246,0.22));border:1px solid rgba(34,211,238,0.45);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:14px;cursor:pointer}
+.countdown-card .cd-num{font-size:28px;font-weight:800;color:#0e7490}
+.countdown-card .cd-label{font-size:12px;color:var(--text);margin-top:2px}
+.wish-item{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.4);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:12px}
+.wish-item .w-status{font-size:10px;padding:2px 7px;border-radius:8px;cursor:pointer}
+.w-status.want{background:rgba(148,163,184,0.25);color:#475569}
+.w-status.planning{background:rgba(250,204,21,0.25);color:#a16207}
+.w-status.done{background:rgba(34,197,94,0.22);color:#15803d}
+.stars{color:#f59e0b;font-size:14px;letter-spacing:2px;cursor:pointer}
+.tiny{font-size:11px;color:var(--text-grey)}
 .mini-btn.fav-on{background:rgba(251,191,36,0.2);color:#b45309;border-color:rgba(251,191,36,0.5)}
 .mini-btn.del{background:rgba(248,113,113,0.15);color:#dc2626;border-color:rgba(248,113,113,0.3)}
 .mini-btn.del:hover{background:#ef4444;color:#fff}
@@ -348,6 +403,7 @@ select:focus{border-color:var(--blue)}
 <div class="nav-item" onclick="switchPage('hustle',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#34d399,#10b981)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v2M17 5l-1.5 1.5M7 5l1.5 1.5M2 12h2M20 12h2M12 22a6 6 0 0 0 6-6c0-3-2-5-3-7-1 2-3 4-3 7a6 6 0 0 0 6 6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="16" r="2" fill="white"/></svg></div>副业</div>
 <div class="nav-item" onclick="switchPage('word',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#60a5fa,#3b82f6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2V5zM18 3v18M8 8h6M8 12h6M8 16h4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>学习天地</div>
 <div class="nav-item" onclick="switchPage('fitness',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="13" cy="4" r="2" fill="white"/><path d="M13 6l-3 3 2 2-2 5 3 3M8 11l-4 2M16 9l3 2-1 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>运动计划</div>
+<div class="nav-item" data-page="travel" onclick="switchPage('travel',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#22d3ee,#06b6d4)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>旅游计划</div>
 <div class="nav-item" onclick="switchPage('summary',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#f472b6,#ec4899)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="white" stroke-width="2"/><path d="M9 3v2h6V3M9 12h6M9 16h4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>每日小结</div>
 </nav>
 <div class="sidebar-backup">
@@ -386,6 +442,7 @@ select:focus{border-color:var(--blue)}
 <section class="page" id="page-hustle"><div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div><div id="hustleContent"></div></section>
 <section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-fitness"><div class="page-header"><h2>🏃 运动计划</h2><p class="date">每周训练安排</p></div><div id="fitnessContent"></div></section>
+<section class="page" id="page-travel"><div class="page-header"><h2>✈️ 旅游计划</h2><p class="date">行程 · 预算 · 行李 · 打卡</p></div><div id="travelContent"></div></section>
 <section class="page" id="page-summary"><div class="page-header"><h2>📝 每日小结</h2><p class="date" id="summaryDate"></p></div><div id="summaryContent"></div></section>
 </div>
 </main>
@@ -393,7 +450,7 @@ select:focus{border-color:var(--blue)}
 // ============ 全局工具 ============
 var WEEKDAYS=['周日','周一','周二','周三','周四','周五','周六'];
 var MONTHS=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-var refreshOffsets={house:0,inspire:0,hustle:0,word:0,fitness:0,summary:0};
+var refreshOffsets={house:0,inspire:0,hustle:0,word:0,fitness:0,travel:0,summary:0};
 var currentPage='house';
 function todayStr(){var d=new Date();return d.getFullYear()+'年'+MONTHS[d.getMonth()]+d.getDate()+'日 '+WEEKDAYS[d.getDay()];}
 function todayShort(){var d=new Date();return MONTHS[d.getMonth()]+d.getDate()+'日';}
@@ -1622,6 +1679,8 @@ function renderSummary(){
     '<div class="summary-item" onclick="switchPage(\'hustle\',document.querySelectorAll(\'.nav-item\')[2])"><div class="num" style="color:var(--green)">'+HUSTLE_LIST.length+'</div><div class="label">副业思路</div></div>'+
     '<div class="summary-item" onclick="switchPage(\'fitness\',document.querySelectorAll(\'.nav-item\')[4])"><div class="num" style="color:var(--orange)">'+(fitnessToday==='休息日'?'💤':'🏃')+'</div><div class="label">'+fitnessToday+'</div></div>'+
     '</div>';
+  var nt=tvNextTrip();
+  if(nt){html+='<div class="countdown-card" onclick="switchPage(\'travel\',document.querySelector(\'[data-page=\'travel\']\'))"><div class="cd-num">'+nt.days+' 天</div><div class="cd-label">距离「'+esc(nt.name)+'」出发 · '+nt.start+'</div></div>';}
   html+='<div class="divider">🌤️ 今日天气</div><div class="card" id="weatherCard"><div class="loading" style="padding:10px">正在定位并获取天气...</div></div>';
   html+='<div class="divider">✅ 今日待办</div>';
   html+='<div class="todo-add"><input type="text" id="todoInput" placeholder="添加待办事项..." onkeypress="if(event.key===\'Enter\')addTodo()"><button onclick="addTodo()">添加</button></div>';
@@ -1773,7 +1832,7 @@ function updateTodayLabel(){
 }
 
 // ============ 页面切换 ============
-var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',summary:'每日小结'};
+var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',travel:'旅游计划',summary:'每日小结'};
 function switchPage(page,el){
   currentPage=page;
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
@@ -1782,13 +1841,14 @@ function switchPage(page,el){
   if(el)el.classList.add('active');
   document.getElementById('mobileTitle').textContent=PAGE_TITLES[page]||'';
   var updateBar=document.querySelector('.update-bar');
-  if(updateBar){updateBar.style.display=(page==='summary')?'none':'flex';}
+  if(updateBar){updateBar.style.display=(page==='summary'||page==='travel')?'none':'flex';}
   if(window.innerWidth<=768)toggleSidebar(false);
   if(page==='house')renderHouse();
   else if(page==='inspire')renderInspire();
   else if(page==='hustle')renderHustle();
   else if(page==='word')renderWord();
   else if(page==='fitness')renderFitness();
+  else if(page==='travel')tvRender();
   else if(page==='summary')renderSummary();
 }
 function toggleSidebar(force){
@@ -1796,6 +1856,82 @@ function toggleSidebar(force){
   if(force===false){sb.classList.remove('open');mask.classList.remove('show');}
   else{sb.classList.toggle('open');mask.classList.toggle('show');}
 }
+
+// ============ 旅游计划 ============
+var tvState={trips:[],cur:null,calYear:0,calMonth:0};
+var TV_CATS=['交通','住宿','餐饮','门票','其他'];
+function tvInit(){tvState.trips=lsGet('ls_travel',[]);if(!tvState.calYear){var d=new Date();tvState.calYear=d.getFullYear();tvState.calMonth=d.getMonth();}}
+function tvSave(){lsSet('ls_travel',tvState.trips);}
+function tvGetTrip(id){return tvState.trips.filter(function(t){return t.id===id;})[0];}
+function tvTripDays(t){if(!t.start||!t.end)return 0;var s=new Date(t.start),e=new Date(t.end);if(isNaN(s)||isNaN(e))return 0;return Math.round((e-s)/86400000)+1;}
+function tvEnsureDays(t){var n=tvTripDays(t);if(n<1)n=1;t.days=t.days||[];var arr=[];for(var i=0;i<n;i++){arr.push(t.days[i]||{city:'',spots:[],flight:'',hotel:'',food:'',distance:''});}t.days=arr;for(var j=0;j<n;j++){var dt=new Date(t.start);dt.setDate(dt.getDate()+j);t.days[j].date=dt.toISOString().slice(0,10);}}
+function tvRender(){tvInit();var c=document.getElementById('travelContent');var html='<div class="travel-top"><div class="divider">🗓️ 旅行日历</div>'+tvCalHTML()+'<div style="margin-top:10px"><button class="mini-btn" onclick="tvOpenEditor(null)">＋ 新建旅行</button></div></div>';if(tvState.cur){var t=tvGetTrip(tvState.cur);html+=t?tvEditorHTML(t):tvTripListHTML();}else{html+=tvTripListHTML();}c.innerHTML=html;tvLoadImgs();}
+function tvCalHTML(){var y=tvState.calYear,m=tvState.calMonth;var first=new Date(y,m,1);var startDow=(first.getDay()+6)%7;var dim=new Date(y,m+1,0).getDate();var dows=['一','二','三','四','五','六','日'];var h='<div class="cal-nav"><span class="cal-arr" onclick="tvCalMove(-1)">‹</span><span class="cal-m">'+y+'年'+(m+1)+'月</span><span class="cal-arr" onclick="tvCalMove(1)">›</span></div>';h+='<div class="cal-grid">';dows.forEach(function(d){h+='<div class="cal-dow">'+d+'</div>';});for(var i=0;i<startDow;i++)h+='<div class="cal-cell empty"></div>';var today=new Date();var tk=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');for(var d=1;d<=dim;d++){var key=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');var cls='cal-cell';var tn='';tvState.trips.forEach(function(t){if(t.start&&t.end&&key>=t.start&&key<=t.end){cls+=' has-trip';if(!tn)tn=t.name;}});if(key===tk)cls+=' today';h+='<div class="'+cls+'" onclick="tvCalClick(\''+key+'\')"><div class="cal-d">'+d+'</div>'+(tn?'<div class="cal-trip">'+esc(tn)+'</div>':'')+'</div>';}h+='</div>';return h;}
+function tvCalMove(dir){var d=new Date(tvState.calYear,tvState.calMonth+dir,1);tvState.calYear=d.getFullYear();tvState.calMonth=d.getMonth();tvRender();}
+function tvCalClick(key){var t=tvState.trips.filter(function(x){return x.start&&x.end&&key>=x.start&&key<=x.end;})[0];if(t){tvState.cur=t.id;tvRender();}}
+function tvTripListHTML(){if(!tvState.trips.length)return '<div class="empty-hint">还没有旅行计划，点上面「＋ 新建旅行」开始规划吧 ✈️</div>';var h='<div class="divider">🧳 我的旅行</div><div class="trip-list">';tvState.trips.forEach(function(t){h+='<div class="trip-card" onclick="tvState.cur=\''+t.id+'\';tvRender()">';if(t.cover)h+='<img class="t-cover" data-img="'+t.cover+'">';else h+='<div class="t-cover img-empty">无封面</div>';h+='<div class="t-name">'+esc(t.name||'未命名旅行')+'</div><div class="t-date">'+(t.start||'?')+' → '+(t.end||'?')+'</div><span class="t-tag">'+(tvTripDays(t))+'天</span></div>';});h+='</div>';return h;}
+function wStatusText(s){return s==='done'?'已去':s==='planning'?'计划中':'想去';}
+function starStr(r){var s='';for(var i=1;i<=5;i++)s+=i<=r?'★':'☆';return s;}
+function tvEditorHTML(t){tvEnsureDays(t);var h='<div class="travel-edit"><span class="back-btn" onclick="tvState.cur=null;tvRender()">← 返回旅行列表</span>';
+h+='<div class="day-card"><div class="dc-head"><input class="fg" id="tName" value="'+esc(t.name||'')+'" onchange="tvRename(\''+t.id+'\')" style="font-size:15px;font-weight:700;flex:1"></div></div>';
+h+='<div class="fg-row"><div class="fg">出发日期<br><input type="date" class="fg" id="tStart" value="'+(t.start||'')+'" onchange="tvSaveInfo(\''+t.id+'\')"></div><div class="fg">返程日期<br><input type="date" class="fg" id="tEnd" value="'+(t.end||'')+'" onchange="tvSaveInfo(\''+t.id+'\')"></div></div>';
+h+='<div style="margin-top:10px">封面图：<br>'+(t.cover?'<img class="cover-img" data-img="'+t.cover+'" onclick="tvPickCover(\''+t.id+'\')">':'<div class="cover-img img-empty" onclick="tvPickCover(\''+t.id+'\')">点击上传封面图</div>')+'</div>';
+h+='<div style="margin-top:8px"><button class="mini-btn" onclick="tvDelTrip(\''+t.id+'\')">删除此旅行</button></div></div>';
+h+='<div class="sub-sec"><div class="sub-sec-t">📍 目的地愿望清单</div>';
+(t.wishlist||[]).forEach(function(w){h+='<div class="wish-item"><span class="w-status '+(w.status||'want')+'" onclick="tvSetWish(\''+t.id+'\',\''+w.id+'\')">'+wStatusText(w.status)+'</span><span style="flex:1;cursor:pointer" onclick="tvDelWish(\''+t.id+'\',\''+w.id+'\')" title="点击删除">'+esc(w.name)+' ✕</span></div>';});
+h+='<div class="wish-item"><input class="fg" id="wNew" placeholder="添加想去的地方，回车添加" onkeypress="if(event.key===\'Enter\')tvAddWish(\''+t.id+'\')"><button class="mini-btn" onclick="tvAddWish(\''+t.id+'\')">添加</button></div></div>';
+h+='<div class="sub-sec"><div class="sub-sec-t">🗺️ 行程日程（'+t.days.length+'天）</div>';
+t.days.forEach(function(day,i){h+=tvDayCardHTML(t,day,i);});
+h+='</div>';
+h+='<div class="sub-sec"><div class="sub-sec-t">💰 预算花销</div>'+tvBudgetHTML(t)+'</div>';
+h+='<div class="sub-sec"><div class="sub-sec-t">🎒 行李打包清单</div>'+tvPackHTML(t)+'</div>';
+h+='</div>';return h;}
+function tvDayCardHTML(t,day,i){var h='<div class="day-card"><div class="dc-head"><div><span class="dc-day">第'+(i+1)+'天 · '+(day.date||'')+'</span></div></div>';
+h+='<div class="info-row"><span class="ir-label">城市</span><input class="fg" id="dayCity_'+i+'" value="'+esc(day.city||'')+'" onchange="tvDayField(\''+t.id+'\','+i+',\'city\')" style="flex:1"></div>';
+h+='<div class="info-row"><span class="ir-label">航班</span><input class="fg" id="dayFlight_'+i+'" value="'+esc(day.flight||'')+'" onchange="tvDayField(\''+t.id+'\','+i+',\'flight\')" style="flex:1"></div>';
+h+='<div class="info-row"><span class="ir-label">酒店</span><input class="fg" id="dayHotel_'+i+'" value="'+esc(day.hotel||'')+'" onchange="tvDayField(\''+t.id+'\','+i+',\'hotel\')" style="flex:1"></div>';
+h+='<div class="info-row"><span class="ir-label">吃饭</span><input class="fg" id="dayFood_'+i+'" value="'+esc(day.food||'')+'" onchange="tvDayField(\''+t.id+'\','+i+',\'food\')" style="flex:1"></div>';
+h+='<div class="info-row"><span class="ir-label">距离</span><input class="fg" id="dayDistance_'+i+'" value="'+esc(day.distance||'')+'" onchange="tvDayField(\''+t.id+'\','+i+',\'distance\')" style="flex:1"><button class="mini-btn" onclick="tvMap(\''+t.id+'\','+i+')">📍 地图</button></div>';
+(day.spots||[]).forEach(function(sp,si){h+='<div class="spot-item'+(sp.done?' done':'')+'"><div class="sp-head"><span class="sp-name" onclick="tvToggleSpot(\''+t.id+'\','+i+','+si+')">'+esc(sp.name||'未命名景点')+'</span><span class="stars" onclick="tvRateSpot(\''+t.id+'\','+i+','+si+')">'+starStr(sp.rating||0)+'</span><span class="tiny" onclick="tvDelSpot(\''+t.id+'\','+i+','+si+')">✕</span></div>';h+='<div class="sp-meta">机位：'+esc(sp.spot||'')+'</div>';if(sp.photo)h+='<img class="sp-photo" data-img="'+sp.photo+'" onclick="tvPickSpotPhoto(\''+t.id+'\','+i+','+si+')">';else h+='<div class="tiny" onclick="tvPickSpotPhoto(\''+t.id+'\','+i+','+si+')">＋ 上传打卡照片</div>';h+='</div>';});
+h+='<div class="spot-item" style="border-left-color:#94a3b8;background:rgba(148,163,184,0.12)"><input class="fg" id="spotNew_'+i+'" placeholder="添加景点（名称）" onkeypress="if(event.key===\'Enter\')tvAddSpot(\''+t.id+'\','+i+')"><button class="mini-btn" onclick="tvAddSpot(\''+t.id+'\','+i+')">添加景点</button></div>';
+h+='</div>';return h;}
+function tvBudgetHTML(t){t.budget=t.budget||{estimate:0,items:[]};var h='<div class="info-row"><span class="ir-label">预估</span><input class="fg" id="bEst" value="'+(t.budget.estimate||0)+'" onchange="tvSaveEstimate(\''+t.id+'\')" style="width:120px"> 元</div>';
+var total=0;(t.budget.items||[]).forEach(function(b,bi){total+=(Number(b.amount)||0);h+='<div class="budget-row"><span><select class="fg" onchange="tvBudgetCat(\''+t.id+'\','+bi+',this.value)" style="width:80px">'+TV_CATS.map(function(c){return '<option'+(c===b.cat?' selected':'')+'>'+c+'</option>';}).join('')+'</select> <input class="fg" value="'+esc(b.name||'')+'" onchange="tvBudgetField(\''+t.id+'\','+bi+',\'name\',this.value)" style="width:110px"> <input class="fg" value="'+(b.amount||0)+'" onchange="tvBudgetField(\''+t.id+'\','+bi+',\'amount\',this.value)" style="width:70px"> 元</span><span class="tiny" onclick="tvDelBudget(\''+t.id+'\','+bi+')">✕</span></div>';});
+h+='<div class="budget-row"><select class="fg" id="bCatNew" style="width:80px">'+TV_CATS.map(function(c){return '<option>'+c+'</option>';}).join('')+'</select> <input class="fg" id="bNameNew" placeholder="项目" style="width:110px"> <input class="fg" id="bAmtNew" placeholder="金额" style="width:70px"> <button class="mini-btn" onclick="tvAddBudget(\''+t.id+'\')">添加</button></div>';
+h+='<div class="budget-row"><span class="br-cat">实际合计</span><span class="budget-total'+(t.budget.estimate&&total<=t.budget.estimate?' ok':'')+'">'+total+' 元'+(t.budget.estimate?' / 预估 '+t.budget.estimate+' 元':'')+'</span></div>';
+return h;}
+function tvPackHTML(t){t.packing=t.packing||[];var h='';(t.packing||[]).forEach(function(p,pi){h+='<div class="pack-item'+(p.done?' done':'')+'"><span class="checkbox'+(p.done?' on':'')+'" onclick="tvTogglePack(\''+t.id+'\','+pi+')">'+(p.done?'✓':'')+'</span><span style="flex:1;cursor:pointer" onclick="tvDelPack(\''+t.id+'\','+pi+')">'+esc(p.name)+' ✕</span></div>';});
+h+='<div class="pack-item"><input class="fg" id="packNew" placeholder="添加物品，回车添加" onkeypress="if(event.key===\'Enter\')tvAddPack(\''+t.id+'\')"><button class="mini-btn" onclick="tvAddPack(\''+t.id+'\')">添加</button></div>';return h;}
+function tvOpenEditor(id){if(id){tvState.cur=id;}else{var t={id:lsId(),name:'',start:'',end:'',cover:null,wishlist:[],days:[],budget:{estimate:0,items:[]},packing:[]};tvState.trips.push(t);tvState.cur=t.id;tvSave();}tvRender();}
+function tvRename(id){var t=tvGetTrip(id);if(!t)return;t.name=document.getElementById('tName').value.trim()||'我的旅行';tvSave();}
+function tvSaveInfo(id){var t=tvGetTrip(id);if(!t)return;t.start=document.getElementById('tStart').value;t.end=document.getElementById('tEnd').value;tvEnsureDays(t);t.name=t.name||'我的旅行';tvSave();tvRender();}
+function tvDelTrip(id){if(!confirm('确定删除这次旅行计划？此操作不可恢复。'))return;tvState.trips=tvState.trips.filter(function(x){return x.id!==id;});if(tvState.cur===id)tvState.cur=null;tvSave();tvRender();}
+function tvAddWish(id){var inp=document.getElementById('wNew');var v=inp.value.trim();if(!v)return;var t=tvGetTrip(id);t.wishlist=t.wishlist||[];t.wishlist.push({id:lsId(),name:v,status:'want'});tvSave();tvRender();}
+function tvSetWish(id,wid){var t=tvGetTrip(id);var w=t.wishlist.filter(function(x){return x.id===wid;})[0];if(!w)return;var order=['want','planning','done'];w.status=order[(order.indexOf(w.status)+1)%3];tvSave();tvRender();}
+function tvDelWish(id,wid){var t=tvGetTrip(id);t.wishlist=t.wishlist.filter(function(x){return x.id!==wid;});tvSave();tvRender();}
+function tvDayField(id,i,field){var t=tvGetTrip(id);if(!t)return;var el=document.getElementById('day'+field.charAt(0).toUpperCase()+field.slice(1)+'_'+i);if(el)t.days[i][field]=el.value;tvSave();}
+function tvAddSpot(id,i){var inp=document.getElementById('spotNew_'+i);var v=inp.value.trim();if(!v)return;var t=tvGetTrip(id);t.days[i].spots=t.days[i].spots||[];t.days[i].spots.push({id:lsId(),name:v,spot:'',done:false,rating:0,photo:null});tvSave();tvRender();}
+function tvToggleSpot(id,i,si){var t=tvGetTrip(id);t.days[i].spots[si].done=!t.days[i].spots[si].done;tvSave();tvRender();}
+function tvRateSpot(id,i,si){var t=tvGetTrip(id);var r=(t.days[i].spots[si].rating||0)+1;if(r>5)r=0;t.days[i].spots[si].rating=r;tvSave();tvRender();}
+function tvDelSpot(id,i,si){var t=tvGetTrip(id);t.days[i].spots.splice(si,1);tvSave();tvRender();}
+function tvSaveEstimate(id){var t=tvGetTrip(id);t.budget=t.budget||{estimate:0,items:[]};t.budget.estimate=Number(document.getElementById('bEst').value)||0;tvSave();tvRender();}
+function tvBudgetCat(id,bi,val){var t=tvGetTrip(id);if(t.budget.items[bi])t.budget.items[bi].cat=val;tvSave();}
+function tvBudgetField(id,bi,field,val){var t=tvGetTrip(id);if(!t.budget.items[bi])return;t.budget.items[bi][field]=field==='amount'?Number(val)||0:val;tvSave();}
+function tvAddBudget(id){var t=tvGetTrip(id);t.budget=t.budget||{estimate:0,items:[]};t.budget.items.push({id:lsId(),cat:document.getElementById('bCatNew').value,name:document.getElementById('bNameNew').value.trim(),amount:Number(document.getElementById('bAmtNew').value)||0});tvSave();tvRender();}
+function tvDelBudget(id,bi){var t=tvGetTrip(id);t.budget.items.splice(bi,1);tvSave();tvRender();}
+function tvAddPack(id){var inp=document.getElementById('packNew');var v=inp.value.trim();if(!v)return;var t=tvGetTrip(id);t.packing=t.packing||[];t.packing.push({id:lsId(),name:v,done:false});tvSave();tvRender();}
+function tvTogglePack(id,pi){var t=tvGetTrip(id);t.packing[pi].done=!t.packing[pi].done;tvSave();tvRender();}
+function tvDelPack(id,pi){var t=tvGetTrip(id);t.packing.splice(pi,1);tvSave();tvRender();}
+function tvMap(id,i){var t=tvGetTrip(id);if(!t)return;var city=(t.days[i]&&t.days[i].city)||'';window.open('https://www.amap.com/search?query='+encodeURIComponent(city),'_blank');}
+function tvPickCover(id){tvPickImage(function(imgId){var t=tvGetTrip(id);if(t){t.cover=imgId;tvSave();}tvRender();});}
+function tvPickSpotPhoto(id,i,si){tvPickImage(function(imgId){var t=tvGetTrip(id);if(t&&t.days[i]&&t.days[i].spots[si]){t.days[i].spots[si].photo=imgId;tvSave();}tvRender();});}
+function tvPickImage(cb){var inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=function(){var f=inp.files[0];if(!f)return;var id='img_'+lsId();tvImgPut(id,f).then(function(){cb(id);}).catch(function(){alert('图片存储失败（浏览器可能不支持 IndexedDB 或空间不足）');});};inp.click();}
+function tvLoadImgs(){document.querySelectorAll('[data-img]').forEach(function(el){var id=el.getAttribute('data-img');if(!id)return;tvImgGet(id).then(function(blob){if(blob){el.src=URL.createObjectURL(blob);}else{el.style.display='none';}}).catch(function(){el.style.display='none';});});}
+function tvNextTrip(){var trips=lsGet('ls_travel',[]);var today=new Date();today.setHours(0,0,0,0);var best=null;trips.forEach(function(t){if(!t.start)return;var s=new Date(t.start);s.setHours(0,0,0,0);var diff=Math.round((s-today)/86400000);if(diff>=0&&(!best||diff<best.days)){best={name:t.name,start:t.start,days:diff};}});return best;}
+var _tvdb;
+function tvDB(){return new Promise(function(res,rej){if(_tvdb){res(_tvdb);return;}var r=indexedDB.open('workbench_travel',1);r.onupgradeneeded=function(e){var db=e.target.result;if(!db.objectStoreNames.contains('images'))db.createObjectStore('images',{keyPath:'id'});};r.onsuccess=function(e){_tvdb=e.target.result;res(_tvdb);};r.onerror=function(e){rej(e);};});}
+function tvImgPut(id,blob){return tvDB().then(function(db){return new Promise(function(r,j){var tx=db.transaction('images','readwrite');tx.objectStore('images').put({id:id,blob:blob});tx.oncomplete=function(){r();};tx.onerror=function(e){j(e);};});});}
+function tvImgGet(id){return tvDB().then(function(db){return new Promise(function(r,j){var tx=db.transaction('images','readonly');var rq=tx.objectStore('images').get(id);rq.onsuccess=function(){r(rq.result?rq.result.blob:null);};rq.onerror=function(e){j(e);};});});}
 
 // ============ 初始化 ============
 document.getElementById('sidebarDate').textContent=todayStr();
