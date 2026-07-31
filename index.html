@@ -1614,8 +1614,7 @@ function renderSummary(){
   var today=new Date();
   var todayIdx=today.getDay()===0?6:today.getDay()-1;
   var fitnessToday=FITNESS_PLAN[todayIdx]?FITNESS_PLAN[todayIdx].focus:'休息日';
-  var todoKey='todo_'+today.toISOString().slice(0,10);
-  var todos=JSON.parse(localStorage.getItem(todoKey)||'[]');
+  var todos=readDay('todo');
   var doneCount=todos.filter(function(t){return t.done;}).length;
   var html='<div class="summary-grid">'+
     '<div class="summary-item" onclick="switchPage(\'word\',document.querySelectorAll(\'.nav-item\')[3])"><div class="num" style="color:var(--purple)">30</div><div class="label">今日单词</div></div>'+
@@ -1628,8 +1627,7 @@ function renderSummary(){
   html+='<div class="todo-add"><input type="text" id="todoInput" placeholder="添加待办事项..." onkeypress="if(event.key===\'Enter\')addTodo()"><button onclick="addTodo()">添加</button></div>';
   html+='<div id="todoList"></div>';
   html+='<div style="font-size:11px;color:var(--text-grey);text-align:center;margin-top:4px">已完成 '+doneCount+'/'+todos.length+'</div>';
-  var moodKey='mood_'+today.toISOString().slice(0,10);
-  var savedMood=localStorage.getItem(moodKey)||'';
+  var savedMood=readMood();
   html+='<div class="divider">😊 今日心情</div><div class="card"><div class="mood-row">';
   var moods=[{e:'😄',n:'开心'},{e:'🙂',n:'平静'},{e:'😐',n:'一般'},{e:'😔',n:'低落'},{e:'😴',n:'疲惫'}];
   moods.forEach(function(m){html+='<div class="mood-btn'+(savedMood===m.n?' selected':'')+'" onclick="setMood(this,\''+m.n+'\')">'+m.e+'</div>';});
@@ -1647,30 +1645,62 @@ function renderSummary(){
   });
 }
 
+// ============ 本地日期 & 每日数据读写（对齐本地0点） ============
+function localDateStr(){
+  var d=new Date();
+  var m=String(d.getMonth()+1).padStart(2,'0');
+  var day=String(d.getDate()).padStart(2,'0');
+  return d.getFullYear()+'-'+m+'-'+day;
+}
+function readDay(prefix){
+  var localKey=prefix+localDateStr();
+  var v=localStorage.getItem(localKey);
+  if(v!==null)return JSON.parse(v);
+  // 兼容修复前按 UTC 日期存储的旧数据，自动迁移到本地日期键（无丢失）
+  var utcKey=prefix+new Date().toISOString().slice(0,10);
+  if(utcKey!==localKey){
+    var uv=localStorage.getItem(utcKey);
+    if(uv!==null){try{localStorage.setItem(localKey,uv);}catch(e){}return JSON.parse(uv);}
+  }
+  return [];
+}
+function writeDay(prefix,arr){localStorage.setItem(prefix+localDateStr(),JSON.stringify(arr));}
+function readMood(){
+  var localKey='mood_'+localDateStr();
+  var v=localStorage.getItem(localKey);
+  if(v!==null)return v;
+  var utcKey='mood_'+new Date().toISOString().slice(0,10);
+  if(utcKey!==localKey){
+    var uv=localStorage.getItem(utcKey);
+    if(uv!==null){try{localStorage.setItem(localKey,uv);}catch(e){}return uv;}
+  }
+  return '';
+}
+
 // ============ 待办功能 ============
-function getTodoKey(){return 'todo_'+new Date().toISOString().slice(0,10);}
+function getTodoKey(){return 'todo_'+localDateStr();}
 function addTodo(){
   var input=document.getElementById('todoInput');var text=input.value.trim();
   if(!text)return;
-  var todos=JSON.parse(localStorage.getItem(getTodoKey())||'[]');
+  var todos=readDay('todo');
   todos.push({text:text,done:false});
-  localStorage.setItem(getTodoKey(),JSON.stringify(todos));
+  writeDay('todo',todos);
   input.value='';renderTodoList();
 }
 function toggleTodo(idx){
-  var todos=JSON.parse(localStorage.getItem(getTodoKey())||'[]');
+  var todos=readDay('todo');
   todos[idx].done=!todos[idx].done;
-  localStorage.setItem(getTodoKey(),JSON.stringify(todos));
+  writeDay('todo',todos);
   renderTodoList();
 }
 function delTodo(idx){
-  var todos=JSON.parse(localStorage.getItem(getTodoKey())||'[]');
+  var todos=readDay('todo');
   todos.splice(idx,1);
-  localStorage.setItem(getTodoKey(),JSON.stringify(todos));
+  writeDay('todo',todos);
   renderTodoList();
 }
 function renderTodoList(){
-  var todos=JSON.parse(localStorage.getItem(getTodoKey())||'[]');
+  var todos=readDay('todo');
   var html='';var doneCount=0;
   todos.forEach(function(t,i){
     if(t.done)doneCount++;
@@ -1685,8 +1715,7 @@ function renderTodoList(){
 function setMood(btn,mood){
   document.querySelectorAll('.mood-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
-  var moodKey='mood_'+new Date().toISOString().slice(0,10);
-  localStorage.setItem(moodKey,mood);
+  localStorage.setItem('mood_'+localDateStr(),mood);
   document.getElementById('moodLabel').textContent='今天心情：'+mood;
 }
 
