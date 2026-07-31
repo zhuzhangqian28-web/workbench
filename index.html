@@ -393,11 +393,12 @@ select:focus{border-color:var(--blue)}
 // ============ 全局工具 ============
 var WEEKDAYS=['周日','周一','周二','周三','周四','周五','周六'];
 var MONTHS=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-var refreshOffset=0;
+var refreshOffsets={house:0,inspire:0,hustle:0,word:0,fitness:0,summary:0};
+var currentPage='house';
 function todayStr(){var d=new Date();return d.getFullYear()+'年'+MONTHS[d.getMonth()]+d.getDate()+'日 '+WEEKDAYS[d.getDay()];}
 function todayShort(){var d=new Date();return MONTHS[d.getMonth()]+d.getDate()+'日';}
 function dayNum(){return Math.floor(Date.now()/86400000);}
-function rotate(arr,count,offset){var start=(dayNum()+(offset||0)+refreshOffset)%arr.length;var r=[];for(var i=0;i<count;i++)r.push(arr[(start+i)%arr.length]);return r;}
+function rotate(arr,count,offset){var start=(dayNum()+(offset||0)+refreshOffsets[currentPage])%arr.length;var r=[];for(var i=0;i<count;i++)r.push(arr[(start+i)%arr.length]);return r;}
 function stars(n){var s='<span class="rating">';for(var i=1;i<=5;i++)s+=i<=n?'<span class="star-on">★</span>':'<span class="star-off">★</span>';return s+'</span>';}
 function timeStr(){var d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');}
 
@@ -1702,7 +1703,7 @@ function refreshAll(){
   var btn=document.getElementById('updateBtn');
   btn.classList.add('spinning');
   btn.textContent='🔄 更新中...';
-  refreshOffset=Math.floor(Math.random()*100000);
+  refreshOffsets[currentPage]=Math.floor(Math.random()*100000);
   setTimeout(function(){
     var activePage=document.querySelector('.page.active');
     if(activePage){
@@ -1712,16 +1713,16 @@ function refreshAll(){
     }
     btn.classList.remove('spinning');
     btn.textContent='🔄 更新内容';
-    document.getElementById('updateInfo').textContent='已更新于 '+timeStr()+' · 每日0点自动更新';
+    document.getElementById('updateInfo').textContent='已更新「'+(PAGE_TITLES[currentPage]||'')+'」于 '+timeStr()+' · 每日0点自动更新';
   },600);
 }
 
 // ============ 跨天检测 ============
 var lastDay=dayNum();
 setInterval(function(){
-  if(dayNum()!==lastDay){
+    if(dayNum()!==lastDay){
     lastDay=dayNum();
-    refreshOffset=0;
+    for(var k in refreshOffsets)refreshOffsets[k]=0;
     document.getElementById('sidebarDate').textContent=todayStr();
     document.getElementById('houseDate').textContent=todayStr();
     document.getElementById('wordDate').textContent=todayStr();
@@ -1744,6 +1745,7 @@ function updateTodayLabel(){
 // ============ 页面切换 ============
 var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',summary:'每日小结'};
 function switchPage(page,el){
+  currentPage=page;
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
