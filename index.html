@@ -284,6 +284,34 @@ select:focus{border-color:var(--blue)}
 .card select{padding:4px 8px;border-radius:8px;font-size:11px;border:1px solid rgba(148,163,184,0.4);background:rgba(255,255,255,0.6);color:#1e293b;cursor:pointer}
 .card select:focus{border-color:#6366f1}
 #hustleSummary{margin-top:8px}
+/* 视频跟练 */
+.video-favbar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.video-chip{padding:7px 14px;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;background:var(--glass-light);border:1px solid var(--glass-border);color:var(--text);transition:all .15s}
+.video-chip:hover{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateY(-1px)}
+.video-tip{font-size:11px;color:var(--text-grey);margin:8px 0 4px}
+.video-list{margin-top:2px}
+.video-item{display:flex;align-items:center;gap:10px;background:var(--glass-light);border:1px solid var(--glass-border);border-radius:14px;padding:10px 14px;margin-bottom:8px;cursor:pointer;transition:all .15s}
+.video-item:hover{background:var(--glass);transform:translateX(3px)}
+.video-item .v-thumb{width:52px;height:38px;border-radius:8px;background:linear-gradient(135deg,#818cf8,#a78bfa);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0}
+.video-item .v-title{flex:1;font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.video-item .v-del{font-size:13px;color:var(--text-grey);opacity:0;cursor:pointer;transition:opacity .15s;padding:2px 6px;border-radius:6px}
+.video-item .v-del:hover{color:#fff;background:var(--red)}
+.video-item:hover .v-del{opacity:1}
+.video-add{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.video-add input{flex:1;min-width:120px;padding:8px 12px;border:1px solid var(--glass-border);border-radius:10px;font-size:12px;outline:none;background:var(--glass-light);color:var(--text)}
+.video-add input::placeholder{color:var(--text-grey)}
+.video-add input:focus{border-color:var(--blue);background:var(--glass)}
+.video-add button{padding:8px 16px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.video-add button:hover{background:#3b82f6}
+/* 视频弹窗 */
+.video-modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:300;align-items:center;justify-content:center;padding:20px}
+.video-modal.show{display:flex}
+.video-modal .vbox{position:relative;width:100%;max-width:880px;aspect-ratio:16/9;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.video-modal .vbox iframe{width:100%;height:100%;border:0;display:block}
+.video-modal .vclose{position:absolute;top:-46px;right:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.video-modal .vclose:hover{background:rgba(255,255,255,.32)}
+.video-modal .vopen{position:absolute;bottom:-38px;left:0;font-size:12px;color:#cbd5e1;text-decoration:none}
+.video-modal .vopen:hover{color:#fff}
 </style>
 </head>
 <body>
@@ -1369,10 +1397,83 @@ function renderFitness(){
   var c=document.getElementById('fitnessContent');
   var today=new Date().getDay();
   var todayIdx=today===0?6:today-1;
-  c.innerHTML=FITNESS_PLAN.map(function(f,i){
+  var html='<div class="divider">📺 视频跟练</div>';
+  html+='<div class="card"><div class="card-title">跟着视频练，不靠想象</div><div class="card-desc">点主题在 B站打开对应跟练视频；也可把常用跟练链接加进来，点开即播。</div>';
+  html+='<div class="video-favbar">';
+  FITNESS_VIDEO_TOPICS.forEach(function(t){
+    var q='https://search.bilibili.com/all?keyword='+encodeURIComponent(t.kw);
+    html+='<span class="video-chip" onclick="window.open(\''+q+'\',\'_blank\')">▶ '+esc(t.name)+'</span>';
+  });
+  html+='</div>';
+  var myV=lsGet('ls_fitness_videos',[]);
+  html+='<div class="video-tip">我的跟练（'+myV.length+'）：</div><div class="video-list">';
+  if(myV.length){
+    myV.forEach(function(v){
+      html+='<div class="video-item" onclick="openVideoModal(\''+esc(v.url)+'\')"><div class="v-thumb">▶</div><div class="v-title">'+esc(v.title)+'</div><button class="v-del" onclick="event.stopPropagation();delFitnessVideo(\''+v.id+'\')">删除</button></div>';
+    });
+  }else{
+    html+='<div class="empty-hint">还没有添加。把常用的 B站 / YouTube 跟练链接贴到下面即可。</div>';
+  }
+  html+='</div><div class="video-add"><input id="videoTitle" placeholder="名称，如：帕梅拉腹肌" /><input id="videoUrl" placeholder="粘贴视频链接（B站 / YouTube）" /><button onclick="addFitnessVideo()">添加</button></div></div>';
+  html+=FITNESS_PLAN.map(function(f,i){
     var isToday=(i===todayIdx);
     return '<div class="fitness-day'+(isToday?' today':'')+'"><div class="day-name">'+(isToday?'📍 ':'')+f.day+' · '+f.focus+(isToday?' <span class="badge badge-orange">今天</span>':'')+'</div><div class="day-detail">'+f.detail.replace(/\n/g,'<br>')+'</div><div class="day-cal">🔥 '+f.cal+'</div><div class="day-tip">💡 '+f.tip+'</div></div>';
   }).join('')+'<div class="card"><div class="card-title">📊 每周运动概览</div><div class="card-desc">• 训练频率：每周6天训练+1天拉伸恢复<br>• 总消耗：约1580千卡/周<br>• 建议：训练前热身5分钟，训练后拉伸10分钟<br>• 饮食：运动后30分钟内补充蛋白质<br>• 休息：保证每天7-8小时睡眠</div></div>';
+  c.innerHTML=html;
+}
+var FITNESS_VIDEO_TOPICS=[
+  {name:'热身激活',kw:'健身 热身 跟练 全身'},
+  {name:'有氧操燃脂',kw:'有氧操 跟练 减脂 居家'},
+  {name:'哑铃上肢',kw:'哑铃 上肢 跟练'},
+  {name:'腹肌训练',kw:'腹肌 跟练 10分钟'},
+  {name:'臀腿塑形',kw:'臀腿 跟练 居家'},
+  {name:'拉伸放松',kw:'全身拉伸 跟练'},
+  {name:'瑜伽',kw:'瑜伽 跟练 初学者'},
+  {name:'HIIT',kw:'HIIT 跟练 燃脂'}
+];
+function toEmbed(url){
+  url=(url||'').trim();
+  var b=/bilibili\.com\/video\/(BV\w+)/i.exec(url)||/b23\.tv\/(BV\w+)/i.exec(url);
+  if(b) return 'https://player.bilibili.com/player.html?bvid='+b[1]+'&autoplay=1&high_quality=1';
+  if(/player\.bilibili\.com/.test(url)) return url;
+  var y=/youtube\.com\/watch\?v=([\w-]+)/i.exec(url)||/youtu\.be\/([\w-]+)/i.exec(url);
+  if(y) return 'https://www.youtube.com/embed/'+y[1]+'?autoplay=1';
+  if(/youtube\.com\/embed\//.test(url)) return url;
+  return null;
+}
+function openVideoModal(url){
+  var embed=toEmbed(url);
+  var frame=document.getElementById('videoFrame');
+  var modal=document.getElementById('videoModal');
+  var openLink=document.getElementById('videoOpen');
+  if(embed){
+    frame.src=embed;
+    openLink.style.display='none';
+  }else{
+    frame.src='';
+    openLink.href=url;
+    openLink.style.display='block';
+  }
+  modal.classList.add('show');
+}
+function closeVideoModal(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').classList.remove('show');
+}
+function addFitnessVideo(){
+  var t=document.getElementById('videoTitle').value.trim();
+  var u=document.getElementById('videoUrl').value.trim();
+  if(!u){alert('请粘贴视频链接（B站或 YouTube）');return;}
+  var list=lsGet('ls_fitness_videos',[]);
+  list.push({id:lsId(),title:t||'我的跟练视频',url:u});
+  lsSet('ls_fitness_videos',list);
+  renderFitness();
+}
+function delFitnessVideo(id){
+  if(!confirm('删除这条跟练视频？'))return;
+  var list=lsGet('ls_fitness_videos',[]).filter(function(v){return v.id!==id;});
+  lsSet('ls_fitness_videos',list);
+  renderFitness();
 }
 
 // ============ 渲染：每日小结 ============
@@ -1544,5 +1645,12 @@ document.getElementById('summaryDate').textContent=todayStr();
 updateTodayLabel();
 renderHouse();
 </script>
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeVideoModal()">
+  <div class="vbox">
+    <button class="vclose" onclick="closeVideoModal()" title="关闭">✕</button>
+    <iframe id="videoFrame" src="" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
+    <a class="vopen" id="videoOpen" href="#" target="_blank" rel="noopener">在新窗口打开 ↗</a>
+  </div>
+</div>
 </body>
 </html>
