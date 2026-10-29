@@ -308,6 +308,108 @@ select:focus{border-color:var(--blue)}
 .ootd-img{width:100%;max-height:200px;object-fit:cover;border-radius:10px;cursor:zoom-in;display:block}
 .ootd-change{position:absolute;top:6px;right:6px;padding:2px 8px;border-radius:6px;background:rgba(14,116,144,0.85);color:#fff;font-size:11px;cursor:pointer;opacity:0;transition:opacity .15s;z-index:2}
 .ootd-img-wrap:hover .ootd-change{opacity:1}
+.ielts-stages{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px}
+.ielts-stage{background:rgba(255,255,255,0.5);border:1px solid var(--glass-border);border-radius:10px;padding:10px}
+.ielts-stage.active{border-color:#db2777;box-shadow:0 0 0 2px rgba(219,39,119,0.2);background:rgba(252,232,238,0.6)}
+.ielts-stage.done{opacity:0.6}
+.ielts-stage .is-name{font-weight:800;color:#0e7490;margin-bottom:4px}
+.ielts-stage.active .is-name{color:#db2777}
+.ielts-stage .is-goal{font-size:12px;color:#555;line-height:1.4}
+.ielts-stage .is-target{font-size:12px;color:#0e7490;margin-top:6px;font-weight:700}
+.ielts-task{background:rgba(255,255,255,0.5);border:1px solid var(--glass-border);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.ielts-task summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none}
+.ielts-task summary::-webkit-details-marker{display:none}
+.ielts-open{margin-left:auto;font-size:12px;color:#0e7490;font-weight:700}
+.ielts-task.done{background:rgba(16,185,129,0.12);border-color:#10b981}
+.ielts-task .checkbox{width:22px;height:22px;border-radius:6px;border:2px solid #cbd5e1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0}
+.ielts-task .checkbox.on{background:#10b981;border-color:#10b981}
+.ielts-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.istat{background:rgba(255,255,255,0.5);border-radius:10px;padding:12px 8px;text-align:center}
+.istat-num{font-size:22px;font-weight:800;color:#0e7490}
+.istat-lbl{font-size:11px;color:#666;margin-top:2px}
+.ielts-mocks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.mock-chip{background:rgba(14,116,144,0.1);color:#0e7490;border-radius:20px;padding:4px 10px;font-size:12px}
+.rate-line{font-size:12px;color:#666;margin-top:2px}
+.rate-ok{color:#10b981}.rate-mid{color:#f59e0b}
+.btn-live{background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;border:none}
+.btn-live:hover{opacity:.9}
+.prep-box{background:rgba(255,255,255,0.6);border:1px solid var(--glass-border);border-radius:10px;padding:10px;margin-top:8px}
+.prep-sub{font-weight:700;font-size:13px;margin:8px 0 4px}
+.chk{display:inline-flex;align-items:center;gap:4px;margin-right:12px;font-size:13px;cursor:pointer}
+.tele{display:none;position:fixed;inset:0;background:#000;z-index:300;color:#fff;flex-direction:column;padding:20px}
+.tele.show{display:flex}
+.tele-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.tele-x{background:rgba(255,255,255,0.2);color:#fff;border:none;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:14px}
+.tele-prog{font-size:14px;opacity:.85}
+.tele-z{margin-left:auto;display:flex;gap:6px}
+.tele-z button{background:rgba(255,255,255,0.2);color:#fff;border:none;border-radius:6px;padding:4px 12px;cursor:pointer}
+.tele-btn{background:rgba(255,255,255,0.12);color:#fff;border:none;border-radius:10px;padding:16px;font-size:16px;cursor:pointer;margin:8px 0}
+.tele-btn:disabled{opacity:.3;cursor:default}
+.tele-line{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.6;padding:10px;word-break:break-word}
+.trend-svg{width:100%;height:auto;background:#fff;border-radius:10px;border:1px solid var(--glass-border);display:block}
+.trend-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;font-size:12px}
+.trend-legend .lg{display:inline-flex;align-items:center;gap:4px}.trend-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.bc-num{font-size:24px;font-weight:800}.bc-lab{font-size:12px;opacity:.92}
+.shot-mini{font-size:12px;color:#666;margin:4px 0}
+.shot-row{display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.shot-no{width:22px;height:22px;border-radius:50%;background:#8b5cf6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.shot-in{flex:1;min-width:72px;padding:6px 8px;border:1px solid var(--glass-border);border-radius:8px;font-size:13px}
+.shot-line{flex:2;min-width:130px}.shot-dur,.shot-bgm{min-width:56px;flex:none;width:74px}
+.shot-del{background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;flex:none;font-size:12px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:250;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-box{background:#fff;border-radius:14px;max-width:660px;width:100%;max-height:86vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee}
+.modal-body{padding:14px 16px;overflow:auto}
+.ielts-review{background:rgba(251,191,36,0.13);border:1px solid rgba(251,191,36,0.45);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.ir-title{font-weight:700;margin-bottom:6px;color:#b45309}
+.rev-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rev-chip{background:#fff;border:1px solid var(--glass-border);border-radius:16px;padding:3px 10px;font-size:12px;cursor:pointer}
+.rev-chip i{color:#0e7490;font-style:normal;margin-left:3px}
+.ielts-prog{font-size:12px;color:#0e7490;margin-bottom:6px;font-weight:700}
+.flashcard{background:#fff;border:1px solid var(--glass-border);border-radius:12px;padding:14px;margin-top:6px;cursor:pointer;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.fc-en{font-size:18px;font-weight:700}
+.fc-hint{color:#999;font-size:12px;margin-top:10px}
+.fc-cn{font-size:16px;color:#db2777;margin-top:8px;font-weight:700}
+.fc-ex{color:#666;font-size:13px;margin-top:6px;font-style:italic}
+.fc-q{margin-top:10px;font-size:13px;color:#0e7490;font-weight:700}
+.fc-rate{display:flex;gap:8px;margin-top:12px;justify-content:center}
+.fc-rate button{flex:1;border:none;border-radius:8px;padding:9px 4px;cursor:pointer;font-size:13px;font-weight:700;color:#fff}
+.fc-rate .rk{background:#10b981}.fc-rate .rf{background:#f59e0b}.fc-rate .ru{background:#ef4444}
+.ielts-done{text-align:center;padding:12px;line-height:1.8}
+.ielts-opt{background:rgba(255,255,255,0.75);border:1px solid var(--glass-border);border-radius:8px;padding:9px 10px;margin-top:6px;cursor:pointer;font-size:14px}
+.ielts-opt:hover{background:rgba(14,116,144,0.08)}
+.ielts-opt.corr{background:rgba(16,185,129,0.18);border-color:#10b981;color:#047857;font-weight:700}
+.ielts-opt.wrong{background:rgba(239,68,68,0.15);border-color:#ef4444;color:#b91c1c}
+.ielts-listen-q{margin-top:8px}
+.star{font-size:22px;color:#ddd;cursor:pointer;margin-right:2px}
+.star.on{color:#f59e0b}
+.ielts-rate-row{margin-top:10px}
+.ielts-outline{margin-top:8px}
+.ielts-outline textarea{font-family:inherit}
+.ielts-content{margin-top:4px}
+.ielts-word{background:rgba(255,255,255,0.6);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.ielts-word .ew{font-weight:800;color:#0e7490}
+.ielts-word .ph{font-size:12px;color:#888;font-weight:400}
+.ielts-word .cn{font-size:13px;color:#333;margin-top:2px}
+.ielts-word .ex{font-size:12px;color:#666;margin-top:2px;font-style:italic}
+.spk{cursor:pointer;color:#0e7490}
+.ielts-h{font-weight:800;color:#db2777;margin-bottom:6px}
+.ielts-cue{background:rgba(251,191,36,0.15);border-radius:8px;padding:6px 10px;font-size:13px;margin-bottom:6px}
+.ielts-sample{background:rgba(255,255,255,0.6);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:13px;line-height:1.5}
+.ielts-tips{font-size:13px;color:#0e7490}
+.ielts-task-t{font-weight:700;margin:4px 0}
+.ielts-passage{background:rgba(255,255,255,0.6);border-radius:8px;padding:10px;font-size:13px;line-height:1.6;margin-bottom:8px}
+.ielts-q{margin-bottom:10px}
+.ielts-qt{font-weight:700;margin-bottom:4px}
+.ielts-opt{padding:4px 8px;border-radius:6px;font-size:13px;margin:2px 0;background:rgba(255,255,255,0.5)}
+.ielts-opt.corr{background:rgba(16,185,129,0.18);color:#047857;font-weight:700}
+.ielts-ex{font-size:12px;color:#666;margin-top:3px}
+.ielts-stage summary{list-style:none;cursor:pointer}
+.ielts-stage summary::-webkit-details-marker{display:none}
+.ielts-plan{margin-top:8px;font-size:13px}
+.ielts-plan ul{margin:4px 0 0;padding-left:18px}
+.ielts-plan li{margin:3px 0}
 .timeline{position:relative;padding-left:18px}
 .timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:rgba(34,211,238,0.35);border-radius:2px}
 .act-item{position:relative;background:rgba(255,255,255,0.45);border-radius:12px;padding:10px 12px;margin-bottom:8px;border-left:3px solid #22d3ee}
@@ -444,6 +546,62 @@ select:focus{border-color:var(--blue)}
 .ex-row input{padding:6px 8px;border:1px solid var(--glass-border);border-radius:8px;font-size:11px;outline:none;background:rgba(255,255,255,0.4);color:var(--text)}
 .ex-row input::placeholder{color:var(--text-grey)}
 .ex-row input:focus{border-color:var(--blue);background:rgba(255,255,255,0.7)}
+/* ===== 英国时差 ===== */
+.uk-clock-row{display:flex;align-items:stretch;gap:12px;margin-bottom:14px}
+.uk-clock{flex:1;min-width:0;background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-border);border-radius:var(--radius);padding:18px 16px;text-align:center;box-shadow:var(--shadow)}
+.uk-ck-flag{font-size:30px;line-height:1;margin-bottom:6px}
+.uk-ck-city{font-size:13px;font-weight:700;color:var(--text-light);margin-bottom:8px}
+.uk-ck-time{font-size:34px;font-weight:800;letter-spacing:1px;color:#4338ca;font-variant-numeric:tabular-nums;line-height:1.1}
+.uk-ck-date{font-size:12px;color:var(--text-light);margin-top:6px}
+.uk-ck-sub{font-size:11px;color:var(--text-grey);margin-top:8px;padding-top:8px;border-top:1px dashed var(--glass-border)}
+.uk-diff{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:64px;padding:0 4px}
+.uk-diff-num{font-size:26px;font-weight:800;color:#6366f1;white-space:nowrap}
+.uk-diff-num span{font-size:14px;margin-left:1px}
+.uk-diff-lab{font-size:11px;color:var(--text-grey);margin-top:2px}
+.uk-diff-arrow{font-size:16px;color:#a5b4fc;margin-top:6px}
+.uk-status{background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(139,92,246,0.08));border:1px solid rgba(99,102,241,0.22);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:18px}
+.uk-st-main{font-size:14px;font-weight:600;color:var(--text)}
+.uk-st-main b{color:#4338ca}
+.uk-st-sub{font-size:12px;color:var(--text-light);margin-top:6px}
+.uk-sec-t{font-size:15px;font-weight:700;color:var(--text);margin:18px 0 10px;display:flex;align-items:baseline;gap:8px}
+.uk-sec-t span{font-size:11px;font-weight:400;color:var(--text-grey)}
+.uk-table{background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-border);border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow)}
+.uk-tr{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(148,163,184,0.14)}
+.uk-tr:last-child{border-bottom:none}
+.uk-th{background:rgba(99,102,241,0.07);font-size:11px;font-weight:700;color:var(--text-light);padding:8px 14px}
+.uk-th div:first-child{flex:1}.uk-th div:nth-child(2){width:36px}.uk-th div:last-child{flex:1;text-align:right}
+.uk-t-cn{flex:1;font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.uk-t-tag{font-size:10px;font-weight:400;color:var(--text-grey);background:rgba(148,163,184,0.16);border-radius:6px;padding:2px 5px;margin-left:4px}
+.uk-t-arrow{width:36px;text-align:center;color:#a5b4fc;font-size:14px}
+.uk-t-uk{flex:1;text-align:right;font-size:14px;font-weight:700;color:#4338ca;font-variant-numeric:tabular-nums}
+.uk-t-day{font-size:10px;font-weight:400;color:var(--text-grey);margin-left:4px}
+.uk-t-day.diff,.uk-res-day.diff{color:#e11d48;background:rgba(225,29,72,0.1);border-radius:6px;padding:2px 5px}
+.uk-conv{background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--glass-border);border-radius:var(--radius-sm);padding:14px;box-shadow:var(--shadow)}
+.uk-conv-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.uk-dir{background:rgba(99,102,241,0.12);color:#4338ca;border:1px solid rgba(99,102,241,0.25);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.uk-dir:active{transform:scale(0.97)}
+#ukConvTime{border:1px solid var(--glass-border);background:rgba(255,255,255,0.7);border-radius:10px;padding:7px 10px;font-size:15px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;cursor:pointer}
+.uk-conv-res{margin-top:12px;padding:12px;background:rgba(99,102,241,0.06);border-radius:10px;font-size:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.uk-res-from{color:var(--text-light);font-variant-numeric:tabular-nums}
+.uk-res-arrow{color:#a5b4fc}
+.uk-res-to{color:var(--text);font-variant-numeric:tabular-nums}
+.uk-res-to b{color:#4338ca;font-size:19px}
+.uk-res-day{font-size:11px;color:var(--text-grey);margin-left:auto}
+.uk-tips{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);border-radius:var(--radius-sm);padding:14px 16px;margin-top:18px}
+.uk-tips-t{font-size:13px;font-weight:700;color:#b45309;margin-bottom:8px}
+.uk-tip-line{font-size:12px;color:var(--text-light);line-height:1.8}
+.uk-tip-line b{color:#92400e}
+@media(max-width:768px){
+.uk-clock-row{gap:8px}
+.uk-clock{padding:14px 8px}
+.uk-ck-time{font-size:26px}
+.uk-ck-flag{font-size:24px}
+.uk-ck-city{font-size:12px}
+.uk-ck-sub{font-size:10px}
+.uk-diff{min-width:46px}
+.uk-diff-num{font-size:20px}
+.uk-ck-date{font-size:11px}
+}
 </style>
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
@@ -454,12 +612,13 @@ select:focus{border-color:var(--blue)}
 <h1>我的工作台</h1><p id="sidebarDate"></p>
 </div>
 <nav class="nav">
-<div class="nav-item active" onclick="switchPage('house',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#fb923c,#f97316)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3l9 9M5 10v10h14V10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>房产热点</div>
+<div class="nav-item active" onclick="switchPage('house',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#fb923c,#f97316)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3l9 9M5 10v10h14V10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>房产工作</div>
 <div class="nav-item" onclick="switchPage('inspire',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>灵感</div>
 <div class="nav-item" onclick="switchPage('hustle',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#34d399,#10b981)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2v2M17 5l-1.5 1.5M7 5l1.5 1.5M2 12h2M20 12h2M12 22a6 6 0 0 0 6-6c0-3-2-5-3-7-1 2-3 4-3 7a6 6 0 0 0 6 6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="16" r="2" fill="white"/></svg></div>副业</div>
 <div class="nav-item" onclick="switchPage('word',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#60a5fa,#3b82f6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2V5zM18 3v18M8 8h6M8 12h6M8 16h4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>学习天地</div>
 <div class="nav-item" onclick="switchPage('fitness',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="13" cy="4" r="2" fill="white"/><path d="M13 6l-3 3 2 2-2 5 3 3M8 11l-4 2M16 9l3 2-1 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>运动计划</div>
 <div class="nav-item" data-page="travel" onclick="switchPage('travel',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#22d3ee,#06b6d4)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>旅游计划</div>
+<div class="nav-item" data-page="uk" onclick="switchPage('uk',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#6366f1,#4338ca)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.6 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.6-3.5-9s1-6.5 3.5-9z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>英国时差</div>
 <div class="nav-item" onclick="switchPage('summary',this)"><div class="nav-icon" style="background:linear-gradient(135deg,#f472b6,#ec4899)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="white" stroke-width="2"/><path d="M9 3v2h6V3M9 12h6M9 16h4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>每日小结</div>
 </nav>
 <div class="sidebar-backup">
@@ -487,15 +646,16 @@ select:focus{border-color:var(--blue)}
 </aside>
 <div class="mask" id="mask" onclick="toggleSidebar(false)"></div>
 <main class="main">
-<div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产热点</span></div>
+<div class="mobile-header"><button class="menu-btn" onclick="toggleSidebar()">☰</button><span class="title" id="mobileTitle">房产工作</span></div>
 <div class="update-bar"><div><div class="today-label" id="todayLabel">今日内容</div><div class="update-info" id="updateInfo">每日0点自动更新</div></div><button class="update-btn" id="updateBtn" onclick="refreshAll()">🔄 更新内容</button></div>
 <div class="main-scroll">
-<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产热点</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('live',this)">直播工作台</div><div class="tab" onclick="switchHouseTab('shoot',this)">拍摄脚本</div><div class="tab" onclick="switchHouseTab('client',this)">客户跟进</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
+<section class="page active" id="page-house"><div class="page-header"><h2>🏠 房产工作</h2><p class="date" id="houseDate"></p></div><div class="tabs" id="houseTabs"><div class="tab active" onclick="switchHouseTab('trending',this)">全网热搜</div><div class="tab" onclick="switchHouseTab('estate',this)">房产专题</div><div class="tab" onclick="switchHouseTab('live',this)">直播工作台</div><div class="tab" onclick="switchHouseTab('shoot',this)">拍摄脚本</div><div class="tab" onclick="switchHouseTab('client',this)">客户跟进</div></div><div id="houseContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-inspire"><div class="page-header"><h2>💡 灵感</h2><p class="date">每日灵感 · 创意精选</p></div><div id="inspireContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-hustle"><div class="page-header"><h2>💰 副业推荐</h2><p class="date">多渠道变现思路</p></div><div id="hustleContent"></div></section>
-<section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
+<section class="page" id="page-word"><div class="page-header"><h2>📚 学习天地</h2><p class="date" id="wordDate"></p></div><div class="tabs" id="wordTabs"><div class="tab active" onclick="switchWordTab('words',this)">📖 每日单词</div><div class="tab" onclick="switchWordTab('speak',this)">🗣️ 口语跟读</div><div class="tab" onclick="switchWordTab('listen',this)">🎧 听力练习</div><div class="tab" onclick="switchWordTab('quiz',this)">✏️ 综合测试</div><div class="tab" onclick="switchWordTab('ielts',this)">🎯 雅思计划</div></div><div id="wordContent"><div class="loading">加载中...</div></div></section>
 <section class="page" id="page-fitness"><div class="page-header"><h2>🏃 运动计划</h2><p class="date">每周训练安排</p></div><div id="fitnessContent"></div></section>
 <section class="page" id="page-travel"><div class="page-header"><h2>✈️ 旅游计划</h2><p class="date">行程 · 预算 · 行李 · 打卡</p></div><div id="travelContent"></div></section>
+<section class="page" id="page-uk"><div class="page-header"><h2>🇬🇧 英国时差</h2><p class="date">中英时间对照 · 夏令时自动识别</p></div><div id="ukContent"></div></section>
 <section class="page" id="page-summary"><div class="page-header"><h2>📝 每日小结</h2><p class="date" id="summaryDate"></p></div><div id="summaryContent"></div></section>
 </div>
 </main>
@@ -1087,8 +1247,10 @@ var liveTab='schedule';
 function switchLiveTab(tab,el){liveTab=tab;document.querySelectorAll('#liveTabs .tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');renderLive();}
 function renderLive(){
   var c=document.getElementById('houseContent');
-  var html='<div class="tabs" id="liveTabs"><div class="tab '+(liveTab==='schedule'?'active':'')+'" onclick="switchLiveTab(\'schedule\',this)">直播排期表</div><div class="tab '+(liveTab==='review'?'active':'')+'" onclick="switchLiveTab(\'review\',this)">数据复盘</div></div>';
-  html+=liveTab==='schedule'?renderLiveSchedule():renderLiveReview();
+  var html='<div class="tabs" id="liveTabs"><div class="tab '+(liveTab==='schedule'?'active':'')+'" onclick="switchLiveTab(\'schedule\',this)">直播排期表</div><div class="tab '+(liveTab==='review'?'active':'')+'" onclick="switchLiveTab(\'review\',this)">数据复盘</div><div class="tab '+(liveTab==='trend'?'active':'')+'" onclick="switchLiveTab(\'trend\',this)">数据趋势</div></div>';
+  if(liveTab==='schedule')html+=renderLiveSchedule();
+  else if(liveTab==='review')html+=renderLiveReview();
+  else html+=renderLiveTrend();
   c.innerHTML=html;
 }
 function renderLiveSchedule(){
@@ -1096,19 +1258,24 @@ function renderLiveSchedule(){
   var h='<div class="sub-sec"><div class="sub-sec-t">添加直播排期</div>';
   h+='<div class="fg-row"><div class="fg"><label>日期</label><input type="date" id="scDate"></div><div class="fg"><label>时间</label><input type="time" id="scTime" value="19:00"></div></div>';
   h+='<div class="fg"><label>直播主题</label><input type="text" id="scTitle" placeholder="如：XX楼盘探房直播"></div>';
-  h+='<div class="fg"><label>目标</label><input type="text" id="scGoal" placeholder="如：留资10组 / 成交1单"></div>';
+  h+='<div class="fg-row"><div class="fg"><label>留资目标</label><input type="number" id="scLeadGoal" placeholder="如 10"></div><div class="fg"><label>成交目标</label><input type="number" id="scDealGoal" placeholder="如 1"></div></div>';
+  h+='<div class="fg"><label>目标备注</label><input type="text" id="scGoal" placeholder="如：重点讲学区房"></div>';
   h+='<button class="btn btn-add" onclick="addSchedule()">+ 添加排期</button></div>';
   h+='<div class="sub-sec"><div class="sub-sec-t">排期列表</div>';
   if(!data.length)h+='<div class="empty-hint">暂无排期，添加你的第一条直播计划</div>';
   else{data.sort(function(a,b){return(a.date+a.time).localeCompare(b.date+b.time);});data.forEach(function(it){
     var d=new Date(it.date);var md=(d.getMonth()+1)+'/'+d.getDate();
     h+='<div class="sched-item '+(it.done?'done':'')+'"><div class="sc-date"><div class="sc-d">'+md+'</div><div class="sc-t">'+esc(it.time)+'</div></div>';
-    h+='<div class="sc-body"><div class="sc-title">'+esc(it.title)+'</div>'+(it.goal?'<div class="sc-goal">目标：'+esc(it.goal)+'</div>':'')+'</div>';
-    h+='<div class="sc-actions"><button class="btn btn-sm '+(it.done?'btn-edit':'btn-save')+'" onclick="toggleSchedule(\''+it.id+'\')">'+(it.done?'↩取消':'✓完成')+'</button><button class="btn btn-del btn-sm" onclick="delSchedule(\''+it.id+'\')">删除</button></div></div>';
+    var rate=liveAchieveRate(it);
+    h+='<div class="sc-body"><div class="sc-title">'+esc(it.title)+'</div>'+(it.goal?'<div class="sc-goal">目标：'+esc(it.goal)+'</div>':'');
+    if(rate!=null)h+='<div class="rate-line">达成率 <b class="'+(rate>=100?'rate-ok':'rate-mid')+'">'+rate+'%</b></div>';
+    h+='</div>';
+    h+='<div class="sc-actions"><button class="btn btn-sm btn-save" onclick="openLivePrep(\''+it.id+'\')">准备</button><button class="btn btn-sm btn-live" onclick="openLiveTeleprompter(\''+it.id+'\')">▶开播</button><button class="btn btn-sm '+(it.done?'btn-edit':'btn-save')+'" onclick="toggleSchedule(\''+it.id+'\')">'+(it.done?'↩取消':'✓完成')+'</button><button class="btn btn-del btn-sm" onclick="delSchedule(\''+it.id+'\')">删除</button></div>';
+    h+='<div id="prep_'+it.id+'"></div></div>';
   });}
   h+='</div>';return h;
 }
-function addSchedule(){var date=document.getElementById('scDate').value;var title=document.getElementById('scTitle').value.trim();if(!date||!title){alert('请填写日期和主题');return;}var data=lsGet('ls_live_schedule');data.push({id:lsId(),date:date,time:document.getElementById('scTime').value||'19:00',title:title,goal:document.getElementById('scGoal').value.trim(),done:false});lsSet('ls_live_schedule',data);renderLive();}
+function addSchedule(){var date=document.getElementById('scDate').value;var title=document.getElementById('scTitle').value.trim();if(!date||!title){alert('请填写日期和主题');return;}var data=lsGet('ls_live_schedule');data.push({id:lsId(),date:date,time:document.getElementById('scTime').value||'19:00',title:title,goal:document.getElementById('scGoal').value.trim(),leadGoal:document.getElementById('scLeadGoal').value,dealGoal:document.getElementById('scDealGoal').value,checklist:[{k:'设备',v:0},{k:'网络',v:0},{k:'话术',v:0},{k:'引流钩子',v:0},{k:'道具',v:0}],script:[],done:false});lsSet('ls_live_schedule',data);renderLive();}
 function delSchedule(id){if(!confirm('删除这条排期？'))return;lsSet('ls_live_schedule',lsGet('ls_live_schedule').filter(function(x){return x.id!==id;}));renderLive();}
 function toggleSchedule(id){var data=lsGet('ls_live_schedule');data.forEach(function(x){if(x.id===id)x.done=!x.done;});lsSet('ls_live_schedule',data);renderLive();}
 function renderLiveReview(){
@@ -1135,15 +1302,106 @@ function renderLiveReview(){
 }
 function saveReview(){var date=document.getElementById('rvDate').value;if(!date){alert('请选择直播日期');return;}var data=lsGet('ls_live_review');data.push({id:lsId(),date:date,dur:document.getElementById('rvDur').value,peak:document.getElementById('rvPeak').value,avg:document.getElementById('rvAvg').value,fan:document.getElementById('rvFan').value,lead:document.getElementById('rvLead').value,deal:document.getElementById('rvDeal').value,note:document.getElementById('rvNote').value.trim()});lsSet('ls_live_review',data);renderLive();}
 function delReview(id){if(!confirm('删除这条复盘记录？'))return;lsSet('ls_live_review',lsGet('ls_live_review').filter(function(x){return x.id!==id;}));renderLive();}
+function liveAchieveRate(it){
+  if(!it.leadGoal && !it.dealGoal)return null;
+  var revs=lsGet('ls_live_review').filter(function(r){return r.date===it.date;});
+  if(!revs.length)return 0;
+  var r=revs[revs.length-1];
+  var leadR = it.leadGoal? Math.round((parseInt(r.lead||0)/parseInt(it.leadGoal))*100):null;
+  var dealR = it.dealGoal? Math.round((parseInt(r.deal||0)/parseInt(it.dealGoal))*100):null;
+  if(leadR!=null && dealR!=null)return Math.round((leadR+dealR)/2);
+  return leadR!=null?leadR:dealR;
+}
+function openLivePrep(id){
+  var box=document.getElementById('prep_'+id);
+  if(box.innerHTML){box.innerHTML='';return;}
+  var data=lsGet('ls_live_schedule');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  it.checklist=it.checklist||[{k:'设备',v:0},{k:'网络',v:0},{k:'话术',v:0},{k:'引流钩子',v:0},{k:'道具',v:0}];
+  var h='<div class="prep-box">';
+  h+='<div class="prep-sub">开播前准备清单</div>';
+  it.checklist.forEach(function(c,ci){h+='<label class="chk"><input type="checkbox" '+(c.v?'checked':'')+' onchange="liveChk(\''+id+'\','+ci+',this.checked)"> '+c.k+'</label>';});
+  h+='<div class="prep-sub">直播流程 / 话术（每行一条）</div>';
+  var txt=(it.script||[]).map(function(s){return s.t;}).join('\n');
+  h+='<textarea id="prep_script_'+id+'" style="min-height:90px" placeholder="1.开场自我介绍&#10;2.今天看点：XX户型&#10;3.痛点切入…">'+esc(txt)+'</textarea>';
+  h+='<button class="btn btn-add btn-sm" onclick="liveSaveScript(\''+id+'\')">保存流程话术</button>';
+  h+='</div>';
+  box.innerHTML=h;
+}
+function liveChk(id,ci,on){
+  var data=lsGet('ls_live_schedule');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  it.checklist=it.checklist||[{k:'设备',v:0},{k:'网络',v:0},{k:'话术',v:0},{k:'引流钩子',v:0},{k:'道具',v:0}];
+  it.checklist[ci].v=on?1:0;lsSet('ls_live_schedule',data);
+}
+function liveSaveScript(id){
+  var v=document.getElementById('prep_script_'+id).value;
+  var arr=v.split('\n').map(function(s){return s.trim();}).filter(function(s){return s;}).map(function(s){return {t:s};});
+  var data=lsGet('ls_live_schedule');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  it.script=arr;lsSet('ls_live_schedule',data);
+  var box=document.getElementById('prep_'+id);if(box)box.innerHTML='';
+  openLivePrep(id);
+}
+function openLiveTeleprompter(id){
+  var data=lsGet('ls_live_schedule');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  var lines=(it.script||[]).map(function(s){return s.t;});
+  if(!lines.length){alert('这条排期还没写流程话术，先点「准备」添加');return;}
+  var ov=document.getElementById('liveTele');if(!ov){ov=document.createElement('div');ov.id='liveTele';ov.className='tele';document.body.appendChild(ov);}
+  ov.setAttribute('data-idx','0');ov.setAttribute('data-id',id);ov.setAttribute('data-sz','28');
+  teleRender();ov.classList.add('show');
+}
+function teleRender(){
+  var ov=document.getElementById('liveTele');if(!ov)return;
+  var id=ov.getAttribute('data-id');var idx=parseInt(ov.getAttribute('data-idx'));
+  var data=lsGet('ls_live_schedule');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  var lines=(it.script||[]).map(function(s){return s.t;});
+  if(idx<0)idx=0;if(idx>=lines.length)idx=lines.length-1;ov.setAttribute('data-idx',idx);
+  var sz=ov.getAttribute('data-sz')||'28';
+  var prev=idx>0?'<button class="tele-btn" onclick="teleStep(-1)">▲ 上一条</button>':'<button class="tele-btn" disabled>▲</button>';
+  var next=idx<lines.length-1?'<button class="tele-btn" onclick="teleStep(1)">▼ 下一条</button>':'<button class="tele-btn" disabled>▼</button>';
+  ov.innerHTML='<div class="tele-bar"><button class="tele-x" onclick="teleClose()">✕ 退出</button><span class="tele-prog">'+(idx+1)+'/'+lines.length+'</span><span class="tele-z"><button onclick="teleSize(-2)">A-</button><button onclick="teleSize(2)">A+</button></span></div>'+prev+'<div class="tele-line" style="font-size:'+sz+'px">'+esc(lines[idx])+'</div>'+next;
+}
+function teleStep(d){var ov=document.getElementById('liveTele');ov.setAttribute('data-idx',parseInt(ov.getAttribute('data-idx'))+d);teleRender();}
+function teleSize(d){var ov=document.getElementById('liveTele');var s=parseInt(ov.getAttribute('data-sz')||'28')+d;if(s<16)s=16;if(s>60)s=60;ov.setAttribute('data-sz',s);teleRender();}
+function teleClose(){var ov=document.getElementById('liveTele');ov.classList.remove('show');}
+function renderLiveTrend(){
+  var data=lsGet('ls_live_review');
+  var h='<div class="sub-sec"><div class="sub-sec-t">数据趋势（按直播日期）</div>';
+  if(data.length<2){h+='<div class="empty-hint">至少需要 2 场复盘记录才能看趋势，先去「数据复盘」多记几场</div>';h+='</div>';return h;}
+  data.sort(function(a,b){return a.date.localeCompare(b.date);});
+  var labels=data.map(function(d){return d.date.slice(5);});
+  var series=[{k:'最高在线',f:function(d){return parseInt(d.peak||0);},c:'#3b82f6'},{k:'平均在线',f:function(d){return parseInt(d.avg||0);},c:'#8b5cf6'},{k:'留资',f:function(d){return parseInt(d.lead||0);},c:'#10b981'},{k:'成交',f:function(d){return parseInt(d.deal||0);},c:'#ef4444'}];
+  var W=560,H=240,pad=36;
+  var maxV=0;series.forEach(function(s){data.forEach(function(d){var v=s.f(d);if(v>maxV)maxV=v;});});
+  if(maxV===0)maxV=1;
+  var n=data.length;var stepX=n>1?(W-pad*2)/(n-1):0;
+  function X(i){return pad+stepX*i;}
+  function Y(v){return H-pad-(v/maxV)*(H-pad*2);}
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" class="trend-svg" preserveAspectRatio="xMidYMid meet">';
+  svg+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'" stroke="#ccc"/>';
+  for(var g=0;g<=4;g++){var gy=pad+(H-pad*2)*g/4;var gv=Math.round(maxV*(1-g/4));svg+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(W-pad)+'" y2="'+gy+'" stroke="#eee"/><text x="2" y="'+(gy+4)+'" font-size="10" fill="#999">'+gv+'</text>';}
+  series.forEach(function(s){svg+='<polyline fill="none" stroke="'+s.c+'" stroke-width="2" points="'+data.map(function(d,i){return X(i)+','+Y(s.f(d));}).join(' ')+'"/>';data.forEach(function(d,i){svg+='<circle cx="'+X(i)+'" cy="'+Y(s.f(d))+'" r="3" fill="'+s.c+'"/>';});});
+  labels.forEach(function(lb,i){svg+='<text x="'+X(i)+'" y="'+(H-pad+14)+'" font-size="10" fill="#666" text-anchor="middle">'+lb+'</text>';});
+  svg+='</svg>';
+  h+=svg;
+  h+='<div class="trend-legend">';series.forEach(function(s){h+='<span class="lg"><i style="background:'+s.c+'"></i>'+s.k+'</span>';});h+='</div>';
+  h+='</div>';return h;
+}
 
 // ============ 拍摄脚本 ============
+var SHOOT_TEMPLATES={
+ '探房':[['全景','小区外景/大门','各位老铁，今天带你看XX楼盘',''],['中景','入户大堂','先看入户仪式感',''],['移镜头','客厅→餐厅→厨房','动线流畅采光好',''],['特写','主卧飘窗','飘窗是加分项',''],['中景','阳台看景观','视野开阔',''],['口播','优缺点总结','客观讲优缺点建立信任','']],
+ '口播':[['近景','面对镜头','今天聊一个买房避坑点',''],['近景','举例说明','用真实案例讲',''],['近景','总结','记得点赞关注','']],
+ 'vlog':[['全景','出发','今天去踩盘vlog',''],['中景','路上','边走边说',''],['特写','细节','拍户型细节',''],['中景','结尾','总结今天收获','']],
+ '科普':[['近景','开场','XX政策解读',''],['图示','截图/图表','配图讲解',''],['近景','结语','关注学房产','']],
+ '评测':[['中景','外观','小区环境评测',''],['中景','配套','周边配套打分',''],['近景','总评','综合评分','']]
+};
 function renderShootScript(){
   var c=document.getElementById('houseContent');
   var data=lsGet('ls_shoot_scripts');
   var h='<div class="sub-sec"><div class="sub-sec-t">添加拍摄脚本</div>';
   h+='<div class="fg-row"><div class="fg"><label>脚本标题</label><input type="text" id="spTitle" placeholder="如：XX楼盘探房视频"></div>';
-  h+='<div class="fg" style="max-width:120px"><label>类型</label><select id="spType"><option value="探房">探房</option><option value="科普">科普</option><option value="评测">评测</option><option value="故事">故事</option><option value="其他">其他</option></select></div></div>';
-  h+='<div class="fg"><label>脚本内容</label><textarea id="spContent" style="min-height:100px" placeholder="分镜、台词、拍摄要点...&#10;如：&#10;1.开场：站在小区门口介绍楼盘&#10;2.户型：入户门→客厅→卧室→厨卫&#10;3.周边：地铁/学校/商超&#10;4.优缺点总结&#10;5.引导关注+私信咨询"></textarea></div>';
+  h+='<div class="fg" style="max-width:120px"><label>类型</label><select id="spType"><option value="探房">探房</option><option value="科普">科普</option><option value="评测">评测</option><option value="故事">故事</option><option value="其他">其他</option></select></div>';
+  h+='<div class="fg" style="max-width:140px"><label>用模板</label><select id="spTpl"><option value="">自定义</option><option value="探房">探房套路</option><option value="口播">口播套路</option><option value="vlog">Vlog套路</option><option value="科普">科普套路</option><option value="评测">评测套路</option></select></div></div>';
+  h+='<div class="fg"><label>脚本内容/备注</label><textarea id="spContent" style="min-height:70px" placeholder="整体思路、卖点、注意事项…"></textarea></div>';
   h+='<button class="btn btn-add" onclick="addScript()">+ 添加脚本</button></div>';
   h+='<div class="sub-sec"><div class="sub-sec-t">脚本列表（按日期分组）</div>';
   if(!data.length)h+='<div class="empty-hint">暂无脚本，添加你的第一条拍摄脚本</div>';
@@ -1153,16 +1411,57 @@ function renderShootScript(){
     groups[k].forEach(function(it){
       h+='<div class="script-item st-'+it.status+'"><div class="s-head"><div class="s-title">'+esc(it.title)+'</div></div>';
       h+='<div class="s-meta"><span class="badge badge-purple">'+esc(it.type)+'</span>';
-      h+='<select onchange="changeScriptStatus(\''+it.id+'\',this.value)" style="font-size:11px;padding:3px 6px"><option value="0"'+(it.status==0?' selected':'')+'>待拍摄</option><option value="1"'+(it.status==1?' selected':'')+'>拍摄中</option><option value="2"'+(it.status==2?' selected':'')+'>已完成</option></select></div>';
+      h+='<select onchange="changeScriptStatus(\''+it.id+'\',this.value)" style="font-size:11px;padding:3px 6px"><option value="0"'+(it.status==0?' selected':'')+'>待拍摄</option><option value="1"'+(it.status==1?' selected':'')+'>拍摄中</option><option value="2"'+(it.status==2?' selected':'')+'>已完成</option></select>';
+      h+='<button class="btn btn-sm btn-edit" onclick="openShootEditor(\''+it.id+'\')">分镜编辑</button></div>';
+      var shots=it.shots||[];
+      if(shots.length)h+='<div class="shot-mini">分镜 '+shots.length+' 条：'+shots.map(function(s){return esc(s.scene||s.line||'');}).slice(0,3).map(function(x){return x.length>8?x.slice(0,8)+'…':x;}).join(' / ')+(shots.length>3?' …':'')+'</div>';
+      var imgs=it.imgIds||[];
+      if(imgs.length){h+='<div class="img-gallery">';imgs.forEach(function(iid){h+='<div class="img-thumb-wrap"><img class="img-thumb" data-img="'+iid+'" onclick="shootImgPreview(\''+iid+'\')"></div>';});h+='</div>';}
       if(it.content)h+='<div class="s-body">'+esc(it.content)+'</div>';
-      h+='<div class="s-meta"><button class="btn btn-del btn-sm" onclick="delScript(\''+it.id+'\')">删除</button></div></div>';
+      h+='<div class="s-meta"><button class="btn btn-del btn-sm" onclick="delScript(\''+it.id+'\')">删除</button><label class="btn btn-sm btn-add" style="cursor:pointer">+图片<input type="file" accept="image/*" multiple style="display:none" onchange="shootAddImgs(\''+it.id+'\',this)"></label></div></div>';
     });
   });}
   h+='</div>';c.innerHTML=h;
+  data.forEach(function(it){(it.imgIds||[]).forEach(function(iid){shootImgRender(iid);});});
 }
-function addScript(){var title=document.getElementById('spTitle').value.trim();if(!title){alert('请填写脚本标题');return;}var data=lsGet('ls_shoot_scripts');var t=new Date();var ds=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');data.push({id:lsId(),date:ds,title:title,type:document.getElementById('spType').value,content:document.getElementById('spContent').value.trim(),status:0});lsSet('ls_shoot_scripts',data);renderShootScript();}
+function addScript(){var title=document.getElementById('spTitle').value.trim();if(!title){alert('请填写脚本标题');return;}var tpl=document.getElementById('spTpl').value;var shots=[];if(tpl&&SHOOT_TEMPLATES[tpl])shots=SHOOT_TEMPLATES[tpl].map(function(s){return {scale:s[0],scene:s[1],line:s[2],dur:s[3]||'',bgm:s[4]||''};});var data=lsGet('ls_shoot_scripts');var t=new Date();var ds=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');data.push({id:lsId(),date:ds,title:title,type:document.getElementById('spType').value,content:document.getElementById('spContent').value.trim(),status:0,shots:shots,imgIds:[]});lsSet('ls_shoot_scripts',data);renderShootScript();}
 function delScript(id){if(!confirm('删除这条脚本？'))return;lsSet('ls_shoot_scripts',lsGet('ls_shoot_scripts').filter(function(x){return x.id!==id;}));renderShootScript();}
 function changeScriptStatus(id,status){var data=lsGet('ls_shoot_scripts');data.forEach(function(x){if(x.id===id)x.status=parseInt(status);});lsSet('ls_shoot_scripts',data);}
+function openShootEditor(id){
+  var data=lsGet('ls_shoot_scripts');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  it.shots=it.shots||[];
+  var ov=document.getElementById('shootEditor');if(!ov){ov=document.createElement('div');ov.id='shootEditor';ov.className='modal';document.body.appendChild(ov);}
+  ov.classList.add('show');shootEditorRender(id);
+}
+function shootEditorRender(id){
+  var ov=document.getElementById('shootEditor');var data=lsGet('ls_shoot_scripts');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;
+  var shots=it.shots||[];
+  var h='<div class="modal-box"><div class="modal-head"><b>分镜编辑 · '+esc(it.title)+'</b><button class="tele-x" onclick="shootEditorClose()">✕</button></div>';
+  h+='<div class="modal-body">';
+  shots.forEach(function(s,si){
+    h+='<div class="shot-row"><span class="shot-no">'+(si+1)+'</span>';
+    h+='<input class="shot-in" placeholder="景别" value="'+esc(s.scale||'')+'" onchange="shotEdit(\''+id+'\','+si+',\'scale\',this.value)">';
+    h+='<input class="shot-in" placeholder="画面" value="'+esc(s.scene||'')+'" onchange="shotEdit(\''+id+'\','+si+',\'scene\',this.value)">';
+    h+='<input class="shot-in shot-line" placeholder="台词" value="'+esc(s.line||'')+'" onchange="shotEdit(\''+id+'\','+si+',\'line\',this.value)">';
+    h+='<input class="shot-in shot-dur" placeholder="时长" value="'+esc(s.dur||'')+'" onchange="shotEdit(\''+id+'\','+si+',\'dur\',this.value)">';
+    h+='<input class="shot-in shot-bgm" placeholder="BGM" value="'+esc(s.bgm||'')+'" onchange="shotEdit(\''+id+'\','+si+',\'bgm\',this.value)">';
+    h+='<button class="shot-del" onclick="shotDel(\''+id+'\','+si+')">✕</button></div>';
+  });
+  h+='<button class="btn btn-add btn-sm" onclick="shotAdd(\''+id+'\')">+ 添加分镜</button>';
+  h+='</div></div>';
+  ov.innerHTML=h;
+}
+function shotEdit(id,si,field,val){var data=lsGet('ls_shoot_scripts');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;it.shots=it.shots||[];it.shots[si][field]=val;lsSet('ls_shoot_scripts',data);}
+function shotAdd(id){var data=lsGet('ls_shoot_scripts');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;it.shots=it.shots||[];it.shots.push({scale:'',scene:'',line:'',dur:'',bgm:''});lsSet('ls_shoot_scripts',data);shootEditorRender(id);}
+function shotDel(id,si){var data=lsGet('ls_shoot_scripts');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;it.shots.splice(si,1);lsSet('ls_shoot_scripts',data);shootEditorRender(id);}
+function shootEditorClose(){var ov=document.getElementById('shootEditor');if(ov)ov.classList.remove('show');}
+function shootDB(){return new Promise(function(res,rej){var r=indexedDB.open('workbench_shoot',1);r.onupgradeneeded=function(e){var db=e.target.result;if(!db.objectStoreNames.contains('shoot_images'))db.createObjectStore('shoot_images',{keyPath:'id'});};r.onsuccess=function(e){res(e.target.result);};r.onerror=function(e){rej(e);};});}
+function shootImgPut(id,blob){return shootDB().then(function(db){return new Promise(function(r,j){var tx=db.transaction('shoot_images','readwrite');tx.objectStore('shoot_images').put({id:id,blob:blob});tx.oncomplete=function(){r();};tx.onerror=function(e){j(e);};});});}
+function shootImgGet(id){return shootDB().then(function(db){return new Promise(function(r,j){var tx=db.transaction('shoot_images','readonly');var rq=tx.objectStore('shoot_images').get(id);rq.onsuccess=function(){r(rq.result?rq.result.blob:null);};rq.onerror=function(e){j(e);};});});}
+function shootImgRender(id){var els=document.querySelectorAll('img[data-img="'+id+'"]');if(!els.length)return;shootImgGet(id).then(function(blob){if(blob)els.forEach(function(el){el.src=URL.createObjectURL(blob);});});}
+function shootAddImgs(id,input){var files=input.files;if(!files.length)return;var data=lsGet('ls_shoot_scripts');var it=data.filter(function(x){return x.id===id;})[0];if(!it)return;it.imgIds=it.imgIds||[];var pending=files.length;for(var i=0;i<files.length;i++){(function(f){var iid=lsId();shootImgPut(iid,f).then(function(){it.imgIds.push(iid);lsSet('ls_shoot_scripts',data);if(--pending===0)renderShootScript();});})(files[i]);}}
+function shootImgPreview(id){var box=document.getElementById('shootLightbox');if(!box){box=document.createElement('div');box.id='shootLightbox';box.className='lightbox';box.innerHTML='<div class="lightbox-close" onclick="shootImgPreviewClose()">✕</div><img class="lightbox-img" id="shootLightboxImg">';box.onclick=function(e){if(e.target===box)shootImgPreviewClose();};document.body.appendChild(box);}box.classList.add('show');var img=document.getElementById('shootLightboxImg');img.src='';shootImgGet(id).then(function(blob){if(blob)img.src=URL.createObjectURL(blob);});}
+function shootImgPreviewClose(){var box=document.getElementById('shootLightbox');if(box)box.classList.remove('show');}
 
 // ============ 客户跟进台 ============
 var clientTab='list';
@@ -1489,7 +1788,328 @@ function renderWord(){
     renderListen(c);
   }else if(wordTab==='quiz'){
     renderQuizAll(c);
+  }else if(wordTab==='ielts'){
+    ieltsRender(c);
   }
+}
+
+// 雅思计划
+var ieltsView=0;
+var ieltsWordState={mode:'study',idx:0,list:[],flipped:false,know:0,fuzzy:0,unk:0,quizOpt:[],quizCorrect:0,qAnswered:false,qRight:false};
+var IELTS_STAGES=[
+  {name:'① 打地基', goal:'音标+核心2000词+基础语法+慢速听力+敢开口', target:5.0},
+  {name:'② 四项入门', goal:'词汇≈3500，听力精听/阅读扫读/写作小作文/口语P1', target:5.5},
+  {name:'③ 题型专项', goal:'雅思四项题型训练，词汇≈4500，月度模考', target:6.0},
+  {name:'④ 冲刺模考', goal:'全套模考+弱项突破，词汇5000+', target:6.5},
+  {name:'⑤ 临门一脚', goal:'每周模考、查漏、心态调整', target:6.5}
+];
+// ===== 雅思真实学习材料库（按阶段 stage 1-5 标记，当前阶段及之前的内容会出现）=====
+var IELTS_WORDS=[
+{en:'able',ph:'/ˈeɪbl/',cn:'能够',ex:'He is able to swim.',stage:1},
+{en:'about',ph:'/əˈbaʊt/',cn:'关于；大约',ex:'Tell me about yourself.',stage:1},
+{en:'above',ph:'/əˈbʌv/',cn:'在…上方',ex:'The plane is above the clouds.',stage:1},
+{en:'accept',ph:'/əkˈsept/',cn:'接受',ex:'I accept your invitation.',stage:1},
+{en:'access',ph:'/ˈækses/',cn:'使用权；进入',ex:'Students need access to books.',stage:1},
+{en:'account',ph:'/əˈkaʊnt/',cn:'账户；描述',ex:'Open a bank account.',stage:1},
+{en:'achieve',ph:'/əˈtʃiːv/',cn:'实现；达到',ex:'She achieved her goal.',stage:1},
+{en:'acquire',ph:'/əˈkwaɪər/',cn:'获得',ex:'You will acquire new skills.',stage:1},
+{en:'activity',ph:'/ækˈtɪvəti/',cn:'活动',ex:'Outdoor activity is healthy.',stage:1},
+{en:'address',ph:'/əˈdres/',cn:'地址；演讲',ex:'What is your address?',stage:1},
+{en:'advantage',ph:'/ədˈvɑːntɪdʒ/',cn:'优势',ex:'The advantage is clear.',stage:1},
+{en:'advise',ph:'/ədˈvaɪz/',cn:'建议',ex:'I advise you to study daily.',stage:1},
+{en:'affect',ph:'/əˈfekt/',cn:'影响',ex:'Weather affects mood.',stage:1},
+{en:'afford',ph:'/əˈfɔːrd/',cn:'负担得起',ex:'I cannot afford a car.',stage:1},
+{en:'agree',ph:'/əˈɡriː/',cn:'同意',ex:'I agree with you.',stage:1},
+{en:'assess',ph:'/əˈses/',cn:'评估',ex:'Assess the risk first.',stage:2},
+{en:'assume',ph:'/əˈsuːm/',cn:'假设',ex:'I assume you agree.',stage:2},
+{en:'attitude',ph:'/ˈætɪtuːd/',cn:'态度',ex:'A positive attitude helps.',stage:2},
+{en:'attract',ph:'/əˈtrækt/',cn:'吸引',ex:'The ad attracts customers.',stage:2},
+{en:'available',ph:'/əˈveɪləbl/',cn:'可获得的',ex:'Rooms are available now.',stage:2},
+{en:'average',ph:'/ˈævərɪdʒ/',cn:'平均的',ex:'The average score is 6.',stage:2},
+{en:'benefit',ph:'/ˈbenɪfɪt/',cn:'益处',ex:'Health benefits are clear.',stage:2},
+{en:'community',ph:'/kəˈmjuːnəti/',cn:'社区',ex:'Our community is friendly.',stage:2},
+{en:'compare',ph:'/kəmˈper/',cn:'比较',ex:'Compare the two options.',stage:2},
+{en:'concept',ph:'/ˈkɑːnsept/',cn:'概念',ex:'This is a key concept.',stage:2},
+{en:'consist',ph:'/kənˈsɪst/',cn:'由…组成',ex:'The team consists of five.',stage:3},
+{en:'construct',ph:'/kənˈstrʌkt/',cn:'建造；构思',ex:'Construct a clear sentence.',stage:3},
+{en:'consume',ph:'/kənˈsuːm/',cn:'消耗',ex:'Consume less energy.',stage:3},
+{en:'contribute',ph:'/kənˈtrɪbjuːt/',cn:'贡献',ex:'Contribute to society.',stage:3},
+{en:'crucial',ph:'/ˈkruːʃl/',cn:'关键的',ex:'Sleep is crucial for health.',stage:3},
+{en:'according',ph:'/əˈkɔːrdɪŋ/',cn:'根据；依照',ex:'According to the report, it is true.',stage:1},
+{en:'act',ph:'/ækt/',cn:'行动；表演',ex:'We must act now.',stage:1},
+{en:'add',ph:'/æd/',cn:'增加；添加',ex:'Add some sugar to the tea.',stage:1},
+{en:'allow',ph:'/əˈlaʊ/',cn:'允许',ex:'They allow pets here.',stage:1},
+{en:'answer',ph:'/ˈænsər/',cn:'回答；答案',ex:'Please answer my question.',stage:1},
+{en:'appear',ph:'/əˈpɪr/',cn:'出现；显得',ex:'He appears happy.',stage:1},
+{en:'apply',ph:'/əˈplaɪ/',cn:'申请；应用',ex:'I apply for a job.',stage:1},
+{en:'area',ph:'/ˈeriə/',cn:'地区；面积',ex:'This area is quiet.',stage:1},
+{en:'argue',ph:'/ˈɑːrɡjuː/',cn:'争论；认为',ex:'They argue about money.',stage:1},
+{en:'arrange',ph:'/əˈreɪndʒ/',cn:'安排',ex:'Arrange a meeting please.',stage:1},
+{en:'arrive',ph:'/əˈraɪv/',cn:'到达',ex:'We arrive at noon.',stage:1},
+{en:'ask',ph:'/æsk/',cn:'问；请求',ex:'Ask the teacher for help.',stage:1},
+{en:'avoid',ph:'/əˈvɔɪd/',cn:'避免',ex:'Avoid making mistakes.',stage:1},
+{en:'become',ph:'/bɪˈkʌm/',cn:'变得；成为',ex:'He became a driver.',stage:1},
+{en:'believe',ph:'/bɪˈliːv/',cn:'相信',ex:'I believe you.',stage:1},
+{en:'better',ph:'/ˈbetər/',cn:'更好的',ex:'This is better than that.',stage:1},
+{en:'carry',ph:'/ˈkæri/',cn:'携带；搬运',ex:'Carry the bag for me.',stage:1},
+{en:'cause',ph:'/kɔːz/',cn:'导致；原因',ex:'What caused the delay?',stage:1},
+{en:'change',ph:'/tʃeɪndʒ/',cn:'改变；零钱',ex:'Change your plan.',stage:1},
+{en:'city',ph:'/ˈsɪti/',cn:'城市',ex:'The city is big.',stage:1},
+{en:'consider',ph:'/kənˈsɪdər/',cn:'考虑',ex:'Consider all options.',stage:2},
+{en:'continue',ph:'/kənˈtɪnjuː/',cn:'继续',ex:'Continue your work.',stage:2},
+{en:'control',ph:'/kənˈtroʊl/',cn:'控制',ex:'Control your time.',stage:2},
+{en:'cost',ph:'/kɔːst/',cn:'花费；成本',ex:'The cost is high.',stage:2},
+{en:'create',ph:'/kriˈeɪt/',cn:'创造',ex:'Create a new plan.',stage:2},
+{en:'culture',ph:'/ˈkʌltʃər/',cn:'文化',ex:'Culture is rich here.',stage:2},
+{en:'danger',ph:'/ˈdeɪndʒər/',cn:'危险',ex:'This is a danger.',stage:2},
+{en:'decide',ph:'/dɪˈsaɪd/',cn:'决定',ex:'Decide now.',stage:2},
+{en:'decrease',ph:'/dɪˈkriːs/',cn:'减少',ex:'Decrease the noise.',stage:2},
+{en:'demand',ph:'/dɪˈmænd/',cn:'需求；要求',ex:'Demand is rising.',stage:2},
+{en:'demonstrate',ph:'/ˈdemənstreɪt/',cn:'证明；演示',ex:'Demonstrate the idea.',stage:3},
+{en:'depend',ph:'/dɪˈpend/',cn:'依赖',ex:'It depends on you.',stage:3},
+{en:'describe',ph:'/dɪˈskraɪb/',cn:'描述',ex:'Describe the picture.',stage:3},
+{en:'develop',ph:'/dɪˈveləp/',cn:'发展；开发',ex:'Develop a habit.',stage:3},
+{en:'distribute',ph:'/dɪˈstrɪbjuːt/',cn:'分配；分发',ex:'Distribute the food.',stage:3},
+{en:'economy',ph:'/ɪˈkɑːnəmi/',cn:'经济',ex:'The economy grows.',stage:3},
+{en:'educate',ph:'/ˈedʒukeɪt/',cn:'教育',ex:'Educate the young.',stage:3},
+{en:'effect',ph:'/ɪˈfekt/',cn:'影响；效果',ex:'The effect is clear.',stage:3},
+{en:'emphasize',ph:'/ˈemfəsaɪz/',cn:'强调',ex:'Emphasize the point.',stage:3},
+{en:'environment',ph:'/ɪnˈvaɪrənmənt/',cn:'环境',ex:'Protect the environment.',stage:3},
+{en:'furthermore',ph:'/ˈfɜːrðərmɔːr/',cn:'此外',ex:'Furthermore, it is cheap.',stage:4},
+{en:'however',ph:'/haʊˈevər/',cn:'然而',ex:'However, it is late.',stage:4},
+{en:'illustrate',ph:'/ˈɪləstreɪt/',cn:'说明；举例',ex:'Illustrate with a case.',stage:4},
+{en:'indicate',ph:'/ˈɪndɪkeɪt/',cn:'表明；指出',ex:'Data indicates growth.',stage:4},
+{en:'significant',ph:'/sɪɡˈnɪfɪkənt/',cn:'显著的',ex:'A significant change.',stage:4}
+];
+var IELTS_SPEAK=[
+{stage:1,part:1,topic:'你的家乡',sample:'My hometown is a small city. It is quiet and the people are friendly. I like it because life is relaxing there.',tips:'用 3 句：名字 → 特点 → 感受'},
+{stage:1,part:1,topic:'你喜欢的食物',sample:'I like noodles best. They are cheap and tasty. My mother cooks them every weekend.',tips:'说食物名 → 为什么喜欢 → 什么时候吃'},
+{stage:1,part:1,topic:'你的日常作息',sample:'I usually get up at seven. I work in the day and study English at night. It is a busy but happy life.',tips:'时间线：起床 → 工作 → 学习'},
+{stage:2,part:2,topic:'描述一次难忘的旅行',cue:'Where / Who with / What did / Why memorable',sample:'I went to Sanya with my friends last year. We swam in the sea and ate seafood. It was memorable because it was my first beach trip.',tips:'按 cue 四问展开，说满 2 分钟'},
+{stage:2,part:2,topic:'描述一个你想成为的人',cue:'Who / Why / What to learn',sample:'I want to be like my teacher. She is patient and knowledgeable. I want to learn how to explain things clearly.',tips:'人物 → 品质 → 你想学什么'},
+{stage:2,part:2,topic:'描述一本喜欢的书',cue:'Name / Story / Why like',sample:'I like a book about a small dog. It travels and makes friends. I like it because it is warm and funny.',tips:'书名 → 内容 → 感受'},
+{stage:3,part:3,topic:'科技对教育的影响',sample:'Technology makes learning easier. Students can watch videos online. But they may lose focus. Schools should balance both.',tips:'先给观点 → 举例 → 转折'},
+{stage:3,part:3,topic:'城市化的好处与问题',sample:'Cities offer more jobs and better hospitals. However, traffic and pollution are serious problems. Good planning is needed.',tips:'好处一点 + 问题一点 + 总结'},
+{stage:3,part:3,topic:'环保每个人能做什么',sample:'We can save water and take buses. Small actions help the environment. Governments should also make rules.',tips:'个人行动 + 政府角色'}
+];
+var IELTS_WRITING=[
+{stage:2,type:'小作文',task:'The line chart shows the number of tourists in a country from 2010 to 2020. Describe the changes.',template:'首段改写题目 → 总述趋势 → 分两段描述上升/下降 → 小结',sample:'The chart shows tourist numbers rose from 1 million in 2010 to 5 million in 2020. The fastest growth was between 2015 and 2018.'},
+{stage:2,type:'小作文',task:'The pie chart shows how students spend their free time. Summarise the information.',template:'首段改写 → 最大占比 → 其余对比 → 小结',sample:'Most students spend 40 percent of free time on phones. Sports and reading take smaller shares.'},
+{stage:2,type:'大作文',task:'Some people think students should wear uniforms. To what extent do you agree?',template:'引言+立场 → 论点1(整齐/平等) → 论点2(反对:压抑个性) → 结论',sample:'I partly agree. Uniforms bring equality, but they may limit self-expression. A simple dress code is better.'},
+{stage:2,type:'大作文',task:'Is it better for children to grow up in the city or the countryside?',template:'引言 → 城市优点 → 乡村优点 → 你的看法',sample:'Cities have better schools. Countryside is healthier. I think it depends on the family.'},
+{stage:3,type:'小作文',task:'The table compares the GDP of three cities in 2015 and 2020.',template:'首段改写 → 最高/最低 → 变化最大项 → 小结',sample:'City A had the highest GDP in 2020. City B grew fastest, by 30 percent.'},
+{stage:3,type:'大作文',task:'Some people say technology makes people less social. Do you agree?',template:'引言+立场 → 反面(线上社交) → 正面(面对面减少) → 结论',sample:'I disagree somewhat. Technology helps us stay in touch, but real talks still matter.'},
+{stage:4,type:'大作文',task:'Many young people lack job skills. What are the causes and solutions?',template:'引言 → 原因(教育脱节) → 解决(实习/职教) → 结论',sample:'Schools focus on exams, not skills. More internships can help students get ready for work.'},
+{stage:4,type:'大作文',task:'Governments should fund art or science more? Discuss both views.',template:'引言 → 艺术价值 → 科学价值 → 平衡建议',sample:'Art enriches culture. Science drives progress. Both need support, but science may come first for health.'}
+];
+var IELTS_LISTEN=[
+{stage:1,text:'Hello, welcome to the library. Please show your card at the desk. Books can be borrowed for two weeks.',steps:'逐句听写 → 核对拼写 → 跟读 3 遍',q:'How long can books be borrowed?',opts:['One week','Two weeks','A month'],ans:1,ex:'原文说 books can be borrowed for two weeks.'},
+{stage:1,text:'I want to book a table for two at seven tonight. Is that possible?',steps:'听关键词 book / table / seven → 写下数字 → 跟读',q:'What time does the guest want?',opts:['Six','Seven','Eight'],ans:1,ex:'原文说 a table for two at seven tonight.'},
+{stage:1,text:'The museum opens at nine and closes at five. Tickets are ten yuan for students.',steps:'抓时间数字 → 复述内容 → 跟读',q:'When does the museum close?',opts:['Four','Five','Six'],ans:1,ex:'原文说 closes at five.'},
+{stage:2,text:'Good morning. I am calling to confirm your appointment with Dr. Lee on Thursday at three. Please bring your ID.',steps:'记人物+时间 → 听写长句 → 跟读模仿语音',q:'Who is the appointment with?',opts:['Dr. Lee','Dr. Wang','Dr. Chen'],ans:0,ex:'原文说 appointment with Dr. Lee.'},
+{stage:2,text:'Our train leaves from platform four at half past eight. We should arrive in the city by ten.',steps:'抓 platform / time → 听写 → 跟读',q:'Which platform does the train leave from?',opts:['Platform 3','Platform 4','Platform 5'],ans:1,ex:'原文说 leaves from platform four.'},
+{stage:2,text:'The hotel offers free breakfast and wifi. Check-out time is twelve noon. Enjoy your stay.',steps:'记服务+时间 → 听写 → 跟读',q:'What time is check-out?',opts:['Ten','Eleven','Twelve noon'],ans:2,ex:'原文说 Check-out time is twelve noon.'},
+{stage:3,text:'Today we discuss climate change. Factories produce too much carbon. We must use clean energy like solar and wind.',steps:'抓主题词 → 长句听写 → 总结大意',q:'What clean energy is mentioned?',opts:['Coal','Solar and wind','Gas'],ans:1,ex:'原文说 clean energy like solar and wind.'},
+{stage:3,text:'The lecture is about memory. Sleep helps the brain store what we learn. Students who sleep well remember more.',steps:'抓因果 → 听写 → 用自己的话复述',q:'What helps the brain store learning?',opts:['Exercise','Sleep','Food'],ans:1,ex:'原文说 Sleep helps the brain store what we learn.'}
+];
+var IELTS_READ=[
+{stage:2,passage:'Coffee is one of the most popular drinks. It grows in warm countries. Farmers pick red beans by hand. Then the beans are dried and sent to shops.',questions:[{q:'Where does coffee grow?',opts:['Cold countries','Warm countries','Only in Europe'],ans:1,ex:'原文说 grows in warm countries.'},{q:'How are the beans picked?',opts:['By machine','By hand','By animals'],ans:1,ex:'原文说 picked by hand.'}]},
+{stage:2,passage:'Reading daily improves your vocabulary. Even ten minutes helps. Choose easy books at first, then try harder ones. A notebook for new words is useful.',questions:[{q:'How much reading is suggested daily?',opts:['One hour','Ten minutes','None'],ans:1,ex:'原文说 even ten minutes helps.'},{q:'What is useful for new words?',opts:['A notebook','A phone','A teacher'],ans:0,ex:'原文说 a notebook for new words is useful.'}]},
+{stage:2,passage:'Cities are building more bike lanes. They help reduce traffic and pollution. More people now ride to work. This is good for health and the air.',questions:[{q:'Why build bike lanes?',opts:['For sports','To reduce traffic','For tourists'],ans:1,ex:'原文说 help reduce traffic and pollution.'},{q:'Who rides to work?',opts:['Only students','More people','Nobody'],ans:1,ex:'原文说 more people now ride to work.'}]},
+{stage:3,passage:'Sleep is crucial for learning. During sleep, the brain saves new information. Students who sleep eight hours do better on tests. Late nights hurt memory.',questions:[{q:'What does the brain do during sleep?',opts:['Forget things','Save new info','Rest only'],ans:1,ex:'原文说 brain saves new information.'},{q:'How many hours help students?',opts:['Four','Eight','Ten'],ans:1,ex:'原文说 sleep eight hours do better.'}]},
+{stage:3,passage:'Online learning is growing. It lets students study at home. But some lack self-control and fall behind. Schools mix online and offline for better results.',questions:[{q:'Where can students study online?',opts:['At school','At home','In library only'],ans:1,ex:'原文说 study at home.'},{q:'What problem do some have?',opts:['No internet','Lack self-control','Too easy'],ans:1,ex:'原文说 lack self-control and fall behind.'}]},
+{stage:3,passage:'Recycling saves resources. Paper, glass and plastic can be reused. A small town recycled half its waste and saved money. Everyone can help.',questions:[{q:'What can be recycled?',opts:['Only paper','Paper, glass, plastic','Only plastic'],ans:1,ex:'原文列举 paper, glass and plastic.'},{q:'What did the town save?',opts:['Time','Money','Water'],ans:1,ex:'原文说 saved money.'}]}
+];
+var IELTS_STAGE_PLAN=[
+{stage:1,title:'打地基阶段学习路径',items:['音标+自然拼读，每天 10 分钟','核心词汇 2000（先背阶段1词表）','基础语法：时态/句型，看短视频','慢速听力输入：VOA慢速/儿童故事','开口：每天跟读 5 句，不怕错']},
+{stage:2,title:'四项入门阶段学习路径',items:['词汇冲 3500，每日 25 词','听力精听：逐句听写+跟读','阅读扫读定位，每天 1 篇','写作小作文：图表描述模板','口语 Part1 流利 + Part2 话题卡']},
+{stage:3,title:'题型专项阶段学习路径',items:['四项题型逐个突破','听力地图/填空专项','阅读判断/配对专项','写作大作文结构 + 论点库','口语 Part3 逻辑展开']},
+{stage:4,title:'冲刺模考阶段学习路径',items:['每周 1 套完整模考','弱项专项加练','写作批改 + 口语模考','词汇冲 5000+','整理错题本']},
+{stage:5,title:'临门一脚阶段学习路径',items:['每周模考保持手感','查漏补缺看错题本','调整作息与心态','熟悉考场流程','轻量复习，保证状态']}
+];
+function ieltsPick(arr,n){var s=ieltsLoad();var si=ieltsStageIndex(s);var maxSt=si+1;var pool=[];for(var i=0;i<arr.length;i++){if((arr[i].stage||1)<=maxSt)pool.push(arr[i]);}if(pool.length===0)pool=arr;var day=Math.floor(Date.now()/86400000);var start=day%pool.length;var cnt=Math.min(n,pool.length);var out=[];for(var j=0;j<cnt;j++){out.push(pool[(start+j)%pool.length]);}return out;}
+function ieltsSpeak(el){var t=el.getAttribute('data-t');if(t)speakText(el,t);}
+function ieltsLoad(){var d=lsGet('ls_ielts');if(!d)d={};var s={targetScore:6.5,examDate:'2027-06-30',startDate:'2026-08-02',checkins:{},vocab:2000,mockScores:[],weekNote:''};for(var k in d)s[k]=d[k];return s;}
+function ieltsSave(s){lsSet('ls_ielts',s);}
+function ieltsStageIndex(s){var start=new Date(s.startDate),exam=new Date(s.examDate),now=new Date();var total=(exam-start)/86400000;if(total<=0)return 4;var elapsed=(now-start)/86400000;var r=elapsed/total;var b=[3/14,6/14,9/14,12/14];for(var i=0;i<b.length;i++){if(r<b[i])return i;}return 4;}
+function ieltsDaysLeft(s){var exam=new Date(s.examDate),now=new Date();return Math.max(0,Math.ceil((exam-now)/86400000));}
+function ieltsReviewWords(s){
+  var res=[];var ws=s.words||{};var today=localDateStr();
+  for(var k in ws){if(ws[k].status==='unk'||ws[k].status==='fuzzy'){if(ws[k].date!==today){for(var i=0;i<IELTS_WORDS.length;i++){if(IELTS_WORDS[i].en===k){res.push(IELTS_WORDS[i]);break;}}}}}
+  return res;
+}
+function ieltsToggleCheckin(idx){var s=ieltsLoad();var day=localDateStr();s.checkins[day]=s.checkins[day]||{};s.checkins[day][idx]=s.checkins[day][idx]?0:1;ieltsSave(s);var done=s.checkins[day][idx];var ds=document.querySelectorAll('#wordContent .ielts-task');if(ds[idx]){var cb=ds[idx].querySelector('.checkbox');var btn=ds[idx].querySelector('.mini-btn');if(cb){cb.className='checkbox'+(done?' on':'');cb.textContent=done?'✓':'';}if(btn){btn.textContent=done?'已打卡 ✓（点此取消）':'完成并打卡';}}}
+function ieltsSetExam(v){var s=ieltsLoad();s.examDate=v;ieltsSave(s);renderWord();}
+function ieltsSetVocab(v){var s=ieltsLoad();s.vocab=parseInt(v)||2000;ieltsSave(s);}
+function ieltsSwitchView(v){ieltsView=v;renderWord();}
+function ieltsSaveMock(){var v=prompt('本次模考总分（如 6.0）：');if(!v)return;var sc=parseFloat(v);if(isNaN(sc))return;var s=ieltsLoad();s.mockScores=s.mockScores||[];s.mockScores.push({date:localDateStr(),score:sc});ieltsSave(s);renderWord();}
+function ieltsSaveWeekNote(v){var s=ieltsLoad();s.weekNote=v;ieltsSave(s);}
+function ieltsRender(c){
+  var s=ieltsLoad();var si=ieltsStageIndex(s);var left=ieltsDaysLeft(s);var stage=IELTS_STAGES[si];
+  var h='<div class="divider">🎯 雅思学习计划（目标 '+s.targetScore+' 分）</div>';
+  h+='<div class="card" style="background:linear-gradient(135deg,#E3F4F7 0%,#FCE8EE 100%);border:none">';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
+  h+='<div><b>考试日期</b><br><input type="date" class="fg" value="'+s.examDate+'" onchange="ieltsSetExam(this.value)" style="margin-top:4px"></div>';
+  h+='<div style="text-align:center"><div style="font-size:13px;color:#0e7490">距考试还有</div><div style="font-size:30px;font-weight:800;color:#0e7490">'+left+'<span style="font-size:14px"> 天</span></div></div>';
+  h+='<div style="text-align:right"><b>当前阶段</b><br><span style="color:#db2777;font-weight:700">'+stage.name+'</span></div>';
+  h+='</div></div>';
+  h+='<div class="ielts-stages">';
+  for(var i=0;i<IELTS_STAGES.length;i++){var st=IELTS_STAGES[i];var cls='ielts-stage'+(i===si?' active':'')+(i<si?' done':'');var plan=IELTS_STAGE_PLAN[i];h+='<details class="'+cls+'"><summary><div class="is-name">'+st.name+'</div><div class="is-goal">'+st.goal+'</div><div class="is-target">目标 '+st.target+'</div></summary>';if(plan){h+='<div class="ielts-plan"><b>📌 本阶段路径</b><ul>';plan.items.forEach(function(it){h+='<li>'+it+'</li>';});h+='</ul></div>';}h+='</details>';}
+  h+='</div>';
+  h+='<div class="tabs" style="margin-top:14px"><div class="tab'+(ieltsView===0?' active':'')+'" onclick="ieltsSwitchView(0)">📅 今日任务</div><div class="tab'+(ieltsView===1?' active':'')+'" onclick="ieltsSwitchView(1)">📆 周计划</div><div class="tab'+(ieltsView===2?' active':'')+'" onclick="ieltsSwitchView(2)">📊 统计</div></div>';
+  if(ieltsView===0)h+=ieltsTodayHTML(s);else if(ieltsView===1)h+=ieltsWeekHTML(s,si);else h+=ieltsStatsHTML(s);
+  c.innerHTML=h;
+}
+function ieltsTodayHTML(s){
+  var day=localDateStr();var ck=s.checkins[day]||{};
+  var tasks=[
+    {k:'word',t:'📖 单词',d:'今日雅思核心词',fn:ieltsWordContent},
+    {k:'listen',t:'🎧 听力',d:'精听材料+步骤',fn:ieltsListenContent},
+    {k:'speak',t:'🗣️ 口语',d:'今日话题+示范',fn:ieltsSpeakContent},
+    {k:'read',t:'📄 阅读',d:'短文+小题',fn:ieltsReadContent},
+    {k:'write',t:'✍️ 写作',d:'题目+模板',fn:ieltsWriteContent}
+  ];
+  var rev=ieltsReviewWords(s);
+  var h='<div class="divider">📅 今日学习（'+day+'）</div>';
+  if(rev.length){
+    h+='<div class="ielts-review"><div class="ir-title">🔁 今日复习（'+rev.length+' 个待巩固词）</div><div class="rev-chips">';
+    rev.slice(0,12).forEach(function(w){h+='<span class="rev-chip" onclick="ieltsSpeak(this)" data-t="'+w.en+'">'+w.en+' <i>'+w.cn+'</i></span>';});
+    h+='</div></div>';
+  }
+  tasks.forEach(function(tk,ti){
+    var done=ck[ti]?1:0;
+    h+='<details class="ielts-task"><summary><span class="checkbox'+(done?' on':'')+'">'+(done?'✓':'')+'</span><div style="flex:1"><div style="font-weight:700">'+tk.t+' · '+tk.d+'</div></div><span class="ielts-open">展开 ▾</span></summary>';
+    h+='<div style="padding:8px 2px">'+tk.fn()+'</div>';
+    h+='<div style="margin-top:6px"><button class="mini-btn" onclick="ieltsToggleCheckin('+ti+')">'+(done?'已打卡 ✓（点此取消）':'完成并打卡')+'</button></div>';
+    h+='</details>';
+  });
+  return h;
+}
+function ieltsWordContent(){
+  if(!ieltsWordState.list.length)ieltsWordLaunch();
+  return '<div id="ieltsWordBox">'+ieltsWordInner()+'</div>';
+}
+function ieltsWordLaunch(){var ws=ieltsPick(IELTS_WORDS,25);ieltsWordState={mode:'study',idx:0,list:ws,flipped:false,know:0,fuzzy:0,unk:0,quizOpt:[],quizCorrect:0,qAnswered:false,qRight:false};}
+function ieltsWordRender(){var b=document.getElementById('ieltsWordBox');if(b)b.innerHTML=ieltsWordInner();}
+function ieltsWordBuildQuiz(){var st=ieltsWordState;var w=st.list[st.idx];if(!w)return;var pool=IELTS_WORDS.map(function(x){return x.cn;}).filter(function(c){return c!==w.cn;});pool.sort(function(){return Math.random()-0.5;});var opts=pool.slice(0,3).concat([w.cn]);opts.sort(function(){return Math.random()-0.5;});st.quizOpt=opts;st.quizCorrect=opts.indexOf(w.cn);st.qAnswered=false;st.qRight=false;}
+function ieltsWordInner(){
+  var st=ieltsWordState;
+  if(st.mode==='done'){return '<div class="ielts-done">🎉 本轮完成！<br>认识 '+st.know+' · 模糊 '+st.fuzzy+' · 不会 '+st.unk+'<br><button class="mini-btn" onclick="ieltsWordRestart()">再来一轮</button> <button class="mini-btn" onclick="ieltsWordMode(\'quiz\')">去自测 →</button></div>';}
+  if(st.mode==='quiz'){
+    if(st.idx>=st.list.length){st.mode='done';return ieltsWordInner();}
+    var w=st.list[st.idx];var h='<div class="ielts-prog">自测 '+(st.idx+1)+'/'+st.list.length+'</div>';
+    h+='<div class="flashcard"><div class="fc-en">'+w.en+' <span class="ph">'+w.ph+'</span> <span class="spk" onclick="ieltsSpeak(this)" data-t="'+w.en+'">🔊</span></div>';
+    h+='<div class="fc-q">选择正确的释义：</div>';
+    st.quizOpt.forEach(function(o,oi){h+='<div class="ielts-opt" onclick="ieltsWordQuizAnswer('+oi+')">'+o+'</div>';});
+    if(st.qAnswered){h+='<div class="ielts-ex">'+(st.qRight?'✅ 答对啦！':'❌ 正确释义：'+w.cn)+'</div><button class="mini-btn" onclick="ieltsWordNext()">下一题 →</button>';}
+    h+='</div>';return h;
+  }
+  var w=st.list[st.idx];var total=st.list.length;
+  var h='<div class="ielts-prog">进度 '+(Math.min(st.idx+1,total))+'/'+total+' · 模式：学习</div>';
+  h+='<div class="flashcard" onclick="ieltsWordFlip()"><div class="fc-en">'+w.en+' <span class="ph">'+w.ph+'</span> <span class="spk" onclick="event.stopPropagation();ieltsSpeak(this)" data-t="'+w.en+'">🔊</span></div>';
+  if(!st.flipped){h+='<div class="fc-hint">点击卡片翻面看释义</div>';}else{h+='<div class="fc-cn">'+w.cn+'</div><div class="fc-ex">"'+w.ex+'"</div>';}
+  h+='</div>';
+  if(st.flipped){h+='<div class="fc-rate"><button class="rk" onclick="ieltsWordRate(\'know\')">✅ 认识</button><button class="rf" onclick="ieltsWordRate(\'fuzzy\')">🟡 模糊</button><button class="ru" onclick="ieltsWordRate(\'unk\')">❌ 不会</button></div>';}
+  else{h+='<div class="fc-rate"><button class="rf" onclick="ieltsWordFlip()">翻面</button></div>';}
+  h+='<div style="margin-top:6px"><button class="mini-btn" onclick="ieltsWordMode(\'quiz\')">切换到自测模式 →</button></div>';
+  return h;
+}
+function ieltsWordFlip(){ieltsWordState.flipped=!ieltsWordState.flipped;ieltsWordRender();}
+function ieltsWordRate(status){var st=ieltsWordState;var w=st.list[st.idx];if(!w)return;var s=ieltsLoad();s.words=s.words||{};s.words[w.en]={status:status,date:localDateStr()};ieltsSave(s);if(status==='know')st.know++;else if(status==='fuzzy')st.fuzzy++;else st.unk++;st.idx++;st.flipped=false;if(st.idx>=st.list.length)st.mode='done';ieltsWordRender();}
+function ieltsWordMode(m){var st=ieltsWordState;if(m==='quiz'){st.mode='quiz';st.idx=0;ieltsWordBuildQuiz();}ieltsWordRender();}
+function ieltsWordQuizAnswer(oi){var st=ieltsWordState;st.qAnswered=true;st.qRight=(oi===st.quizCorrect);ieltsWordRender();}
+function ieltsWordNext(){var st=ieltsWordState;st.idx++;if(st.idx<st.list.length)ieltsWordBuildQuiz();else st.mode='done';ieltsWordRender();}
+function ieltsWordRestart(){ieltsWordLaunch();ieltsWordRender();}
+function ieltsSpeakContent(){
+  var p=ieltsPick(IELTS_SPEAK,1)[0];if(!p)return '';
+  return '<div id="ieltsSpeakBox">'+ieltsSpeakInner(p)+'</div>';
+}
+function ieltsSpeakInner(p){
+  var s=ieltsLoad();var rated=(s.speakRatings&&s.speakRatings[p.topic])||0;
+  var h='<div class="ielts-content">';
+  h+='<div class="ielts-h">'+p.topic+' <span class="badge">Part'+p.part+'</span></div>';
+  if(p.cue)h+='<div class="ielts-cue">提示卡：'+p.cue+'</div>';
+  h+='<div class="ielts-sample"><b>示范回答：</b>'+p.sample+' <span class="spk" onclick="ieltsSpeak(this)" data-t="'+p.sample+'">🔊</span></div>';
+  h+='<div class="ielts-tips"><b>💡 技巧：</b>'+p.tips+'</div>';
+  h+='<div class="ielts-rate-row">我的跟读自评：'+[1,2,3,4,5].map(function(n){return '<span class="star'+(n<=rated?' on':'')+'" onclick="ieltsSpeakRate(\''+p.topic.replace(/'/g,"\\'")+'\','+n+')">★</span>';}).join('')+' <span style="font-size:12px;color:#888">（点星打分，已记 '+rated+' 星）</span></div>';
+  h+='</div>';return h;
+}
+function ieltsSpeakRate(topic,n){
+  var s=ieltsLoad();s.speakRatings=s.speakRatings||{};s.speakRatings[topic]=n;ieltsSave(s);
+  var b=document.getElementById('ieltsSpeakBox');if(b)b.innerHTML=ieltsSpeakInner(ieltsPick(IELTS_SPEAK,1)[0]);
+}
+function ieltsWriteContent(){
+  var p=ieltsPick(IELTS_WRITING,1)[0];if(!p)return '';
+  var s=ieltsLoad();var key=p.type+'|'+p.task;var dr=(s.writes&&s.writes[key])||{outline:'',body:''};
+  var h='<div class="ielts-content">';
+  h+='<div class="ielts-h">'+p.type+'</div>';
+  h+='<div class="ielts-task-t">题目：'+p.task+'</div>';
+  h+='<div class="ielts-sample"><b>结构模板：</b>'+p.template+'</div>';
+  h+='<div class="ielts-outline"><b>✍️ 列提纲：</b><textarea class="fg" style="width:100%;min-height:54px" onchange="ieltsWriteSave(\''+key.replace(/'/g,"\\'")+'\',\'outline\',this.value)" placeholder="立场 / 论点1 / 论点2 / 结论">'+esc(dr.outline||'')+'</textarea></div>';
+  h+='<div class="ielts-outline"><b>📝 写正文：</b><textarea class="fg" style="width:100%;min-height:96px" onchange="ieltsWriteSave(\''+key.replace(/'/g,"\\'")+'\',\'body\',this.value)" placeholder="在这里写你的作文，写完自动保存…">'+esc(dr.body||'')+'</textarea></div>';
+  h+='<details class="ielts-sample"><summary style="cursor:pointer">🔍 对照范文片段</summary><div style="padding:6px 2px">'+p.sample+'</div></details>';
+  h+='</div>';return h;
+}
+function ieltsWriteSave(key,field,val){var s=ieltsLoad();s.writes=s.writes||{};s.writes[key]=s.writes[key]||{};s.writes[key][field]=val;ieltsSave(s);}
+function ieltsListenContent(){
+  var p=ieltsPick(IELTS_LISTEN,1)[0];if(!p)return '';
+  var h='<div class="ielts-content">';
+  h+='<div class="ielts-h">今日精听</div>';
+  h+='<div class="ielts-sample">'+p.text+' <span class="spk" onclick="ieltsSpeak(this)" data-t="'+p.text+'">🔊</span></div>';
+  h+='<div class="ielts-listen-q" id="ieltsLQ"><div class="ielts-qt">'+p.q+'</div>';
+  p.opts.forEach(function(o,oi){h+='<div class="ielts-opt" onclick="ieltsListenAnswer('+oi+')">'+String.fromCharCode(65+oi)+'. '+o+'</div>';});
+  h+='</div>';
+  h+='<div class="ielts-tips" id="ieltsLExp" style="display:none"><b>✅ 解析：</b>'+p.ex+'</div>';
+  h+='<div class="ielts-tips"><b>精听步骤：</b>'+p.steps+'</div>';
+  h+='</div>';return h;
+}
+function ieltsListenAnswer(oi){
+  var p=ieltsPick(IELTS_LISTEN,1)[0];if(!p)return;
+  var box=document.getElementById('ieltsLQ');if(!box)return;
+  var opts=box.querySelectorAll('.ielts-opt');
+  opts.forEach(function(o,j){o.onclick=null;if(j===p.ans)o.className='ielts-opt corr';else if(j===oi)o.className='ielts-opt wrong';});
+  var ex=document.getElementById('ieltsLExp');if(ex)ex.style.display='block';
+}
+function ieltsReadContent(){
+  var p=ieltsPick(IELTS_READ,1)[0];if(!p)return '';
+  return '<div id="ieltsReadBox">'+ieltsReadInner(p)+'</div>';
+}
+function ieltsReadInner(p){
+  var h='<div class="ielts-content"><div class="ielts-h">今日阅读</div>';
+  h+='<div class="ielts-passage">'+p.passage+'</div>';
+  p.questions.forEach(function(qn,qi){h+='<div class="ielts-q" id="ieltsQ'+qi+'"><div class="ielts-qt">'+(qi+1)+'. '+qn.q+'</div>';qn.opts.forEach(function(o,oi){h+='<div class="ielts-opt" onclick="ieltsReadAnswer('+qi+','+oi+')">'+String.fromCharCode(65+oi)+'. '+o+'</div>';});h+='</div>';});
+  h+='</div>';return h;
+}
+function ieltsReadAnswer(qi,oi){
+  var p=ieltsPick(IELTS_READ,1)[0];if(!p)return;
+  var qn=p.questions[qi];var box=document.getElementById('ieltsQ'+qi);if(!box)return;
+  var opts=box.querySelectorAll('.ielts-opt');
+  opts.forEach(function(o,j){o.onclick=null;if(j===qn.ans)o.className='ielts-opt corr';else if(j===oi)o.className='ielts-opt wrong';});
+  var ex=document.createElement('div');ex.className='ielts-ex';ex.textContent='解析：'+qn.ex;box.appendChild(ex);
+}
+function ieltsWeekHTML(s,si){
+  var stage=IELTS_STAGES[si];
+  var focuses=['听力地图题 + 口语 Part2 话题卡','阅读判断题 + 写作大作文结构','口语 Part1 流利度 + 听力填空题','写作小作文图表描述 + 词汇积累','弱项专项突破 + 全套模考复盘'];
+  var idx=si%focuses.length;
+  var h='<div class="divider">📆 本周重点（'+stage.name+'）</div>';
+  h+='<div class="card"><div class="card-title">💡 本周主攻</div><div class="card-desc">'+focuses[idx]+'</div></div>';
+  h+='<div class="divider" style="margin-top:12px">📝 周末复盘</div>';
+  h+='<textarea class="fg" style="width:100%;min-height:70px;padding:10px" onchange="ieltsSaveWeekNote(this.value)" placeholder="这周学得怎样？哪块最吃力？下周怎么调？">'+esc(s.weekNote||'')+'</textarea>';
+  return h;
+}
+function ieltsStatsHTML(s){
+  var days=Object.keys(s.checkins).length;var start=new Date(s.startDate),now=new Date();var total=Math.max(1,Math.floor((now-start)/86400000))+1;var rate=Math.round(days/total*100);
+  var h='<div class="divider">📊 学习统计</div>';
+  h+='<div class="ielts-stats">';
+  h+='<div class="istat"><div class="istat-num">'+days+'</div><div class="istat-lbl">累计学习(天)</div></div>';
+  h+='<div class="istat"><div class="istat-num">'+rate+'%</div><div class="istat-lbl">打卡率</div></div>';
+  h+='<div class="istat"><div class="istat-num">'+s.vocab+'</div><div class="istat-lbl">词汇量</div></div>';
+  h+='<div class="istat"><div class="istat-num">'+(s.mockScores&&s.mockScores.length?s.mockScores[s.mockScores.length-1].score:'-')+'</div><div class="istat-lbl">最新模考</div></div>';
+  h+='</div>';
+  h+='<div style="margin-top:10px">更新词汇量：<input type="number" class="fg" value="'+s.vocab+'" onchange="ieltsSetVocab(this.value)" style="width:100px"></div>';
+  h+='<button class="mini-btn" style="margin-top:10px" onclick="ieltsSaveMock()">＋ 记录一次模考分数</button>';
+  if(s.mockScores&&s.mockScores.length){h+='<div class="divider" style="margin-top:12px">📈 模考记录</div><div class="ielts-mocks">';s.mockScores.forEach(function(m){h+='<span class="mock-chip">'+m.date+'：'+m.score+'</span>';});h+='</div>';}
+  return h;
 }
 
 // 口语跟读
@@ -1969,8 +2589,114 @@ function updateTodayLabel(){
   document.getElementById('todayLabel').textContent='今日内容 · '+todayShort();
 }
 
+// ============ 英国时差 ============
+var UK_TZ='Europe/London',CN_TZ='Asia/Shanghai',ukTimer=null,ukConvDir=0;
+function ukTZOffsetMin(d,tz){
+  try{
+    var parts=new Intl.DateTimeFormat('en-GB',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(d);
+    var o={};parts.forEach(function(p){o[p.type]=p.value;});
+    var asUTC=Date.UTC(+o.year,+o.month-1,+o.day,+(+o.hour)%24,+o.minute,+o.second);
+    return Math.round((asUTC-Math.floor(d.getTime()/1000)*1000)/60000);
+  }catch(e){return tz===UK_TZ?0:480;}
+}
+function ukClockParts(d,tz){
+  var t=new Intl.DateTimeFormat('zh-CN',{timeZone:tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(d);
+  var dt=new Intl.DateTimeFormat('zh-CN',{timeZone:tz,month:'long',day:'numeric',weekday:'long'}).format(d);
+  return {t:t,dt:dt};
+}
+function ukIsDST(d){return ukTZOffsetMin(d,UK_TZ)>=60;}
+function ukLastSunday(y,m){var dt=new Date(Date.UTC(y,m+1,0));return new Date(Date.UTC(y,m,dt.getUTCDate()-dt.getUTCDay(),1,0,0));}
+function ukNextSwitch(d){
+  var y=d.getUTCFullYear(),a=ukLastSunday(y,2),b=ukLastSunday(y,9);
+  if(d<a)return {date:a,label:'开始夏令时 BST（时差变 7 小时）'};
+  if(d<b)return {date:b,label:'转回冬令时 GMT（时差变 8 小时）'};
+  return {date:ukLastSunday(y+1,2),label:'开始夏令时 BST（时差变 7 小时）'};
+}
+function ukYMD(utcMs,tz){
+  var p=new Intl.DateTimeFormat('en-GB',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(utcMs));
+  var o={};p.forEach(function(x){o[x.type]=x.value;});
+  return Date.UTC(+o.year,+o.month-1,+o.day);
+}
+// 把 fromTZ 墙上时间 hh:mm 转成 UTC 毫秒
+function ukWallToUTC(hh,mm,fromTZ){
+  var d=new Date(),off=ukTZOffsetMin(d,fromTZ);
+  return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),hh,mm)-off*60000;
+}
+function ukConvResult(hh,mm,fromTZ,toTZ){
+  var utcMs=ukWallToUTC(hh,mm,fromTZ);
+  var t=new Intl.DateTimeFormat('zh-CN',{timeZone:toTZ,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(utcMs));
+  var delta=Math.round((ukYMD(utcMs,toTZ)-ukYMD(utcMs,fromTZ))/86400000);
+  var tag=delta>0?'次日':(delta<0?'前一天':'当天');
+  return {t:t,tag:tag,delta:delta};
+}
+function ukClockCard(d,tz,flag,city,sub,key){
+  var p=ukClockParts(d,tz);
+  return '<div class="uk-clock"><div class="uk-ck-flag">'+flag+'</div><div class="uk-ck-city">'+city+'</div>'+
+    '<div class="uk-ck-time" id="ukClock_'+key+'_time">'+p.t+'</div>'+
+    '<div class="uk-ck-date" id="ukClock_'+key+'_date">'+p.dt+'</div>'+
+    '<div class="uk-ck-sub">'+sub+'</div></div>';
+}
+function renderUK(){
+  var c=document.getElementById('ukContent'),d=new Date(),dst=ukIsDST(d);
+  var diff=(480-ukTZOffsetMin(d,UK_TZ))/60,ns=ukNextSwitch(d);
+  var nsStr=new Intl.DateTimeFormat('zh-CN',{timeZone:CN_TZ,year:'numeric',month:'long',day:'numeric'}).format(ns.date);
+  var h='';
+  h+='<div class="uk-clock-row">';
+  h+=ukClockCard(d,CN_TZ,'🇨🇳','中国 · 北京','北京时间 CST · UTC+8','cn');
+  h+='<div class="uk-diff"><div class="uk-diff-num">'+diff+'<span>h</span></div><div class="uk-diff-lab">时差</div><div class="uk-diff-arrow">⇄</div></div>';
+  h+=ukClockCard(d,UK_TZ,'🇬🇧','英国 · 伦敦',(dst?'夏令时 BST · UTC+1':'冬令时 GMT · UTC+0'),'uk');
+  h+='</div>';
+  h+='<div class="uk-status"><div class="uk-st-main">📍 英国当前使用 <b>'+(dst?'夏令时 BST':'冬令时 GMT')+'</b>，比中国慢 <b>'+diff+' 小时</b></div>'+
+     '<div class="uk-st-sub">🔄 下次切换：'+nsStr+' · '+ns.label+'</div></div>';
+  // 常用时段对照
+  h+='<div class="uk-sec-t">🕐 常用时段对照 <span>北京时间 → 英国时间</span></div>';
+  h+='<div class="uk-table"><div class="uk-tr uk-th"><div>中国（北京）</div><div></div><div>英国（伦敦）</div></div>';
+  var slots=[[7,'早起'],[9,'上班'],[12,'午休'],[15,'下午'],[18,'下班'],[21,'晚间'],[23,'睡前']];
+  slots.forEach(function(s){
+    var r=ukConvResult(s[0],0,CN_TZ,UK_TZ);
+    h+='<div class="uk-tr"><div class="uk-t-cn">'+String(s[0]).padStart(2,'0')+':00 <span class="uk-t-tag">'+s[1]+'</span></div>'+
+       '<div class="uk-t-arrow">→</div><div class="uk-t-uk">'+r.t+' <span class="uk-t-day'+(r.delta?' diff':'')+'">'+r.tag+'</span></div></div>';
+  });
+  h+='</div>';
+  // 换算器
+  h+='<div class="uk-sec-t">🧮 时间换算器</div>';
+  h+='<div class="uk-conv"><div class="uk-conv-top">'+
+     '<button class="uk-dir" id="ukDirBtn" onclick="ukToggleDir()">🇨🇳 中国 → 🇬🇧 英国</button>'+
+     '<input type="time" id="ukConvTime" value="'+String(d.getHours()).padStart(2,'0')+':00" oninput="ukDoConvert()"></div>'+
+     '<div class="uk-conv-res" id="ukConvRes">—</div></div>';
+  // 提示
+  h+='<div class="uk-tips"><div class="uk-tips-t">💡 小贴士</div>'+
+     '<div class="uk-tip-line">• 英国夏令时：每年 <b>3 月最后一个周日</b> 到 <b>10 月最后一个周日</b>，届时中英时差 <b>7 小时</b>；其余为冬令时，时差 <b>8 小时</b>。</div>'+
+     '<div class="uk-tip-line">• 想联系英国方面（学校/客户/朋友），北京时间 <b>16:00–19:00</b> 通常是对方上午工作时间，最不容易打扰。</div>'+
+     '<div class="uk-tip-line">• 本页时间取自设备系统时钟与浏览器时区数据库，<b>无需联网</b>；请保持设备时间准确。</div></div>';
+  c.innerHTML=h;
+  ukDoConvert();
+  if(ukTimer)clearInterval(ukTimer);
+  ukTimer=setInterval(ukTick,1000);
+}
+function ukTick(){
+  var el=document.getElementById('ukClock_cn_time');
+  if(!el){if(ukTimer){clearInterval(ukTimer);ukTimer=null;}return;}
+  var d=new Date(),a=ukClockParts(d,CN_TZ),b=ukClockParts(d,UK_TZ);
+  document.getElementById('ukClock_cn_time').textContent=a.t;
+  document.getElementById('ukClock_cn_date').textContent=a.dt;
+  document.getElementById('ukClock_uk_time').textContent=b.t;
+  document.getElementById('ukClock_uk_date').textContent=b.dt;
+}
+function ukToggleDir(){ukConvDir=ukConvDir?0:1;document.getElementById('ukDirBtn').textContent=ukConvDir?'🇬🇧 英国 → 🇨🇳 中国':'🇨🇳 中国 → 🇬🇧 英国';ukDoConvert();}
+function ukDoConvert(){
+  var inp=document.getElementById('ukConvTime'),res=document.getElementById('ukConvRes');
+  if(!inp||!res||!inp.value)return;
+  var v=inp.value.split(':'),hh=parseInt(v[0],10),mm=parseInt(v[1],10);
+  var from=ukConvDir?UK_TZ:CN_TZ,to=ukConvDir?CN_TZ:UK_TZ;
+  var r=ukConvResult(hh,mm,from,to);
+  res.innerHTML='<span class="uk-res-from">'+(ukConvDir?'英国':'中国')+' '+String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0')+'</span>'+
+    '<span class="uk-res-arrow">→</span><span class="uk-res-to">'+(ukConvDir?'中国':'英国')+' <b>'+r.t+'</b></span>'+
+    '<span class="uk-res-day'+(r.delta?' diff':'')+'">'+r.tag+'</span>';
+}
+
 // ============ 页面切换 ============
-var PAGE_TITLES={house:'房产热点',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',travel:'旅游计划',summary:'每日小结'};
+var PAGE_TITLES={house:'房产工作',inspire:'灵感',hustle:'副业',word:'学习天地',fitness:'运动计划',travel:'旅游计划',uk:'英国时差',summary:'每日小结'};
 function switchPage(page,el){
   currentPage=page;
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
@@ -1979,7 +2705,7 @@ function switchPage(page,el){
   if(el)el.classList.add('active');
   document.getElementById('mobileTitle').textContent=PAGE_TITLES[page]||'';
   var updateBar=document.querySelector('.update-bar');
-  if(updateBar){updateBar.style.display=(page==='summary'||page==='travel')?'none':'flex';}
+  if(updateBar){updateBar.style.display=(page==='summary'||page==='travel'||page==='uk')?'none':'flex';}
   if(window.innerWidth<=768)toggleSidebar(false);
   if(page==='house')renderHouse();
   else if(page==='inspire')renderInspire();
@@ -1987,6 +2713,7 @@ function switchPage(page,el){
   else if(page==='word')renderWord();
   else if(page==='fitness')renderFitness();
   else if(page==='travel')tvRender();
+  else if(page==='uk')renderUK();
   else if(page==='summary')renderSummary();
 }
 function toggleSidebar(force){
